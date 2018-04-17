@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+    <!--引入外部样式-->
+    <!--slide-->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link href="../../css/content/yunwei/linux/slide.css" rel="stylesheet">
+    <!--jqueryui-->
+    <link href="https://cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                <!--left-->
+                <ul id="nav">
+                    <li>
+                        <a href="#shellbc">nexus私服环境搭建</a>
+                        <ul>
+                            <li  class="current">
+                                <a href="#jbzs">nexus基本知识</a>
+                            </li>
+                            <li>
+                                <a href="#hjzb">环境准备</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-10">
+                <!--container-->
+                <div id="container">
+                    <div class="section" id="jbzs">
+                        <h2>nexus基本知识</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+redhat专有命令：service，setup，ntsysv
+命令行解释器（ls从外层应用程序转向linux内核执行命令，需要有一个命令解释器）
+功能强大的变成语言，易编写，易调试，灵活性较强，shell是解释性执行脚本，不需要编译（所见即所得）
+最重要的是在shell中可以直接调用linux系统命令
+bourne shell：伯恩shell 主文件名为sh
+c shell：语法结构和c语言类似，和b shell完全不同
+bourne家族主要包括sh,ksh,bash,psh,zsh
+bash:bash和sh兼容，基本和主流都是使用bash
+linux中支持那些shell  vi /etc/shells
+输入sh 就会切换到sh	exit就会退出
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="hjzb">
+                        <h2>环境准备</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+输出helloworld
+	echo "hello world"	如果输入内容有空格需要添加双引号
+	echo 'hello world！'	如果输入内容更中包含有特殊含义的字符，那么需要添加单引号，去掉特殊含义
+	echo [选项] [输出内容]
+	echo -e "ab\bc"	删除左侧字符	输出内容为ac
+	echo -e "a\tb\tc\nd\te\tf"	制表符和换行符
+	a b c
+	d e f
+	echo -e "\e[1:31m abcd \e[0m"
+	红色的abcd
+	\e[1:支持颜色输出开始符号	\e[0m:支持颜色输出结束符号
+	#30m=黑色 31m=红色 32m=绿色 33m=黄色
+	#34m=蓝色 35m=杨红 36m=青色 37m=白色
+	第一个脚本
+	#!/bin/bash	不是注释，而是标注是shell脚本
+	脚本执行
+	chmod 755 hello.sh
+	./hello.sh
+	或者bash hello.sh
+	window回车符号：^M$
+	linux回车符号：$
+	dos2unix:dos->unix window文件转换为linux
+	dos2unix Tetris.sh
+                            </ol>
+                        </pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+    <!--jquery-->
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js" rel="stylesheet" type="text/javascript"></script>
+    <!--jquery.nav-->
+    <script src="https://cdn.bootcss.com/jquery-one-page-nav/2.2.0/jquery.nav.js"></script>
+    <!--jqueryui-->
+    <script src="https://cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <script>
+        $( "#nav" ).accordion({
+            collapsible: true
+        });
+        $(function(){
+            $('#nav').onePageNav();
+        });
+    </script>
+</html>
