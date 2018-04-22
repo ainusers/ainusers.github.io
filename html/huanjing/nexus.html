@@ -2,7 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <!--添加自适应标签-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" shrink-to-fit=no">
+    <title>www.ainusers.top</title>
+    <!--title上面添加icon-->
+    <link rel="shortcut icon" href="../../images/head/head.png"/>
 </head>
 
     <!--引入外部样式-->
@@ -20,13 +24,28 @@
                 <!--left-->
                 <ul id="nav">
                     <li>
-                        <a href="#shellbc">nexus私服环境搭建</a>
+                        <a href="#nexus">nexus环境搭建</a>
                         <ul>
                             <li  class="current">
-                                <a href="#jbzs">nexus基本知识</a>
+                                <a href="#jbzs">基本知识</a>
                             </li>
                             <li>
                                 <a href="#hjzb">环境准备</a>
+                            </li>
+                            <li>
+                                <a href="#sddj">手动搭建</a>
+                            </li>
+                            <li>
+                                <a href="#dl">nexus登录</a>
+                            </li>
+                            <li>
+                                <a href="#gxsyzd">更新索引(自动)</a>
+                            </li>
+                            <li>
+                                <a href="#gxsysd">更新索引(手动)</a>
+                            </li>
+                            <li>
+                                <a href="#sy">nexus使用</a>
                             </li>
                         </ul>
                     </li>
@@ -36,19 +55,24 @@
                 <!--container-->
                 <div id="container">
                     <div class="section" id="jbzs">
-                        <h2>nexus基本知识</h2>
+                        <h2>基本知识</h2>
                         <pre class="prettyprint linenums">
                             <ol class="linenums">
-redhat专有命令：service，setup，ntsysv
-命令行解释器（ls从外层应用程序转向linux内核执行命令，需要有一个命令解释器）
-功能强大的变成语言，易编写，易调试，灵活性较强，shell是解释性执行脚本，不需要编译（所见即所得）
-最重要的是在shell中可以直接调用linux系统命令
-bourne shell：伯恩shell 主文件名为sh
-c shell：语法结构和c语言类似，和b shell完全不同
-bourne家族主要包括sh,ksh,bash,psh,zsh
-bash:bash和sh兼容，基本和主流都是使用bash
-linux中支持那些shell  vi /etc/shells
-输入sh 就会切换到sh	exit就会退出
+1.nexus:俗称私服,是maven仓库的非必要依赖,是处于maven和jar包中央仓库之间的一个存储空间。
+            下载jar包方式由原来maven->中央仓库到现在maven->nexus->中央仓库
+2.优点:内网环境可以使用,可以自定义jar上传使用,下载速度快.
+3.nexus里可以配置3种类型的仓库,分别是proxy、hosted、group
+            proxy仓库：nexus私服中链接中央仓库的代理。
+            hosted仓库：内部项目的发布仓库,用户可以上传自定义构件。
+            group仓库：目的是将上述多个仓库聚合,对用户暴露统一的地址,pom文件中配置的访问接口。
+4.名词解释:
+            3rd party: 无法从公共仓库获得的第三方发布版本的构件仓库
+            Apache Snapshots: 用了代理ApacheMaven仓库快照版本的构件仓库
+            Central: 用来代理maven中央仓库中发布版本构件的仓库
+            Central M1 shadow: 用于提供中央仓库中M1格式的发布版本的构件镜像仓库
+            Codehaus Snapshots: 用来代理CodehausMaven 仓库的快照版本构件的仓库
+            Releases: 用来部署管理内部的发布版本构件的宿主类型仓库
+            Snapshots:用来部署管理内部的快照版本构件的宿主类型仓库
                             </ol>
                         </pre>
                     </div>
@@ -56,30 +80,72 @@ linux中支持那些shell  vi /etc/shells
                         <h2>环境准备</h2>
                         <pre class="prettyprint linenums">
                             <ol class="linenums">
-输出helloworld
-	echo "hello world"	如果输入内容有空格需要添加双引号
-	echo 'hello world！'	如果输入内容更中包含有特殊含义的字符，那么需要添加单引号，去掉特殊含义
-	echo [选项] [输出内容]
-	echo -e "ab\bc"	删除左侧字符	输出内容为ac
-	echo -e "a\tb\tc\nd\te\tf"	制表符和换行符
-	a b c
-	d e f
-	echo -e "\e[1:31m abcd \e[0m"
-	红色的abcd
-	\e[1:支持颜色输出开始符号	\e[0m:支持颜色输出结束符号
-	#30m=黑色 31m=红色 32m=绿色 33m=黄色
-	#34m=蓝色 35m=杨红 36m=青色 37m=白色
-	第一个脚本
-	#!/bin/bash	不是注释，而是标注是shell脚本
-	脚本执行
-	chmod 755 hello.sh
-	./hello.sh
-	或者bash hello.sh
-	window回车符号：^M$
-	linux回车符号：$
-	dos2unix:dos->unix window文件转换为linux
-	dos2unix Tetris.sh
+依赖环境：jdk(测试是否存在/正确安装：java -version)
+下载地址：<a href="https://www.sonatype.com/oss-thank-you-tgz">https://www.sonatype.com/oss-thank-you-tgz</a>(建议下载:OSS 2.x - bundle.tar.gz)
                             </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="sddj">
+                        <h2>手动搭建</h2>
+                        <div class="prettyprint linenums" style="overflow: hidden">
+                                <h2 style="margin-bottom: 0em !important">解压压缩包   tar -zxvf nexus-2.14.8-01-bundle.tar.gz</h2>
+                                <img src="../../images/content/nexus/1.png" style="float: left"></img>
+                                <h2 style="margin-bottom: 0em !important;clear: both">编辑nexus配置文件</h2>
+                                <img src="../../images/content/nexus/2.png" style="float: left"></img>
+                                <h2 style="margin-bottom: 0em !important;clear: both">修改配置文件内容</h2>
+                                <img src="../../images/content/nexus/3.png" style="float: left"></img>
+                                <h2 style="margin-bottom: 0em !important;clear: both">启动nexus</h2>
+                                <img src="../../images/content/nexus/4.png" style="float: left"></img>
+                                <h2 style="margin-bottom: 0em !important;clear: both">启动成功(如果不成功，请查看jdk环境/nexus配置信息)</h2>
+                                <img src="../../images/content/nexus/5.png" style="float: left"></img>
+                                <h2 style="margin-bottom: 0em !important;clear: both">访问nexus：http://192.168.79.131:8081/nexus</h2>
+                                <img src="../../images/content/nexus/6.png" style="float: left"></img>
+                        </div>
+                    </div>
+                    <div class="section" id="dl">
+                        <h2>nexus登录</h2>
+                        <pre class="prettyprint linenums">
+                            <h2 style="margin-bottom: 0em !important;clear: both">右上方login登录(默认admin/admin123)</h2>
+                            <img src="../../images/content/nexus/7.png" style="float: left"></img>
+                        </pre>
+                    </div>
+                    <div class="section" id="gxsyzd">
+                        <h2>更新索引(自动)</h2>
+                        <pre class="prettyprint linenums">
+                            <h2 style="margin-bottom: 0em !important;clear: both">如下两个Proxy分别设置为true</h2>
+                            <img src="../../images/content/nexus/8.png" style="float: left"></img>
+                            <h2 style="margin-bottom: 0em !important;clear: both">点击左侧task出现下载任务</h2>
+                            <img src="../../images/content/nexus/9.png" style="float: left"></img>
+                            <h2 style="margin-bottom: 0em !important;clear: both">下載成功jar</h2>
+                            <img src="../../images/content/nexus/10.png" style="float: left"></img>
+                        </pre>
+                    </div>
+                    <div class="section" id="gxsysd">
+                        <h2>更新索引(手动)</h2>
+                        <pre class="prettyprint linenums" style="overflow: hidden">
+                            <h3 style="margin-bottom: 0em !important;clear: both">下载.gz和.property文件(nexus-maven-repository-index.gz  nexus-maven-repository-index.properties)</h3>
+                            <h3 style="margin-bottom: 0em !important;clear: both">下载地址如下：<a href="http://repo.maven.apache.org/maven2/.index/">http://repo.maven.apache.org/maven2/.index/</a></h3>
+                            <img src="../../images/content/nexus/11.png" style="float: left"></img>
+                            <h3 style="margin-bottom: 0em !important;clear: both">下载.jar文件</h3>
+                            <h3 style="margin-bottom: 0em !important;clear: both">(注：indexer-cli-5.1.1.jar是专门用来解析和发布索引的工具，关于它的详细信息请见这里。前往maven中央仓库下载)</h3>
+                            <h3 style="margin-bottom: 0em !important;clear: both">下载地址如下：</h3>
+                            <h3 style="margin-bottom: 0em !important;clear: both">http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22org.apache.maven.indexer%22%20AND%20a%3A%22indexer-cli%22</h3>
+                            <img src="../../images/content/nexus/12.png" style="float: left"></img>
+                            <h2 style="margin-bottom: 0em !important;clear: both">将上面三个文件（.gz & .properties & .jar）放置到同一目录下</h2>
+                            <img src="../../images/content/nexus/13.png" style="float: left"></img>
+                            <h3 style="margin-bottom: 0em !important;clear: both">运行如下命令：java -jar indexer-cli-5.1.1.jar -u nexus-maven-repository-index.gz -d indexer</h3>
+                            <img src="../../images/content/nexus/14.png" style="float: left"></img>
+                            <h2 style="margin-bottom: 0em !important;clear: both">之后会看到更新后的索引文件</h2>
+                            <img src="../../images/content/nexus/15.png" style="float: left"></img>
+                            <h3 style="margin-bottom: 0em !important;clear: both">indexer内的文件拷贝到私服{nexus-home}/sonatype-work/nexus/indexer/central-ctx目录下</h3>
+                            <h3 style="margin-bottom: 0em !important;clear: both">(先删除改该目录下全部文件)重新启动nexus，登陆查看，索引更新完毕！</h3>
+                            <img src="../../images/content/nexus/16.png" style="float: left"></img>
+                        </pre>
+                    </div>
+                    <div class="section" id="sy">
+                        <h2>nexus使用</h2>
+                        <pre class="prettyprint linenums">
+                            <h2 style="margin-bottom: 0em !important;clear: both">未完待续</h2>
                         </pre>
                     </div>
                 </div>
