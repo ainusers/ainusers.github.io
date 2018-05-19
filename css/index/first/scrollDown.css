@@ -1,0 +1,77 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+/*backgroup背景*/
+#swiper_1{
+    background-color: snow;
+}
+#swiper_2{
+    background-color: #fcf8e3;
+}
+
+#swiper_3{
+    background-color: #e5e5e5;
+}
+#swiper_4{
+    background-color: #dff0d8;
+}
+#swiper_5{
+    background-color: #e6e6e6;
+}
+
+/*swiper页面滚动*/
+.swiper-container {
+    width: 100%;
+    height: 100vh;
+    margin: auto;
+    padding: auto;
+}
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+/*滚动下滑跳动样式*/
+.scrollDown {
+    text-align: center;
+    padding-top: 30rem;
+}
+.scrollDown ani {
+    width: 4rem;
+    height: 2rem;
+    display: inline-block;
+    animation: myfirst 1s infinite;
+}
+.jump img {
+    width: 98px;
+    height: 98px;
+    display: inline-block;
+    animation: myfirst 1s infinite;
+}
+@keyframes myfirst {
+    0% {
+        transform: translate(0px, 0px);
+    }
+    50% {
+        transform: translate(0px, -20px);
+    }
+    100% {
+        transform: translate(0px, 0px);
+    }
+}

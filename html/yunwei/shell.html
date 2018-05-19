@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<!--添加自适应标签-->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" shrink-to-fit=no">
+	<title>www.ainusers.top</title>
+	<!--title上面添加icon-->
+	<link rel="shortcut icon" href="../../images/head/head.png"/>
+</head>
+
+    <!--引入外部样式-->
+    <!--slide-->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link href="../../css/content/yunwei/linux/slide.css" rel="stylesheet">
+    <!--jqueryui-->
+    <link href="https://cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                <!--left-->
+                <ul id="nav">
+                    <li>
+                        <a href="#shellbc">shell编程</a>
+                        <ul>
+                            <li  class="current">
+                                <a href="#jbzs">shell基本知识</a>
+                            </li>
+                            <li>
+                                <a href="#helloworld">helloworld</a>
+                            </li>
+                            <li>
+                                <a href="#kjj">基本快捷键</a>
+                            </li>
+                            <li>
+                                <a href="#srsc">输入输出</a>
+                            </li>
+                            <li>
+                                <a href="#dmlzx">多命令执行</a>
+                            </li>
+                            <li>
+                                <a href="#tpf">通配符</a>
+                            </li>
+                            <li>
+                                <a href="#blszgz">变量设置规则</a>
+                            </li>
+                            <li>
+                                <a href="#hjbl">环境变量</a>
+                            </li>
+                            <li>
+                                <a href="#jbxc">脚本形参</a>
+                            </li>
+                            <li>
+                                <a href="#ydybl">预定义变量</a>
+                            </li>
+                            <li>
+                                <a href="#szys">数值运算</a>
+                            </li>
+                            <li>
+                                <a href="#hjblpzwj">环境变量配置文件</a>
+                            </li>
+                            <li>
+                                <a href="#zzbds">正则表达式</a>
+                            </li>
+                            <li>
+                                <a href="#cut">cut命令</a>
+                            </li>
+                            <li>
+                                <a href="#awk">awk编程</a>
+                            </li>
+                            <li>
+                                <a href="#sed">sed命令</a>
+                            </li>
+                            <li>
+                                <a href="#zfcl">字符处理</a>
+                            </li>
+                            <li>
+                                <a href="#tjpd">条件判断</a>
+                            </li>
+                            <li>
+                                <a href="#dfzpd">单分支判断</a>
+                            </li>
+                            <li>
+                                <a href="#caseyj">case语句</a>
+                            </li>
+                            <li>
+                                <a href="#forxh">for循环</a>
+                            </li>
+                            <li>
+                                <a href="#whileuntil">while/until循环</a>
+                            </li>
+                            <li>
+                                <a href="#fwfl">linux服务分类</a>
+                            </li>
+                            <li>
+                                <a href="#dlfw">独立的服务</a>
+                            </li>
+                            <li>
+                                <a href="#xinetd">基于xinetd服务</a>
+                            </li>
+                            <li>
+                                <a href="#ymbzqd">源码包自启动</a>
+                            </li>
+                            <li>
+                                <a href="#jc">进程</a>
+                            </li>
+                            <li>
+                                <a href="#gzgl">工作管理</a>
+                            </li>
+                            <li>
+                                <a href="#xtzy">系统资源</a>
+                            </li>
+                            <li>
+                                <a href="#dsrw">定时任务</a>
+                            </li>
+                            <li>
+                                <a href="#rzgl">日志管理</a>
+                            </li>
+                            <li>
+                                <a href="#xtqd">系统启动</a>
+                            </li>
+							<li>
+                                <a href="#qt">其他</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-10">
+                <!--container-->
+                <div id="container">
+                    <div class="section" id="jbzs">
+                        <h2>shell基本知识</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+redhat专有命令：service，setup，ntsysv
+命令行解释器（ls从外层应用程序转向linux内核执行命令，需要有一个命令解释器）
+功能强大的变成语言，易编写，易调试，灵活性较强，shell是解释性执行脚本，不需要编译（所见即所得）
+最重要的是在shell中可以直接调用linux系统命令
+bourne shell：伯恩shell 主文件名为sh
+c shell：语法结构和c语言类似，和b shell完全不同
+bourne家族主要包括sh,ksh,bash,psh,zsh
+bash:bash和sh兼容，基本和主流都是使用bash
+linux中支持那些shell  vi /etc/shells
+输入sh 就会切换到sh	exit就会退出
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="helloworld">
+                        <h2>helloworld</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+输出helloworld
+	echo "hello world"	如果输入内容有空格需要添加双引号
+	echo 'hello world！'	如果输入内容更中包含有特殊含义的字符，那么需要添加单引号，去掉特殊含义
+	echo [选项] [输出内容]
+	echo -e "ab\bc"	删除左侧字符	输出内容为ac
+	echo -e "a\tb\tc\nd\te\tf"	制表符和换行符
+	a b c
+	d e f
+	echo -e "\e[1:31m abcd \e[0m"
+	红色的abcd
+	\e[1:支持颜色输出开始符号	\e[0m:支持颜色输出结束符号
+	#30m=黑色 31m=红色 32m=绿色 33m=黄色
+	#34m=蓝色 35m=杨红 36m=青色 37m=白色
+	第一个脚本
+	#!/bin/bash	不是注释，而是标注是shell脚本
+	脚本执行
+	chmod 755 hello.sh
+	./hello.sh
+	或者bash hello.sh
+	window回车符号：^M$
+	linux回车符号：$
+	dos2unix:dos->unix window文件转换为linux
+	dos2unix Tetris.sh
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="kjj">
+                        <h2>基本快捷键</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+alias vi='vim' 给vi起一个别名vim
+	alias	查看 别名列表
+	命令执行的顺序
+	第一顺位：执行用绝对路径或相对路径执行的命令
+	第二顺位：执行别名
+	第三顺位：执行bash的内部命令
+	第四顺位执行按照$PATH环境变量定义的目录 查找顺序找到的第一个命令
+	echo $PATH
+	让别名永久生效
+	vi /root/.bashrc
+	删除别名
+	unalias 别名
+	bash常用的快捷键
+	ctrl+a：将光标移动到命令行开头
+	ctrl+e:将光标移动到命令行结尾
+	ctrl+c：强制终止当前命令
+	ctrl+l:清屏（=clear）
+	ctrl+u：删除/剪切光标之前的内容
+	ctrl+k：删除/剪切光标之后的内容
+	ctrl+y：粘贴ctrl+u/ctrl+k剪切的内容
+	ctrl+r:在历史中出现
+	ctrl+d:退出登陆
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="srsc">
+                        <h2>标准输入输出</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+标准输入输出：键盘，显示器
+	文件描述符：0标准输入 1 标准输出 2 标准错误输出
+	输出重定向：将命令的结果由输出屏幕转而输出到文件中
+	类型			符号				作用
+	标准输出重定向		有输出的命令 > 文件			将输出结果覆盖原文件的内容
+				有输出的命令 >> 文件			将输出结果追加原文件的内容
+	标准的输出重定向 	lst 2>	abc				将错误输出结果覆盖原文件内容
+				lst 2>> abc				将错误输出结果追加原文件内容
+	正确输出和错误输出同时保存  命令 > 文件 2>&1			以覆盖的方式将正确和错误的输出都保存在同一个文件中
+				    命令 >> 文件2>&1			以追加的方式将正确和错误的输出都保存在同一个文件中
+				    命令 &> 文件			以覆盖的方式将正确和错误的输出都保存在同一个文件中
+				    命令 &>> 文件			以追加的方式将正确和错误的输出都保存在同一个文件中
+				    命令 >>文件1 2 >>文件2		把正确的输出追加到文件1中将错误的输出追加到文件2中
+	输入重定向
+	将原来通过键盘进行输入的命令现在变成由文件输入
+	wc
+	-c：统计字节数
+	-w：统计单词书
+	-l：统计行数
+	命令 < 文件
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="dmlzx">
+                        <h2>多命令执行</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+多命令执行
+	多命令执行符号  ：  &&  ||
+	命令1 ：命令2	多个命令顺序执行，即使命令1不正确执行命令2也会执行
+	命令1 && 命令2	逻辑与 当命令1正确执行，命令2才会执行。当命令1执行不正确，命令2不会执行。
+	命令1 || 命令2  逻辑或 当命令1执行不正确，命令2才会执行。当命令1正确执行，命令2不会执行
+	date;dd if=/dev/zero of=/root/testfile bs=1k count=100000;data
+	从一个空文件中源源不断的向testfile文件发送1k数据块，一共发送100M，（创建一个100M文件）查看所用的时间
+	命令 && echo yes || echo no	判断命令是否正确执行
+	； 连接命令顺序执行的符号，无逻辑关系
+	管道符
+	命令1 | 命令2  命令1的正确输出作为命令2的操作对象
+	ll -a /etc/ |more	查看etc文件下内容分屏显示（对ll -a 命令的结果进行操作）
+	grep [选项] "搜索内容" 文件
+	-i：忽略大小写
+	-n：输出行号
+	-v：反向查找
+	--color=auto	搜索出的关键字用颜色显示
+	grep "root" /etc/passwd
+	grep -n --color=auto "root" /etc/passwd	查询内容并且用颜色标注
+	netstat -an |greo ESTABLISHED	查看当前linux服务器连接信息
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="tpf">
+                        <h2>通配符</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+通配符
+	？ 匹配任意一个字符
+	*  匹配任意0个或者多个字符
+	[] 匹配括号中任意一个字符[abc] 匹配任意一个a/b/c
+	[-]	匹配任意一个字符[a-z] 匹配任意一个小写字母
+	[^] 	匹配不是括号内的任意一个字符[^0-9]代表一个不是数字的字符
+	bash中的其他特殊符号
+	'' 在单引号中所有的特殊符号都没有特殊含义($ 反引号[esc下])
+	"" 在双引号中所有的特殊符号都有特殊含义
+	反引号 反引号括起来的是系统命令 在把手中会先执行它，和$()作用一样 推荐使用$() (可以为值赋变量)
+	name = ~date~ echo $name	输出当前日期
+	# 在shell脚本中代表注释
+	$ 用于调用变量的值  调用命令的结果而不是命令本身
+	\ 将特殊符号的特殊作用取消掉，当作为普通符号对待
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="blszgz">
+                        <h2>变量设置规则</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+变量设置规则
+	变量不能是数字开头，这是错误的
+	变量默认类型都是字符串型，如果需要进行数值运算，则需要修改变量类型为数值型
+	变量使用=连接且等号两边不能有空格
+	变量值如果有空格，需要使用单引号或双引号包括
+	如果需要增加变量的值，那么进行变量的叠加，不过变量需要用双引号包含"$变量名"或者${变量名}包含
+	如果是将命令的结果作为变量值需要使用反引号或者$()包含命令
+	环境变量名建议大写，便于区分
+	变量的分类
+	用户自定义变量
+	环境变量：这种变量中主要保存的是和系统v奥做环境相关的数据
+	位置参数变量：这种变量主要是用来向脚本当中传递参数或数据的，变量名不能自定会议，变量作用是固定的
+	预定义变量：bash中已经定义好的变量，变量名不能自定义，变量的作用也是固定的
+	自定义变量
+	name="ain ty"
+	echo $name
+	变量叠加
+	aa="$name"456  或者 aa=${aa}456
+	变量查看
+	set
+	变量删除
+	unset name
+	变量调用
+	echo $name
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="hjbl">
+                        <h2>环境变量</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+环境变量（一般为大写）
+	用户自定义变量只在当前shell中生效
+	环境变量会在当前shell和这个shell的所有子shell当中生效
+	如果将环境变量写入相应的配置文件，那么这个环境变量就会在所有的shell中生效。
+	设置环境变量
+	export 变量名=变量值
+	env	查询环境变量
+	set	查看所有变量
+	查看父shell子shell关系
+	pstree     查看相关pstree路径
+	export name	将声明好的本地变量调整为环境变量
+	调用变量
+	echo $name
+	unset 变量名
+	删除变量
+	bash 	进入子shell
+	系统常见环境变量
+	linux系统执行命令为什么没有相对路径呢，因为 echo $PATH	可以查看到环境变量配置的路径
+	永久生效：将自定义shell文件copy到/bin目录下就会向命令一样直接执行
+	临时生效命令：PATH="$PATH":/root
+	提示符：echo $ps1
+	自定义系统提示符：ps1='[\u@\t \w]\$ '
+	\d:显示日期，格式为星期 月 日
+	\h:显示主机名
+	\t:显示24小时制 默认HH:MM:SS
+	\T:显示12小时制 默认HH:MM:SS
+	\A:显示24小时制 默认HH:MM
+	\u:显示当前用户名
+	\w:显示当前所在目录的完整名称
+	\W:显示当前所在目录的最后一个目录
+	\#:执行的第几个命令
+	\$:提示符 root会显示为# 普通用户显示为$
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="jbxc">
+                        <h2>脚本形参</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+$n:n为数字 $0代表命令本身 $1-9代表第一个-第九个参数 十以上需要用大括号包括 ${10}
+	$*:这个变量代表命令行中所有的参数 $*把所有的参数变成一个整体
+	$@:这个变量也代表命令行中所有的参数，不过$@把每个参数区分对待
+	$#:这个变量代表命令行中所有参数的个数
+	第一个例子
+	#！/bion/bash
+	echo $#
+	echo $*
+	echo $@
+	chmod 755 a.sh
+	测试：./a.sh 11 22 33
+	第二个例子
+	$@和$*区别
+	#!/bin/bash
+	for i in "$*" #将参数作为一个整体去输出只循环一次
+		do
+			echo $i
+		done
+	for y in "$@" #分别循环参数个数次
+		do
+			echo $y
+		done
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="ydybl">
+                        <h2>预定义变量</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+预定义变量
+	#？ 上一次执行的结果 0 正确执行 不是0执行不正确(返回数字自定义或者系统定义好了)
+	$$  显示当前进程的进程号pid
+	$!  判断最后一个后台进程号
+	&   将当前进程放入后台运行
+	第一个例子：
+	#!/bin/bash
+	echo "$$"  #显示当前运行进程号
+	find /root -name hello.sh &
+	使用find命令查找后台运行的sh进程,目的不是为了查找，而是为了查看当前find命令的查找进程号
+	echo "$!"  #显示后台运行进程号
+	接收键盘输入
+	read [选项] [变量名]
+	-p 提示信息	在等待read输入时输出提示信息
+	-t 秒数		read在等待用户输入，使用该选项指定等待时间
+	-n 字符数	read只接受指定字符数就会执行
+	-s 隐藏输入的数据
+	第一个例子
+	#!/bin/bash
+	read -t 30 -p "please enter your name: " name
+	echo "$name"
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="szys">
+                        <h2>数值运算</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+数值运算
+	declare声明变量类型
+	declare [+/-] [选项] 变量名
+	-： 给变量设定类型属性
+	+： 取消变量类型属性
+	-i：将变量声明为证书类型integer
+	-x：将变量声明为环境变量
+	-p：显示指定变量的被声明的类型
+	第一个例子：
+	aa=11
+ 	bb=22
+	declare -i cc=$aa+$bb
+	或者
+	dd=$(export $aa + $bb) #注意+左右必须有空格
+	或者(推荐)
+	$((运算式)) 或者 $[运算式]
+	aa=11
+	bb=22
+	ff=$(($aa+$bb))
+	gg=$[$aa+$bb]
+
+	变量测试与内容变换
+	x=${y-新值}
+	unset y  将y变量删掉
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="hjblpzwj">
+                        <h2>环境变量配置文件</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+环境变量配置文件
+	source 配置文件 或者 . 配置文件	使当前配置文件生效
+	系统主要环境变量配置文件
+	/etc/profile        /etc针对所有用户生效
+	/etc/profile.d/*.sh
+	~/.bash_profile      ~只对当前用户生效
+	~/.bashrc
+	/etc/bashrc
+	登陆分为两种情况：输入用户名密码/不输入用户名密码(子shell)
+	/etc/profile文件的作用
+	user变量 logname变量 mail变量 path变量 hostname变量 histsize变量  umask 调用/etc/profile.d/*.sh文件
+	~/.bash_profile文件的作用
+	调用了~/.bashrc文件
+	在path变量后添加了":$HOME/bin"目录
+	~/.bashrc文件的作用
+	对命令起别名
+	/etc/bashrc文件的作用
+	对命令符$赋值
+	对未登录设置环境变量(we are not a login shell)
+	调用/etc/profile.d/*.sh
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="zzbds">
+                        <h2>正则表达式</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+正则表达式
+	通配符搜索符合条件的文件名ls find cp(完全匹配)
+	正则使搜索文件符合条件的字符串grep awk sed(包含匹配)
+	*	前一个字符匹配0次或者任意多次
+		grep "a*" a.txt(列出整篇文档[包括空白行]并不是以a开头的字符)
+		grep "aa*" a.txt(列出包含a的字符)
+	.	匹配除了换行符外任意一个字符
+		grep "s..d" a.txt 匹配s和d之间有任意字符的内容
+	$	匹配行尾
+	^	匹配行首
+		grep "^M" a.txt	匹配以大写M开头的行
+		grep "n$" a.txt	匹配以小写n结尾的行
+		grep "^$" a.txt	匹配空白行
+	[]	匹配中括号中指定的任意一个字符，只能匹配一个字符[a-z][0-9]匹配一个小写字母和一位数字构成的两位字符
+		grep "s[ao]id" a.txt	结果 soid said
+		^括号外面是开头，括号里面是取反
+		grep "[^0-9]" a.txt	匹配非数字的内容
+		grep "^[0-9]" a.txt	匹配以数字开头的内容
+	[^]	匹配除中括号的字符以外的任意字符[^a-z]表示任意一个非小写字母
+		grep "^[^a-zA-Z]" a.txt	匹配不以字母开头的内容
+	\	转义字符，取消特殊符号的含义
+		grep "\.$" a.txt	匹配使用.结尾的行
+	\{n\}	表示其前面的字符恰好出现n次 [1][3-8][0-9]\{9\}匹配手机号
+		grep "a\{3\}" a.txt	匹配a字母至少连续出现三次的字符串
+		grep "[0-9]\{3\}" a.txt	匹配连续出现三个数字的字符串
+	\{n,\}	表示其前面字符出现不小于n次 [0-9]\{2,\}表示两位及以上的数字
+		grep "^[0-9]\{3,\}[a-z]" a.txt	匹配最少用连续三个数字开头的行的字符串  和上面类似
+	\{n,m\}	表示其前面的字符字符至少出现n次，最多出现m次	{a-z}\{6,8\}匹配6-8位小写字母
+		grep "sa\{1,3\}i" a.txt	匹配在s和i之间有最少一个a，最多三个a的字符串
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="cut">
+                        <h2>cut命令</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+字符截取命令
+	cut [选项] 文件名
+	-f 列号:提取第几列
+	-d 分隔符：按照指定分隔符分割列(列之间以tab键[制表符]分割，不能是空格)
+	grep 提取符合条件的行
+	cut -f 2 a.txt
+	cut -f 2,3 a.txt
+	cut -d ":" -f 1,3
+	提取普通用户（普通用户：/bin/bash 系统用户：/sbin/nologin）
+	cat /etc/passwd |grep /bin/bash | grep -v root	(-v 上一层结果集取反) | grep -d ":" -f 1
+	一般cut是需要和grep一起使用(通过grep获得结果及，然后裁剪目标结果)
+	cut命令的局限：如果是空格作为分隔符就不能识别
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="awk">
+                        <h2>awk编程</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+awk编程（列读取行输出）
+	awk '条件1{动作1} 条件2{动作2} ...' 文件名
+	条件(pattern)
+	一般使用关系表达式作为条件
+	x>1 x>=1 x<1
+	动作
+	格式化输出语句prinf
+	流程控制语句
+	awk '{printf $2 "\t" $6 "\n"}'a.txt	输出第二列和第六列$0代表全部列
+	cut做不到的识别空格间隔符
+	df -h |cut -d " " -f 5
+	df -h |awk '{printf $1 "\t" $5 "\t" $6}'
+	系统中没有print命令awk中print和printf功能类似，print自动会添加换行符
+	12%去掉百分号
+	cut -d "%" -f 1  以百分号作为分隔符取第一个值
+	awk中BEGIN命令的使用
+	awk 'BEGIN{print "this is a test demo"} {print $2 "\t" $5}' a.txt
+	结果：会在数据结果的第一行输出this is a test demo
+	fs内置变量(指定分隔符)
+	awk默认识别的是制表符和空格
+	awk '{FS=":"}{print $1 "\t" $3}' /etc/passwd	（此时第一行并不会被处理，awk是先读入第一行数据，后进行处理）
+	awk 'BEGIN{FS=":"}{print $1 "\t" $3}' /etc/passwd
+	END 在所有的数据处理完之后会添加一个一条输出
+	awk 'END{printf"The end \n"}{printf $2 "\t" $6 "\n"}' a.txt
+	FS内置变量
+	cat /etc/passwd |grep "/bin/bash" | \
+	awk 'BEGIN {FS=":"} {printf $1 "\t" $3 "\n"}' 提取可任意登陆用户的信息
+	关系运算符
+	去除第一行标题然后进行找出第六列成绩高于87的人
+	cat a.txt |grep -v Name | \
+	awk '$6 >= 87 {printf $2 "\n"}'
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="sed">
+                        <h2>sed命令</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+sed
+	sed是所有unix平台包括linux的轻量级流(可以对结果集进行处理[可以使用管道符])编辑器
+	sed主要是用来对数据进行选取，替换，删除，新增操作的命令
+	相比较vi，sed不仅仅可以对文件进行修改，而且可以对结果集进行修改。
+	如：df -h |sed -n '2p'	使用管道符接收结果集查看第二行数据
+	sed [选项] '[动作]' 文件名
+	-n：只会把经过sed命令处理的结果集输出到屏幕
+	-e：允许对输入的多条sed命令进行编辑
+	-i：用sed的修改结果不仅仅是屏幕输出的改变，其内容文件也会进行改变
+	动作：
+	a \:	追加，在当前行后添加一行或多行，添加多行是，除最后一行外，每行末尾需要添加\代表数据输入未完成
+	c \:	行替换，用c后面的字符串替换原数据行，替换多行时，除最后一行外，每行末尾需要用\代表数据未完结
+	i \:	插入，在当前行前插入一行或多行，插入多行时，除最后一行外，每行末尾需要用\代表数据未完结
+	d：	删除，删除指定行
+	p：	打印，输出指定行
+	s：	字符替换，用一个字符串替换另一个字符串，格式为行范围s/旧字符串/新字符串/g（和vim中替换格式类似）
+	查看第二行文件	sed -n '2p' a.txt
+	删除第二行到第四行的数据，但不修改文件本身	sed '2，4d' a.txt
+	在第二行后追加hello	sed '2d hello' a.txt
+	在第二行前插入两行数据	sed '2i hello \
+				world' a.txt
+	数据替换  sed '2c No such person' a.txt
+	字符串替换
+	sed 's/旧字符串/新字符串/g' 文件名
+	将第三行中74换成99 		sed '3s/74/99/g' a.txt
+	将第三行中74换成99(写入文件) 	sed -i '3s/74/99/g' a.txt
+	对多条命令进行操作
+	同时将liming和gao替换为空	sed -e	's/liming//g;s/gao//g' a.txt
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="zfcl">
+                        <h2>字符处理</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+字符处理命令
+	sort [选项]  文件名
+	-f：忽略大小写
+	-n：以数值型进行排序，默认使用字符串
+	-r：反向牌啊需
+	-t：指定分隔符，默认为制表符
+	-k n[,m]:按照指定的字段范围排序，从第n字段开始，m字段结束，默认到行尾
+	sort /etc/passwd
+	sort -n -t ":" -k 3,3 /etc/passwd 按照第三列按照数值型进行排序
+	统计命令wc
+	wc [选项] 文件名
+	-l:只统计行数
+	-w：只统计单词数
+	-m：只统计字符数
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="tjpd">
+                        <h2>条件判断</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+条件判断
+	文件类型
+	-b 文件：判断文件是否存在 且是否为块设备文件
+	-c 文件：判断文件是否存在 且是否为字符设备文件
+	-d 文件：判断文件是否存在 且是否为目录文件
+	-e 文件：判断文件是否存在
+	-f 文件：判断文件是否存在 且是否为普通文件
+	-L 文件：判断文件是否存在 且是否为连接文件
+	-p 文件：判断文件是否存在 且是否为管道文件
+	-s 文件：判断文件是否存在 且是否为非空
+	-S 文件：判断文件是否存在 且是否为套接字文件
+	两种判断格式
+	test -e /root/install.log
+	[ -e /root/install.log ]
+	echo $? 	判断上一条命令是否正确0正确非0不正确
+	[ -d /root ] && echo 'no' || echo "no"
+	判断文件权限(不会区分所有者 所属组 其他人)
+	-r 文件：判断文件是否存在 且文件是否有读权限
+	-w 文件：判断文件是否存在 且文件是否拥有写权限
+	-x 文件：判断文件是否存在 且文件是否有执行权限
+	-u 文件：判断文件是否存在 且文件是否拥有suid权限
+	-g 文件：判断文件是否存在 且文件是否拥有sgid权限
+	-k 文件：判断文件是否存在 且文件是否拥有sbit权限
+	两个文件之间比较
+	文件1 -nt 文件2：判断文件1的修改时间是否比文件2新
+	文件1 -ot 文件2：判断文件1的修改时间是否比文件2的旧
+	文件1 -ef 文件2：判断文件1是否和文件2的inode号一致=两个文件是否为同一个文件，该判断用于判断硬链接
+	测试：
+	创建硬链接：ln /root/student.txt /tmp/stu.txt
+	测试：[ /root/student.txt -ef /tmp/stu.txt] && echo "yes" || echo "no"
+	两个整数之间比较
+	整数1 -eq 整数2：判断两个数是否相等
+	整数1 -ne 整数2：判断两个数是否不相等
+	整数1 -gt 整数2：判断整数1是否大于整数2
+	整数1 -lt 整数2：判断整数1是否小于整数2
+	整数1 -ge 整数2：判断整数1是否大于等于整数2
+	整数1 -le 整数2：判断整数1是否小于等于整数2
+	字符串的判断
+	-z 字符串：判断字符串是否为空
+	-n 字符串：判断字符串是否为非空
+	字符串1 == 字符串2：判断两个字符串是否相等
+	字符串1 != 字符串2：判断两个字符串是否不想等
+	判断变量中是否有值：[ -z "$name" ] && echo yes || echo no
+	多重条件判断
+	判断1 -a 判断2：逻辑与，判断1和判断2都成立为真
+	判断1 -o 判断2：逻辑或，判断1和判断2有一个成立为真
+	！ 判断：逻辑非，使原始的判断式取反
+	[ -n "$aa" -a "$aa" -gt 23 ] && echo "yes" || echo "no"
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="dfzpd">
+                        <h2>单分支判断</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+单分支判断
+	if [ 条件判断式 ];then
+	程序
+	fi
+	或者
+	if [ 条件判断式 ]
+	then
+		程序
+	fi
+	统计根分区的使用率
+	#!/bin/bash
+	rate=$(df -h |grep "/dev/sda3" | awk '{print $5}' | cut -d "%" -f1 )
+	if [ $rate -ge 80 ]
+	then
+		echo "/dev/sda5 is full!"
+	fi
+	双分支if条件语句
+	if [ 条件判断式 ]
+	  then
+		条件成立时，执行程序
+	  else
+		条件不成立时，执行另一个程序
+	fi
+	备份mysql数据库
+	#!/bin/bash
+	ntpdate asia.pool.ntp.org &>/dev/null//同步系统时间
+	date=$(date +%y%m%d)//把当前系统时间按照年月日格式化日期
+	size=$(du -sh /var/lib/mysql)//统计rpm包mysql数据库大小，并将大小赋值size
+	if [ -d /tmp/dbbak ]
+		then
+			echo "Date : $date" > /tmp/dbbak/dninfo.txt
+			echo "Date size :"$size >> /tmp/dbbak/dbinfo.txt
+			cd /tmp/dbbak
+			tar -zcvf mysql-lib-$date.tar.gz /var/lib/mysql dbinfo.txt &>/dev/null
+			rm -rf /tmp/dbbak/dbinfo.txt
+	else
+		mkdir /tmp/dbbak
+		echo "Date : $date" > /tmp/dbbak/dninfo.txt
+			echo "Date size :"$size >> /tmp/dbbak/dbinfo.txt
+			cd /tmp/dbbak
+			tar -zcvf mysql-lib-$date.tar.gz /var/lib/mysql dbinfo.txt &>/dev/null
+			rm -rf /tmp/dbbak/dbinfo.txt
+
+	判断apache是否启动
+	ps aux|grep http	查看appche是否启动
+	#!/bin/bash
+	port=$(nmap -sT 192.168.1.156 | grep tcp |grep http |awk '{print $2}')
+	if [ "$port" == "open" ]
+		then
+			echo "$(date) http is ok" >> /tmp/autostart-acc.log
+		else
+			/etc/rc.d/init.d/httpd start &>/dev/null
+			echo "$(date) restart httpd" >>/tmp/autostart-err.log
+	fi
+	多分支if条件语句
+	tar -ztvf a.tar.gz	不解压查看文件内容
+	判断用户输入内容
+	#！/bash/bin
+	read -p "please input a filename:" file//接收键盘输入
+	if [ -z "$file" ]
+		then
+			echo "Error please input a filename"
+			exit 1
+	elif [ ! -e "$file" ]
+		then
+			echo "your input is not a file"
+	elif [ -f "$file" ]
+		then
+			echo "$file is  regulare file"
+	elif [ -d "$file" ]
+		then
+			echo "$file is a directory"
+	else
+		echo "$file is an other file"
+	fi
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="caseyj">
+                        <h2>case语句</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+case语句
+	case $变量名 in
+		"值1")
+			如果变量的值等于值1，则执行程序1
+		;;
+		"值2")
+			如果变量的值等于值2，则执行程序2
+		;;
+		。。。
+		*)
+		;;
+	esac
+	案例
+	#！/bin/bash
+	read -p "please choose yes/no" -t 30 cho
+	case #cho in
+		"yes")
+			echo "your choose is yes"
+		;;
+		"no")
+			echo "your choose is no"
+		;;
+		*)
+			echo "your choose is error"
+		;;
+	esac
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="forxh">
+                        <h2>for循环</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+for循环
+	for 变量 in 值1 值2 值3
+	   do
+		程序
+	   done
+	举例：
+	for time in morning nooon afternoon evening
+	   do
+		echo "the time is $time"
+	   done
+	批量解压缩脚本
+	cd /lamp
+	ls *.tar.gz > ls.log
+	for i in $(cat ls.log)
+	   do
+		tar -zxf $i &>/dev/null
+	   done
+	rm -rf /lamp/ls.log
+	语法二
+	for((初始值;循环控制条件;变量变化))
+	   do
+		程序
+	   done
+	举例：从1加到100
+	s=0
+	for((i=1;i<=100;i=i+1))
+	   do
+		s=$(($s+$i))
+	   done
+	echo "the sum of 1+2+..+100=$s"
+	批量添加指定数量的用户
+	read -p "please input username:" -t 30 name
+	read -p "please input the number of users:" -t 30 num
+	read -p "please input the password of users:" -t 30 pass
+	if [ ! -z "$name" -a ! -z "$num" -a ! -z "$pass" ]
+	   then
+	   y=$(echo $num | sed's/[0-9]//g')
+		if [ -z "$y" ]
+  		then
+		for((i=1;i<=$num;i=i+1))
+		   do
+			/usr/sbin/useradd $name$i &>/dev/null
+			echo $pass | /usr/bin/passwd --stdin "$name$i" &>/dev/null
+		   done
+		fi
+	fi
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="whileuntil">
+                        <h2>while与until循环</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+while循环与until循环
+	while [ 条件判断式 ]
+	   do
+		程序
+	   done
+	举例：从1加到100
+	#!/bin/bash
+	i=1
+	s=0
+	while [ $i -le 100 ]
+		do
+			s=$(($s+$i))
+			i=$(($i+1))
+		done
+	echo "the sum is $s"
+	until循环
+	和while循环相反，只要条件判断式不成立则进行循环，并执行循环程序，一旦循环条件成立，则终止循环
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="fwfl">
+                        <h2>linux服务分类</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+linux服务分类
+	rpm服务(默认服务[独立服务/基于xinetd服务])/源码包服务
+	服务的启动和自启动
+	查询已安装服务
+	chkconfig --list
+	查看服务自启动状态，可以看到所有rpm包安装的服务
+	源码包安装的服务：查看服务安装的位置，一般是/usr/local下
+	ps aux|grep analysis	查看进程
+	rpm安装的服务和源码包安装服务的区别就是安装的位置不同
+	源码包安装在指定位置一般为/usr/local
+	rpm包安装在默认位置
+	service httpd start 可以启动rpm包安装的apache
+	因为service找到的目录就是/etc/rc,d/init.d
+	如果将源码包执行文件放置/etc/rc.d/init.d目录中也可以使用service启动，不过不建议
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="dlfw">
+                        <h2>独立的服务</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+独立的服务
+	/etc/init.d=/etc/rc.d/init.d		启动脚本位置
+	/etc/sysconfig	初始化环境变量配置文件位置
+	/etc/		配置文件位置
+	/etc/xinetd.conf xinetd配置文件
+	/etc/xinetd.d/	 基于xinetd服务的启动脚本
+	/var/lib	 服务产生的数据
+	/var/log	 日志
+	rpm -e 可以删除rpm版安装文件
+	独立服务的启动
+	/etc/init.d/独立服务名 start|stop|status|restart
+	service 独立服务名 start|stop|status|restart
+	service --status-all	所有rpm包安装文件的服务状态
+	独立服务自启动
+	第一种：
+	chkconfig --list |grep httpd	查看服务的自启动状态
+	自启动设置
+	chkconfig --level 2345 服务名 on	服务自启动设置
+	或者
+	chkconfig 服务名 on
+	第二种：
+	查看计算机最后一次重启的时间 touch /var/lock/subsys/local
+	将/etc/rc.d/init.d/httpd start	写入 /etc/rc.d/rc.local文件
+	第三种：
+	可视化(界面操作)：setup nesysv
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="xinetd">
+                        <h2>基于xinetd服务</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+基于xinetd服务
+	是一个没有任何功能 的服务，主要是用来管理其所属服务
+	如果需要访问xinetd子服务，需要先访问xinetd服务，由他去调用其子服务
+	vi /etc/xinetd.d/telnet
+	安装xinetd服务
+	yum -y install xinetd
+	重启xinetd的子服务直接重启xinetd服务即可
+	service xinetd restart
+	xinetd子服务的自启动，直接重启该服务即可
+	chkconfig telnet on
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="ymbzqd">
+                        <h2>源码包自启动</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+源码包安装服务的启动
+	使用绝对路径启动服务
+	netstat -tlun	查看端口
+	源码包的自启动
+	在vi /etc/rc.d/rc.local文件中加入/usr/local/apache2/bin/apachectl start
+	让源码包服务被服务管理命令识别
+	ln -s /usr/local/apache2/bin/apache2/bin/apachectl /etc/init.d/apache
+	服务自启动
+	chkconfig --add apache
+	把源码包apache加入到chkconfig命令
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="jc">
+                        <h2>进程</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+进程：正在运行的程序或命令
+	ps aux	查看系统进程，bsd(unix)格式
+	ps -le	查看系统进程，linux标准格式
+	top	查看系统健康状态
+	退出top命令q
+	pstree 查看进程树
+	-p：查看进程的pid
+	-u：显示进程的所属用户
+
+	kill -1 222	重启进程
+	kill -9 222	杀死进程
+	killall -9 httpd(进程名)  根据进程名杀死进程
+	pkill -9 httpd		根据进程名杀死进程
+	w	查询本机已登陆的用户
+	pkill -9 -t pts/2	按照终端号踢出用户
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="gzgl">
+                        <h2>工作管理</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+工作管理
+	把进程放入后台执行
+	tar -zcf etc.tar.gz /etc &	将任务放入后台执行
+	top 命令执行过程中按ctrl+z	将任务放入后台不执行
+	jobs -l		查看后台不执行进程
+	fg %工作号	将后台暂停工作恢复到前台执行%可省
+	bg %工作号	将后台暂停工作恢复到后台执行%可省
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="xtzy">
+                        <h2>系统资源</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+系统资源查看
+	vmstat [刷新延时，刷新次数]
+	vmstat 1 3	监控系统资源
+	dmesg | grep CPU	查看开机时内核检测信息
+	free [-b|-k|-m|-g]	查看内存使用状态
+	-b	字节单位显示
+	-k	kb单位显示
+	-m	mb单位显示
+	-g	gb单位显示
+	缓存cache	加速数据从硬盘中读取
+	缓冲buffer	加速数据写入硬盘
+	cat /proc/cpuinfo	查看cpu信息
+	uptime	显示系统启动时间和平均负载 =top命令第一行=w命令
+	uname [选项]	查看系统与内核相关信息
+	-a	查看系统所有相关信息
+	-r	查看内核版本
+	-s	查看内核名称
+	file /bin/ls	查看系统32位还是64位
+	lsb_release -a	查看linux系统的发行版本
+	lsof [选项]	列出进程打开或者使用的文件信息
+	-c 字符串：	只列出字符串开头的进程打开的文件
+	-u 用户名：	只列出某个用户的进程打开的文件
+	-p pid：	列出某个pid进程打开的文件
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="dsrw">
+                        <h2>定时任务</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+定时任务的使用
+	crond服务管理与访问控制
+	service crond restart	手工启动
+	chkconfig crond on	将该服务变为自启动服务
+	chkconfig list |grep crond	查看crond是否自启
+	crontab [选项]
+	-e：	编辑crontab定时任务
+	-l：	查询crontab任务
+	-r：	删除当前用户所有的crontab定时任务
+	举例：
+	crontab -e	进入编辑页面
+	* * * * *执行的任务	定时任务格式
+	第一个*：一小时当中第几分钟 0-59
+	第二个*：一天当中第几个小时 0-23
+	第三个*：一个月当中第几天 1-31
+	第四个*：一年当中第几个月
+	第五个*：一周当中的星期几 0-7[0/7代表星期日]
+	举例：
+	45 22 * * * 命令	在22点45分执行
+	0 17 * * 1 命令		每周1的17点0分执行
+	0 5 1，15 * * 命令	每月1号和15号陵城5点0分执行
+	40 4 * * 1-5 命令	每周一到周五的陵城4点40分执行命令
+	*/10 4 * * * 命令	每天陵城4点，每隔10分钟执行一次命令
+	0 0 1，15 * 1 命令	每月1号和15号，每周一的0点0分都会执行命令注意辛弃疾和几号最好不要同时出现因为他们定义的都是天非常容易让管理员混乱
+	特殊符号：
+	*	代表任何时间 比如第一个* 代表一小时中每分钟都执行的意思
+	，	代表不连续的时间，比如0 8，12，16 * * * 命令 代表每天8点0分 12点0分 16点0分执行一次命令
+	-	代表连续的时间范围内，比如0 5 * * 1-6 命令	代表在周一到周六的陵城5点0分执行命令
+	*/n	代表每隔多久执行一次比如 */10 * * * * 命令 代表每隔10分钟就会执行一边命令
+	举例：
+	* * * * * echo 111 >> /tmp/test
+	定时任务最小检测单位为分钟
+	crontab -l	查看系统现有的定时任务
+	5 5 * * 2 /sbin/shutdown -r now	每周二执行重启命令
+	0 5 1，10，15 * * /root/sh/autobak.sh	每个月的1号10号15号凌晨5点整定时执行脚本
+	如果向删除所有定时任务crontab -r
+	如果只是向删除几个定时任务 crontab -e 编辑删除
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="rzgl">
+                        <h2>日志管理</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+日志管理
+	确定rsyslogd日志服务
+	ps -aux|grep rsyslogd	查看服务是否启动
+
+	chkconfig --list |grep rsyslog	查看服务是否自启动
+	常见的日志
+	var/log/cron	查看系统定时任务相关日志
+	var/log/cups	记录打印信息的日志
+	var/log/dmesg	记录系统开机内核自检信息
+	var/log/btmp	记录错误登陆日志(二进制文件不能使用vi查看，需要lastb命令)
+	var/log/lastlog	记录所有用户最后一次登陆时间的日志
+	var/log/message	记录系统重要信息的日志(系统出现问题)
+	var/log/secure	记录验证和授权方面的信息
+	var/log/wtmp	永久记录用户的登陆注销嘻嘻你，同时记录系统的启动，重启，关机事件
+	var/run/utmp	记录已经登陆的用户信息
+	rpm包安装的软件日志文件的目录同样会在var/log
+
+    日志的记录位置以及日志等级
+	/etc/rsyslog.config	日志记录位置，日志等级
+	rpm包安装程序默认支持轮替
+	日志的命名规则
+	logrotate配置文件
+	daily	日志轮替周期是每天
+	weekly	日志轮替周期是每周
+	monthly	日志轮替周期是每月
+	rotate 数字	保留日志文件的个数 0指眉头备份
+	compress	日志轮替时，旧的日志进行压缩
+	create mode owner group 	建立新日志，同时指定新日志的权限和所有者和所属组create 0600 root utmp
+	notifempt	如果日志文件为空，则不进行日志轮替
+	minsize 大小	日志轮替最小值，否则时间达到也不轮替
+	size 大小	日志大于指定大小开始轮替
+	dateext		使用日期作为日志轮替文件的后缀
+	举例：
+	将apache日志加入轮替
+	vi /etc/logrotate.conf
+	/usr/local/apache2/logs/access_log{
+		daily
+		create
+		rotate 30
+	}
+	logrotate命令
+	logrotate [选项] 配置文件名
+	-v：显示日志轮替过程
+	-f：强制进行日志轮替
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="xtqd">
+                        <h2>系统启动</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+启动管理
+	系统运行级别
+	0关机 1单用户模式(安全模式) 2不完全命令行模式不包含nfs服务
+	3完全命令模式4系统保留5图形模式6重启动
+	runlevel 查看运行级别命令
+	init 运行级别	改变运行级别命令
+	系统默认运行级别 vi /etc/inittab	id:3:initdefault
+
+	系统启动过程
+	dump [选项] 备份后文件名 原文件或目录
+	-level	0-9是个备份级别
+	-f 文件名	指定备份之后的文件名
+	-u	备份成功之后，把备份时间记录在/etc/dumpdatas
+	-v	显示备份过程
+	-j	调用bzlib库压缩备份文件，格式为.bz2
+	-W	吓死你hi月女婿被dump的分区的备份等级及备份时间
+	rpm -qa |grep dump	查看系统有没有安装dump
+	yum -y install dump	安装dump
+	备份分区
+	dump -0uj -f /root/boot.bak.bz2 /root	0级别完全备份
+	cat /etc/dumpdates	查看系统备份记录
+	dump -1uj -f /root/boot.bak1.bz2 /root	1级别增量备份
+	dump -W		查看分区的备份级别及时间
+	备份文件或者目录
+	dump -0j -f	/root/etc.dump.bz2 /etc	完全备份/etc，只能支持0级别完全备份，不支持增量备份
+	恢复命令
+	restore [模式选项] [选项]
+	模式有四种
+	-C	比较备份数据和实际数据的变化
+	-i	进入交互模式，手工选择需要恢复的文件
+	-t	查看模式 用于查看备份文件中拥有那些数据
+	-r	还原模式 用于数据还原
+	选项
+	-f	指定备份文件名
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="qt">
+						<h2>其他</h2>
+						<h3>1)shell</h3>
+						<img src="../../images/content/shell/shell.PNG" width="auto"></img>
+						<h3>2)zzbds</h3>
+						<img src="../../images/content/shell/zzbds.PNG" width="auto"></img>
+						<h3>3)sed</h3>
+						<img src="../../images/content/shell/sed.PNG" width="auto"></img>
+						<h3>4)replace</h3>
+						<img src="../../images/content/shell/replace.PNG" width="auto"></img>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+    <!--jquery-->
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js" rel="stylesheet" type="text/javascript"></script>
+    <!--jquery.nav-->
+    <script src="https://cdn.bootcss.com/jquery-one-page-nav/2.2.0/jquery.nav.js"></script>
+    <!--jqueryui-->
+    <script src="https://cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <script>
+        $( "#nav" ).accordion({
+            collapsible: true
+        });
+        $(function(){
+            $('#nav').onePageNav();
+        });
+    </script>
+</html>
