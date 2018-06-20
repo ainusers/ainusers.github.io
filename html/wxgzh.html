@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--添加自适应标签-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" shrink-to-fit=no">
+    <title>www.ainusers.top</title>
+    <!--title上面添加icon-->
+    <link rel="shortcut icon" href="../images/head/head.png"/>
+</head>
+
+<!-- jqGrid组件基础样式包-必要 -->
+<link rel="stylesheet" href="../js/jqGrid/ui.jqgrid.css" />
+<!-- 在jqgrid/css/css这个目录下还有其他的主题包，可以尝试更换看效果 -->
+<link rel="stylesheet" href="../js/jqGrid/jquery-ui-1.8.16.custom.css" />
+<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12" style="padding-left:20%; margin: 10rem 0rem auto; font-family: '微软雅黑', Arial, Helvetica, sans-serif; font-size: 16px ">
+                <table id="list2"></table>
+                <div id="pager2"></div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<!--引入外部js文件-->
+<!-- 这个是所有jquery插件的基础，首先第一个引入 -->
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js" rel="stylesheet" type="text/javascript"></script>
+<!-- 在jqgrid/js/i18n下还有其他的多语言包，可以尝试更换看效果 -->
+<script type="text/javascript" src="../js/jqGrid/grid.locale-cn.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- jqGrid插件包-必要 -->
+<script type="text/javascript" src="../js/jqGrid/jquery.jqGrid.src.js"></script>
+</html>
+<script type="text/javascript">
+    $(function(){
+        //页面加载完成之后执行
+        pageInit();
+    });
+    function pageInit(){
+        //创建jqGrid组件
+        jQuery("#list2").jqGrid(
+            {
+                url : '../js/jqGrid/JSONData.json',//组件创建完成之后请求数据的url
+                datatype : "json",//请求数据返回的类型。可选json,xml,txt
+                colNames : [ 'Inv No', 'Date', 'Client', 'Amount', 'Tax','Total', 'Notes' ],//jqGrid的列显示名字
+                colModel : [ //jqGrid每一列的配置信息。包括名字，索引，宽度,对齐方式.....
+                    {name : 'id',index : 'id',width : 55},
+                    {name : 'invdate',index : 'invdate',width : 90},
+                    {name : 'name',index : 'name asc, invdate',width : 100},
+                    {name : 'amount',index : 'amount',width : 80,align : "right"},
+                    {name : 'tax',index : 'tax',width : 80,align : "right"},
+                    {name : 'total',index : 'total',width : 80,align : "right"},
+                    {name : 'note',index : 'note',width : 150,sortable : false}
+                ],
+                rowNum : 10,//一页显示多少条
+                rowList : [ 10, 20, 30 ],//可供用户选择一页显示多少条
+                pager : '#pager2',//表格页脚的占位符(一般是div)的id
+                sortname : 'id',//初始化的时候排序的字段
+                sortorder : "desc",//排序方式,可选desc,asc
+                mtype : "post",//向后台请求数据的ajax的类型。可选post,get
+                viewrecords : true,
+                caption : "微信公众号"//表格的标题名字
+            });
+        /*创建jqGrid的操作按钮容器*/
+        /*可以控制界面上增删改查的按钮是否显示*/
+        jQuery("#list2").jqGrid('navGrid', '#pager2', {edit : false,add : false,del : false});
+    }
+</script>
