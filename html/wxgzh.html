@@ -19,7 +19,7 @@
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12" style="padding-left:20%; margin: 10rem 0rem auto; font-family: '微软雅黑', Arial, Helvetica, sans-serif; font-size: 16px ">
+            <div class="col-md-12" style="margin: 0 auto; font-family: '微软雅黑', Arial, Helvetica, sans-serif; font-size: 16px ">
                 <table id="list2"></table>
                 <div id="pager2"></div>
             </div>
@@ -43,32 +43,94 @@
         pageInit();
     });
     function pageInit(){
+
+        var articleData = [
+            {
+                "shareid": "1",
+                "jsz": "Python",
+                "wxgzh": "Python开发",
+                "wzmc": "Python面试中8个必考问题",
+                "gxsj": "2018年6月21日21:46:18"
+            },
+            {
+                "shareid": "2",
+                "jsz": "Python",
+                "wxgzh": "Python开发",
+                "wzmc": "Python面试中8个必考问题",
+                "gxsj": "2018年6月21日21:46:18"
+            }
+        ]
         //创建jqGrid组件
         jQuery("#list2").jqGrid(
             {
-                url : '../js/jqGrid/JSONData.json',//组件创建完成之后请求数据的url
-                datatype : "json",//请求数据返回的类型。可选json,xml,txt
-                colNames : [ 'Inv No', 'Date', 'Client', 'Amount', 'Tax','Total', 'Notes' ],//jqGrid的列显示名字
+                datatype: 'local',
+                data: articleData,
+                //url : '../js/jqGrid/JSONData.json',//组件创建完成之后请求数据的url
+                //datatype : "json",//请求数据返回的类型。可选json,xml,txt
+                colNames : [ '序列' , '技术栈', '微信公众号', '文章名称', '更新时间'],//jqGrid的列显示名字
                 colModel : [ //jqGrid每一列的配置信息。包括名字，索引，宽度,对齐方式.....
-                    {name : 'id',index : 'id',width : 55},
-                    {name : 'invdate',index : 'invdate',width : 90},
-                    {name : 'name',index : 'name asc, invdate',width : 100},
-                    {name : 'amount',index : 'amount',width : 80,align : "right"},
-                    {name : 'tax',index : 'tax',width : 80,align : "right"},
-                    {name : 'total',index : 'total',width : 80,align : "right"},
-                    {name : 'note',index : 'note',width : 150,sortable : false}
+                    {name : 'shareid',index : 'shareid',width : 120,height : 100,align : "right",formatter: 'int',sortable : true},
+                    {name : 'jsz',index : 'jsz',width : 120,height : 100,align : "right",cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return 'id=\'jsz' + rowId + "\'";
+                    }},
+                    {name : 'wxgzh',index : 'wxgzh',width : 120,height : 100,align : "right",cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return 'id=\'wxgzh' + rowId + "\'";
+                    }},
+                    {name : 'wzmc',index : 'wzmc',width : 300,height : 100,align : "right"},
+                    {name : 'gxsj',index : 'gxsj',width : 150,height : 100,align : "right"}
                 ],
+                height:$(window).height()-130,
                 rowNum : 10,//一页显示多少条
                 rowList : [ 10, 20, 30 ],//可供用户选择一页显示多少条
                 pager : '#pager2',//表格页脚的占位符(一般是div)的id
-                sortname : 'id',//初始化的时候排序的字段
-                sortorder : "desc",//排序方式,可选desc,asc
+                sortname : 'shareid',//初始化的时候排序的字段
+                sortorder : "asc",//排序方式,可选desc,asc
                 mtype : "post",//向后台请求数据的ajax的类型。可选post,get
                 viewrecords : true,
-                caption : "微信公众号"//表格的标题名字
-            });
-        /*创建jqGrid的操作按钮容器*/
+                caption : "微信公众号",//表格的标题名字
+                autowidth:true,
+                cellEdit:false,//启用或者禁用单元格编辑功能
+                multiselect:false,
+                pagerpos:'center',
+                pginput:true,//是否显示跳转页面的输入框
+                rownumbers:true,
+                rownumWidth:50,
+                scroll:true,
+                toolbar:[true,'top'],
+                gridComplete: function() {
+                    //②在gridComplete调用合并方法
+                    var gridName = "list2";
+                    Merger(gridName, 'jsz');
+                    Merger(gridName, 'wxgzh');
+                }
+        });
         /*可以控制界面上增删改查的按钮是否显示*/
         jQuery("#list2").jqGrid('navGrid', '#pager2', {edit : false,add : false,del : false});
+    }
+
+    //合并单元格公共调用方法
+    function Merger(gridName, CellName) {
+        //得到显示到界面的id集合
+        var mya = $("#" + gridName + "").getDataIDs();
+        //当前显示多少条
+        var length = mya.length;
+        for (var i = 0; i < length; i++) {
+            //从上到下获取一条信息
+            var before = $("#" + gridName + "").jqGrid('getRowData', mya[i]);
+            //定义合并行数
+            var rowSpanTaxCount = 1;
+            for (j = i + 1; j <= length; j++) {
+                //和上边的信息对比 如果值一样就合并行数+1 然后设置rowspan 让当前单元格隐藏
+                var end = $("#" + gridName + "").jqGrid('getRowData', mya[j]);
+                if (before[CellName] == end[CellName]) {
+                    rowSpanTaxCount++;
+                    $("#" + gridName + "").setCell(mya[j], CellName, '', { display: 'none' });
+                } else {
+                    rowSpanTaxCount = 1;
+                    break;
+                }
+                $("#" + CellName + "" + mya[i] + "").attr("rowspan", rowSpanTaxCount);
+            }
+        }
     }
 </script>

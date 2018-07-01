@@ -1,0 +1,49 @@
+<!--H5页面标签-->
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <!--添加自适应标签-->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" shrink-to-fit=no">
+        <title>www.ainusers.top</title>
+        <!--title上面添加icon-->
+        <link rel="shortcut icon" href="../images/head/head.png"/>
+    </head>
+    <link href="../css/door/css/reset.css" rel="stylesheet" type="text/css">
+    <link href="../css/door/css/index.css" rel="stylesheet" type="text/css">
+
+    <body>
+
+    <div class="wraper">
+        <!--logo-->
+        <img src="../images/head/logo.png" style="height: 70px;width: 70px;padding: 10px 15px">
+        <img src="../images/head/wenzi.png">
+        <div class="nav">
+            <ul>
+                <li class="nav-item"><a href="#" target="_blank">博客首页</a></li>
+                <li class="nav-item  cur"><a href="#" target="_blank">博客大厅</a></li>
+                <li class="nav-item"><a href="#" target="_blank">心凉鸡汤</a></li>
+                <li class="nav-item"><a href="#" target="_blank">技术支持</a></li>
+                <li class="nav-item"><a href="#" target="_blank">靠技术吃饭</a></li>
+                <li class="nav-item"><a href="#" target="_blank">关于我</a></li>
+            </ul>
+            <!--移动的滑动-->
+            <div class="move-bg"></div>
+            <!--移动的滑动 end-->
+        </div>
+    </div>
+
+
+    </body>
+    <!--引入外部js文件-->
+    <!--jquery-->
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js" rel="stylesheet" type="text/javascript"></script>
+    <script src="../js/door/jquery.movebg.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $(".nav").movebg({width:120/*滑块的大小*/,extra:40/*额外反弹的距离*/,speed:300/*滑块移动的速度*/,rebound_speed:400/*滑块反弹的速度*/});
+        })
+    </script>
+
+</html>
