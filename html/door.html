@@ -12,13 +12,14 @@
     </head>
     <link href="../css/door/css/reset.css" rel="stylesheet" type="text/css">
     <link href="../css/door/css/index.css" rel="stylesheet" type="text/css">
+    <link href="../css/door/player/shutter.css" rel="stylesheet" type="text/css">
 
     <body>
 
     <div class="wraper">
         <!--logo-->
-        <img src="../images/head/logo.png" style="height: 70px;width: 70px;padding: 10px 15px">
-        <img src="../images/head/wenzi.png">
+        <img src="../images/head/logo.png" style="height: 60px;width: 60px;padding-left: 5px;">
+        <img src="../images/head/wenzi.png" style="height: 60px;">
         <div class="nav">
             <ul>
                 <li class="nav-item"><a href="#" target="_blank">博客首页</a></li>
@@ -30,7 +31,21 @@
             </ul>
             <!--移动的滑动-->
             <div class="move-bg"></div>
-            <!--移动的滑动 end-->
+            <!--移动的滑动-->
+        </div>
+
+        <!--player-->
+        <div class="shutter">
+            <div class="shutter-img">
+                <a href="#" data-shutter-title="Iron Man"><img src="../images/door/shutter_1.jpg" alt="#"></a>
+                <a href="#" data-shutter-title="Super Man"><img src="../images/door/shutter_2.jpg" alt="#"></a>
+                <a href="#" data-shutter-title="The Hulk"><img src="../images/door/shutter_3.jpg" alt="#"></a>
+                <a href="#" data-shutter-title="The your"><img src="../images/door/shutter_4.jpg" alt="#"></a>
+            </div>
+            <ul class="shutter-btn">
+                <li class="prev"></li>
+                <li class="next"></li>
+            </ul>
         </div>
     </div>
 
@@ -39,11 +54,23 @@
     <!--引入外部js文件-->
     <!--jquery-->
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js" rel="stylesheet" type="text/javascript"></script>
+    <script src="../js/door/player/velocity.js"></script>
+    <script src="../js/door/player/shutter.js"></script>
     <script src="../js/door/jquery.movebg.js"></script>
     <script type="text/javascript">
         $(function(){
             $(".nav").movebg({width:120/*滑块的大小*/,extra:40/*额外反弹的距离*/,speed:300/*滑块移动的速度*/,rebound_speed:400/*滑块反弹的速度*/});
         })
+        $(function () {
+            $('.shutter').shutter({
+                shutterW: $(document).width()-118, // 容器宽度
+                shutterH: 358, // 容器高度
+                isAutoPlay: true, // 是否自动播放
+                playInterval: 2000, // 自动播放时间
+                curDisplay: 3, // 当前显示页
+                fullPage: false // 是否全屏展示
+            });
+        });
     </script>
 
 </html>
