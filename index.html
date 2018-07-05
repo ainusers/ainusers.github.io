@@ -27,6 +27,8 @@
     <link href="css/index/first/scrollDown.css" rel="stylesheet">
     <!--circle-->
     <link href="https://cdn.bootcss.com/Swiper/3.4.2/css/swiper.min.css" rel="stylesheet">
+    <!--标签云-->
+    <link href="css/index/biaoqianyun/biaoqianyun.css" rel="stylesheet">
     <!--引入外部样式-->
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <style type="text/css">
@@ -34,6 +36,9 @@
             width:60rem;
             height:30rem;
             text-align: center;
+        }
+        .tagcloud.fr{
+            min-height: 0px !important;
         }
     </style>
 
@@ -148,9 +153,42 @@
                     <div class="swiper-slide" id="swiper_3">
                         <!--灰太狼-->
                         <div class="ani" swiper-animate-effect="flip" style="margin-right: 8rem">
-                            <canvas id="huiTaiLang" width="400" height="500" style="margin:0; padding:0; list-style:none;">当前浏览器不支持canvas</canvas>
+                            <canvas id="huiTaiLang" width="400" height="500" style="list-style:none;">当前浏览器不支持canvas</canvas>
                         </div>
+                        <!--标签云-->
                         <div class="jump">
+                            <div class="ani" swiper-animate-effect="rollIn">
+                                <div class="wrapper">
+                                    <div class="tagcloud fr">
+                                        <a href="https://www.baidu.com/">大数据时代</a>
+                                        <a href="https://www.baidu.com/">一带一路</a>
+                                        <a href="https://www.baidu.com/">智能控制</a>
+                                        <a href="https://www.baidu.com/">人工智能神经网络</a>
+                                        <a href="https://www.baidu.com/">计算机科学</a>
+                                        <a href="https://www.baidu.com/">自动驾驶</a>
+                                        <a href="https://www.baidu.com/">大数据时代</a>
+                                        <a href="https://www.baidu.com/">一带一路</a>
+                                        <a href="https://www.baidu.com/">智能控制</a>
+                                        <a href="https://www.baidu.com/">人工智能神经网络</a>
+                                        <a href="https://www.baidu.com/">计算机科学</a>
+                                        <a href="https://www.baidu.com/">自动驾驶</a>
+                                        <a href="https://www.baidu.com/">大数据时代</a>
+                                        <a href="https://www.baidu.com/">一带一路</a>
+                                        <a href="https://www.baidu.com/">智能控制</a>
+                                        <a href="https://www.baidu.com/">人工智能神经网络</a>
+                                        <a href="https://www.baidu.com/">计算机科学</a>
+                                        <a href="https://www.baidu.com/">自动驾驶</a>
+                                        <a href="https://www.baidu.com/">大数据时代</a>
+                                        <a href="https://www.baidu.com/">一带一路</a>
+                                        <a href="https://www.baidu.com/">智能控制</a>
+                                        <a href="https://www.baidu.com/">人工智能神经网络</a>
+                                        <a href="https://www.baidu.com/">计算机科学</a>
+                                        <a href="https://www.baidu.com/">自动驾驶</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div class="jump">
                             <div class="ani" swiper-animate-effect="rollIn" style="margin-left: 4rem;margin-top: 30rem">
                                 <img src="images/index/circle/circle1.png">
                             </div>
@@ -169,7 +207,7 @@
                             <div class="ani" swiper-animate-effect="rollIn" style="margin-left: 4rem;margin-top: 30rem">
                                 <img src="images/index/circle/circle4.png">
                             </div>
-                        </div>
+                        </div>-->
                         <!--banner-->
                         <!--<div class="scrollDown">
                             <p>SCROLL DOWN</p><br/>
@@ -293,6 +331,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/1.2.2/aos.js"></script>
     <!--scrollDown-->
     <script src="js/index/first/scrollDown.js"></script>
+    <!--标签云-->
+    <script src="js/index/biaoqianyun/tagcloud.js"></script>
     <!--circle-->
     <!--<script src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.min.js"></script>-->
     <!--环鼠标特效-->
@@ -331,6 +371,16 @@
                 speed:40, //数值越大，速度越慢
                 rowHeight:92 //li的高度
             });
+        });
+        /*3D标签云*/
+        tagcloud({
+            selector: ".tagcloud",  //元素选择器
+            fontsize: 16,       //基本字体大小, 单位px
+            radius: 100,         //滚动半径, 单位px
+            mspeed: "normal",   //滚动最大速度, 取值: slow, normal(默认), fast
+            ispeed: "normal",   //滚动初速度, 取值: slow, normal(默认), fast
+            direction: 135,     //初始滚动方向, 取值角度(顺时针360): 0对应top, 90对应left, 135对应right-bottom(默认)...
+            keep: false          //鼠标移出组件后是否继续随鼠标滚动, 取值: false, true(默认) 对应 减速至初速度滚动, 随鼠标滚动
         });
     </script>
 
