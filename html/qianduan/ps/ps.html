@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<!--添加自适应标签-->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" shrink-to-fit=no">
+	<title>www.ainusers.top</title>
+	<!--title上面添加icon-->
+	<link rel="shortcut icon" href="../../../images/head/head.png"/>
+</head>
+
+    <!--引入外部样式-->
+    <!--slide-->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link href="../../../css/content/yunwei/linux/slide.css" rel="stylesheet">
+    <!--jqueryui-->
+    <link href="https://cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
+
+    <style type="text/css">
+        p, pre, ul {
+             margin-bottom: 0em;
+        }
+    </style>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                <!--left-->
+                <ul id="nav">
+                    <li>
+                        <a href="#ps">ps</a>
+                        <ul>
+                            <li  class="current">
+                                <a href="#gbwtys">改变物体颜色</a>
+                            </li>
+                            <li >
+                                <a href="#gbwttm">改变物体透明</a>
+                            </li>
+                            <li >
+                                <a href="#qudiaoduoyuneirong">去掉多余内容</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-10">
+                <!--container-->
+                <div id="container">
+                    <div class="section" id="gbwtys">
+                        <h2>改变物体颜色</h2>
+                        <img src="../../../images/qianduan/ps/gaibianwutiyanse/change_base.jpg" height="200px"></img>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+1.选择->色彩范围->可以直接选择(红蓝黄绿青洋红)/也可以取色选择
+2.右击右下角xx->选择色相/饱和度->调整色相及其他即可调整颜色
+                            </ol>
+                        </pre>
+                        <img src="../../../images/qianduan/ps/gaibianwutiyanse/change_result.jpg" height="200px"></img>
+                    </div>
+                    <div class="section" id="gbwttm">
+                        <h2>改变物体透明</h2>
+                        <img src="../../../images/qianduan/ps/gaibianwutitouming/change_base.png" height="50px"></img>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+1.左侧魔棒工具->选择->反选->在该图片上右击->通过拷贝的图层
+2.将右边背景图层删除->此时图片透明
+                            </ol>
+                        </pre>
+                        <img src="../../../images/qianduan/ps/gaibianwutitouming/change_result.png" height="50px"></img>
+                    </div>
+                    <div class="section" id="qudiaoduoyuneirong">
+                        <h2>去掉多余内容</h2>
+                        <img src="../../../images/qianduan/ps/qudiaoduoyuneirong/change_base.jpg" height="200px"></img>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+1.左侧矩形选择工具->选中图中想要去掉的内容
+2.编辑->填充->内容识别->点击确定即可完成
+                            </ol>
+                        </pre>
+                        <img src="../../../images/qianduan/ps/qudiaoduoyuneirong/change_result.jpg" height="200px"></img>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+    <!--jquery-->
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js" rel="stylesheet" type="text/javascript"></script>
+    <!--jquery.nav-->
+    <script src="https://cdn.bootcss.com/jquery-one-page-nav/2.2.0/jquery.nav.js"></script>
+    <!--jqueryui-->
+    <script src="https://cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <script>
+        $( "#nav" ).accordion({
+            collapsible: true
+        });
+        $(function(){
+            $('#nav').onePageNav();
+        });
+    </script>
+</html>
