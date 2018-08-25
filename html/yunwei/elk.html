@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<!--添加自适应标签-->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" shrink-to-fit=no">
+	<title>www.ainusers.top</title>
+	<!--title上面添加icon-->
+	<link rel="shortcut icon" href="../../images/head/head.png"/>
+</head>
+
+    <!--引入外部样式-->
+    <!--slide-->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link href="../../css/content/yunwei/linux/slide.css" rel="stylesheet">
+    <!--jqueryui-->
+    <link href="https://cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                <!--left-->
+                <ul id="nav">
+                    <li>
+                        <a href="#elk">elk</a>
+                        <ul>
+                            <li  class="current">
+                                <a href="#jczs">基本知识</a>
+                            </li>
+                            <li>
+                                <a href="#azjc">安装教程</a>
+                            </li>
+                            <li>
+                                <a href="#esjq">es集群</a>
+                            </li>
+                            <li>
+                                <a href="#esjk">es监控</a>
+                            </li>
+                            <li>
+                                <a href="#logstash">logstash</a>
+                            </li>
+                            <li>
+                                <a href="#sjxtrz">收集系统日志</a>
+                            </li>
+                            <li>
+                                <a href="#sjjavarz">收集java日志</a>
+                            </li>
+                            <li>
+                                <a href="#kibana">kibana</a>
+                            </li>
+                            <li>
+                                <a href="#sjnginxrz">收集nginx日志</a>
+                            </li>
+                            <li>
+                                <a href="#sjsyslogrz">收集syslog日志</a>
+                            </li>
+                            <li>
+                                <a href="#sjslowlogrz">收集慢查询日志</a>
+                            </li>
+                            <li>
+                                <a href="#xxdl">使用消息队列</a>
+                            </li>
+                            <li>
+                                <a href="#kibanasx">kibana上线</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-10">
+                <!--container-->
+                <div id="container">
+                    <div class="section" id="jczs">
+                        <h2>elk基础知识</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+elk stack(日志平台)
+    elk stack=elastic search(存储,搜索,分析) + logstash(日志收集[输入->过滤->输出]) +kibana(日志展示)
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="azjc">
+                        <h2>安装教程</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+elastic search安装：
+    0.安装elasticsearch
+        rpm --import https://packages.elastic.co/GPG-KEY-elasticsearch
+      添加yum仓库
+        vi /etc/yum.repos.d/elasticsearch.repo
+        [elasticsearch-2.x]
+        name=Elasticsearch repository for 2.x packages
+        baseurl=http://packages.elastic.co/elasticsearch/2.x/centos
+        gpgcheck=1
+        gpgkey=http://packages.elastic.co/GPG-KEY-elasticsearch
+        enabled=1
+    yum install -y elasticsearch
+    1.安装java
+        yum install -y java
+    2.验证
+        java -version
+    3.编辑elastic search配置文件
+    vi /etc/elasticsearch/elasticsearch.yml
+        cluster.name: oldboy
+        node.name: linux-node1
+        path.data: /data/es-data
+        path.logs: /var/log/elasticsearch
+        bootstrap.mlockall: true
+        network.host: 0.0.0.0
+        http.port: 9200
+    4.创建日志目录
+        mkdir -p /data/es-data
+    5.设置权限
+        chown -R elasticsearch:elasticsearch  /data/es-data/
+    5.启动elasticsearch
+        systemctl start elasticsearch
+    6.测试
+        访问：192.168.56.11:9200
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="esjq">
+                        <h2>es集群</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+es集群
+    1.安装head插件
+        /usr/share/elasticsearch/bin/plugin install mobz/elasticsearch-head
+    2.测试安装
+        访问：192.168.56.11:9200/_plugin/head
+
+    node1/node2集群配置
+        node2
+        1.修改配置文件
+            vi /etc/elasticsearch/elasticsearch.yml
+            cluster.name: oldboy
+            node.name:linux-node2
+            path.data: /data/es-data
+            path.logs: /var/log/elasticsearch
+            bootstrap.mlockall: true
+            network.host: 0.0.0.0
+            http.port: 9200
+        2.创建数据目录
+        mkdir /data/es-data
+        3.授权
+        chown -R elasticsearch:elasticsearch  /data/
+        4.启动
+        systemctl start elasticsearch
+        5.两个节点都修改一下
+        vi /etc/security/limits.conf
+        elasticsearch soft memlock unlimited
+        elasticsearch hard memlock unlimited
+        6.将两个elasticsearch服务都重启一下
+        7.修改配置文件(选[如果网络不可用的话,也就是无法显示集群中的两台机器])
+        vi /etc/elasticsearch/elasticsearch.yml
+        discovery.zen.ping.multicast.enabled:false
+        discovery.zen.ping.unicast.hosts:["192.168.56.11","192.168.56.12"]
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="esjk">
+                        <h2>es监控</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+2.es监控
+    node1
+    1.安装
+        /usr/share/elasticsearch/bin/plugin install lukas-vlcek/bigdesk
+    或者
+        /usr/share/elasticsearch/bin/plugin install lmenezes/elasticsearch-kopf
+    2.测试访问
+        192.168.56.11:9200/_plugin/kopf
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="logstash">
+                        <h2>logstash</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+logstash
+    如果需要收集，所有需要的机器节点上面都需要安装
+    1.安装
+        rpm --import https://packages.elastic.co.GPG-KEY-elasticsearch
+        安装yum仓库
+        vi /etc/yum.repos.d/logstash.repo
+        [logstash-2.1]
+        name=Logstash repository for 2.1.x packages
+        baseurl=http://packages.elastic.co/logstash/2.1/centos
+        gpgcheck=1
+        gpgkey=http://packages/elastic.co/GPG-KEY-elasticsearch
+        enabled=1
+        安装logstash
+        yum install -y logstash
+    2.前台启动logstash
+        /opt/logstash/bin/logstash -e 'input { stdin{} } output { stdout{} }'
+        详细输出
+        /opt/logstash/bin/logstash -e 'input { stdin{} } output { stdout{ codec => rubydebug} }'
+        将内容写到标准输出es里面
+        /opt/logstash/bin/logstash -e 'input { stdin{} } output { elasticsearch { hosts => ["192.168.56.11:9200"] } }'
+        将日志文件既保存到es有保留一份规范的文本
+        /opt/logstash/bin/logstash -e 'input { stdin{} } output { elasticsearch { hosts => ["192.168.56.11:9200"] }  stdout{ codec => rubydebug}}'
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="sjxtrz">
+                        <h2>收集系统日志</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+logstash收集系统日志
+    生产中建议使用单波，可以ping通即可
+    1.创建logstash配置文件
+    vi /etc/logstash/conf.d/01-logstash.conf
+    input { stdin { } }
+    output {
+        elasticsearch { hosts => ["192.168.56.11:9200"] }
+        stdout { codec => rubydebug }
+    }
+    2.使用logstash配置文件启动elasticsearch
+        /opt/logstash/bin/logstash -f /etc/logstash/conf.d/01-logstash.conf
+    3.logstash配置文件语法
+        主要是：input -> filter(可选) -> output
+        a)输入input
+            input{
+                file{
+                    path => "/var/log/messages"
+                    type => "syslog"
+                }
+
+                file{
+                    path => "/var/log/apache/access.log"
+                    type => "apache"
+                }
+            }
+        b)收集系统日志
+        vi file.conf
+        input{
+            file{
+                path => "/var/log/messages"
+                type => "system"
+                start_position => "beginning"
+            }
+        }
+        output{
+            elasticsearch{
+                hosts => ["192.168.56.11:9200"]
+                index => "system-%{+YYYY.MM.dd}"
+            }
+        }
+        c)重新启动
+        /opt/logstash/bin/logstash -f file.conf
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="sjjavarz">
+                        <h2>收集java日志</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+logstash收集java日志
+    1.vi file.conf
+    input{
+        file{
+            path => "/var/log/messages"
+            type => "system"
+            start_position => "beginning"
+        }
+        file{
+            path => "/var/log/elasticsearch/oldboy.log"
+            type => "es-error"
+            start_position => "beginning"
+        }
+    }
+    output{
+        if [type] == "system" {
+            elasticsearch {
+                hosts => ["192.168.56.11:9200"]
+                index => "system-%{+YYYY.MM.dd}"
+            }
+        }
+        if [type] == "es-error" {
+            elasticsearch {
+                hosts => ["192.168.56.11:9200"]
+                index => "es-error-%{+YYYY.MM.dd}"
+            }
+        }
+    }
+    2.重新启动
+        /opt/logstash/bin/logstash -f file.conf
+
+codec：
+    1.vi mutiline.conf
+    input {
+        stdin {
+            codec => mutiline {
+                pattern => "^\["
+                negate => true
+                what => "previous"
+            }
+        }
+    }
+    output {
+        stdout {
+            codec => "rubydebug"
+        }
+    }
+    2.重新启动
+        /opt/logstash/bin/logstash -f file.conf
+
+    3.整合codec
+    input{
+        file{
+            path => "/var/log/messages"
+            type => "system"
+            start_position => "beginning"
+        }
+        file{
+            path => "/var/log/elasticsearch/oldboy.log"
+            type => "es-error"
+            start_position => "beginning"
+            codec => mutiline {
+                pattern => "^\["
+                negate => true
+                what => "previous"
+            }
+        }
+    }
+    output{
+        if [type] == "system" {
+            elasticsearch {
+                hosts => ["192.168.56.11:9200"]
+                index => "system-%{+YYYY.MM.dd}"
+            }
+        }
+        if [type] == "es-error" {
+            elasticsearch {
+                hosts => ["192.168.56.11:9200"]
+                index => "es-error-%{+YYYY.MM.dd}"
+            }
+        }
+    }
+    4.重新启动
+        /opt/logstash/bin/logstash -f file.conf
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="kibana">
+                        <h2>kibana</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+kibana:
+    1.安装kibana
+        cd /usr/local
+        wget https://download.elastic.co/kibana/kibana/kibana-4.3.1-linux-x64.tar.gz
+        tar -zxvf kibana-4.3.1-linux-x64.tar.gz
+        ln -s /usr/local/kibana-4.3.1-linux-x64 /usr/local/kibana
+    2.编辑配置文件
+        vi /usr/local/kibana/conf/kibana.yml
+        server.port:5601
+        server.host:"0.0.0.0"
+        elasticsearch.url:"http://192.168.56.11:9200"
+        kibana.index:".kibana"
+    3.启动
+        yum install -y screen
+        开启screen
+        screen
+        启动
+        /usr/local/kibana/bin/kibana
+        关闭screen
+        ctrl+ad
+    4.访问
+        192.168.56.11:5601
+    5.kibana使用
+        勾选：index contains time-based events
+        es-error-*
+        @timestamp
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="sjnginxrz">
+                        <h2>收集nginx日志</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+logstash收集nginx日志
+    1.安装nginx
+    yum install -y nginx
+    2.修改配置文件
+    vi //etc/nginx/nginx.conf
+    location {
+        log_format json '{"@timestamp":"$time_iso8601",'
+            '"@version":"1",'
+            '"client":"$remote_addr",'
+            '"url":"$uri",'
+            '"status":"$status",'
+            '"domain":"$host",'
+            '"host":"$server_addr",'
+            '"size":"$body_bytes_sent",'
+            '"responsetime":"$request_time",'
+            '"referer":"$http_referer",'
+            '"ua":"$http_user_agent",'
+        '}';
+    }
+
+    server {
+        access_log /var/log/nginx/access_json.log  json;
+    }
+    3.启动nginx
+        systemctl start nginx
+    4.创建配置文件
+        vi json.conf
+        input {
+            file {
+                path => "/var/log/nginx/access_json.log"
+                codec => "json"
+            }
+        }
+
+        output {
+            stdout {
+                codec => "rubydebug"
+            }
+        }
+    5.重启logstash
+        /opt/logstash/bin/logstash  -f json.conf
+    6.测试通过后，添加到vi all.conf
+        input{
+            file{
+                path => "/var/log/messages"
+                type => "system"
+                start_position => "beginning"
+            }
+            file{
+                path => "/var/log/nginx/access_json.log"
+                codec => "json"
+                start_position => "beginning"
+                type => "nginx-log"
+            }
+            file{
+                path => "/var/log/elasticsearch/oldboy.log"
+                type => "es-error"
+                start_position => "beginning"
+                codec => mutiline {
+                    pattern => "^\["
+                    negate => true
+                    what => "previous"
+                }
+            }
+        }
+        output{
+            if [type] == "system" {
+                elasticsearch {
+                    hosts => ["192.168.56.11:9200"]
+                    index => "system-%{+YYYY.MM.dd}"
+                }
+            }
+            if [type] == "es-error" {
+                elasticsearch {
+                    hosts => ["192.168.56.11:9200"]
+                    index => "es-error-%{+YYYY.MM.dd}"
+                }
+            }
+            if [type] == "nginx-log" {
+                elasticsearch {
+                    hosts => ["192.168.56.11:9200"]
+                    index => "nginx-log-%{+YYYY.MM.dd}"
+                }
+            }
+        }
+    7.启动logstash
+        /opt/logstash/bin/logstash -f all.conf
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="sjsyslogrz">
+                        <h2>收集syslog日志</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+logstash收集syslog日志
+    1.创建syslog.conf
+        input {
+            syslog {
+                type => "system-syslog"
+                host => "192.168.56.11"
+                port => "514"
+            }
+        }
+        output {
+            stdout {
+                codec => "rubydebug"
+            }
+        }
+    2.启动logstash
+        /opt/logstash/bin/logstash -f syslog.conf
+    3.修改系统配置文件
+        vi /etc/rsyslog.conf
+        *.* @@192.168.56.11:514
+    4.重启rsyslog
+        systemctl restart rsyslog
+    5.测试通过后，添加到vi all.conf
+        input{
+            syslog {
+                type => "system-syslog"
+                host => "192.168.56.11"
+                port => "514"
+            }
+
+            file{
+                path => "/var/log/messages"
+                type => "system"
+                start_position => "beginning"
+            }
+            file{
+                path => "/var/log/nginx/access_json.log"
+                codec => "json"
+                start_position => "beginning"
+                type => "nginx-log"
+            }
+            file{
+                path => "/var/log/elasticsearch/oldboy.log"
+                type => "es-error"
+                start_position => "beginning"
+                codec => mutiline {
+                    pattern => "^\["
+                    negate => true
+                    what => "previous"
+                }
+            }
+        }
+        output{
+            if [type] == "system" {
+                elasticsearch {
+                    hosts => ["192.168.56.11:9200"]
+                    index => "system-%{+YYYY.MM.dd}"
+                }
+            }
+            if [type] == "es-error" {
+                elasticsearch {
+                    hosts => ["192.168.56.11:9200"]
+                    index => "es-error-%{+YYYY.MM.dd}"
+                }
+            }
+            if [type] == "nginx-log" {
+                elasticsearch {
+                    hosts => ["192.168.56.11:9200"]
+                    index => "nginx-log-%{+YYYY.MM.dd}"
+                }
+            }
+            if [type] == "system-syslog" {
+                elasticsearch {
+                    hosts => ["192.168.56.11:9200"]
+                    index => "system-syslog-%{+YYYY.MM.dd}"
+                }
+            }
+        }
+    6.重启logstash
+        /opt/logstash/bin/logstash -f all.conf
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="sjslowlogrz">
+                        <h2>收集slowlog日志</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+logstash收集slowlog日志
+    1.创建配置文件
+    vi grok.conf
+    input {
+        stdin{}
+    }
+
+    filter {
+        grok {
+            match => {"message" => "%{IP:client} %{WORD:method} %{URIPATHPARAM:request} %{NUNBER:bytes} %{NUMBER:duration}"}
+        }
+    }
+    output {
+        stdout {
+            codec => "rubydebug"
+        }
+    }
+    2.启动测试
+    /opt/logstash/bin/logstash -f grok.conf
+    55.3.244.1 GET /index.html 15824 0.0.43
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="xxdl">
+                        <h2>logstash解耦_消息队列</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+logstash解耦_消息队列
+    主要是解决收集到的日志过滤问题
+    1.安装redis
+    yum install -y redis
+    2.修改配置文件
+    vi /etc/redis.conf
+    daemonize yes
+    bind 192.168.56.11
+    3.启动
+    systemctl start redis
+    4.链接
+    redis-cli -h 192.168.56.11
+    5.创建配置文件
+    vi redis-out.conf
+    input {
+        stdin {}
+    }
+
+    output {
+        redis {
+            host => "192.168.56.11"
+            port => "6379"
+            db => "6"
+            data_type => "list"
+            key => "demo"
+        }
+    }
+    6.启动logstash
+    /opt/logstash/bin/logstash -f redis-out.conf
+    7.复制redis-out.conf作为输入源
+    cp redis-out.conf redis-in.conf
+    vi redis-in.conf
+    input {
+        redis {
+            host => "192.168.56.11"
+            port => "6379"
+            db => "6"
+            data_type => "list"
+            key => "demo"
+        }
+    }
+
+    output {
+        elasticsearch {
+            hosts => ["192.168.56.11:9200"]
+            index => "redis-demo-%{+YYYY.MM.dd}"
+        }
+    }
+    8.启动logstash
+    /opt/logstash/bin/logstash -f redis-in.conf
+    9.复制all.conf为运输者(收集全部日志，写入redis)
+    cp all.conf shipper.conf
+        input{
+            syslog {
+                type => "system-syslog"
+                host => "192.168.56.11"
+                port => "514"
+            }
+
+            file{
+                path => "/var/log/messages"
+                type => "system"
+                start_position => "beginning"
+            }
+            file{
+                path => "/var/log/nginx/access_json.log"
+                codec => "json"
+                start_position => "beginning"
+                type => "nginx-log"
+            }
+            file{
+                path => "/var/log/elasticsearch/oldboy.log"
+                type => "es-error"
+                start_position => "beginning"
+                codec => mutiline {
+                    pattern => "^\["
+                    negate => true
+                    what => "previous"
+                }
+            }
+        }
+        output{
+            if [type] == "system" {
+                redis {
+                    host => "192.168.56.11"
+                    port => "6379"
+                    db => "6"
+                    data_type => "list"
+                    key => "system"
+                }
+            }
+            if [type] == "es-error" {
+                redis {
+                    host => "192.168.56.11"
+                    port => "6379"
+                    db => "6"
+                    data_type => "list"
+                    key => "es-error"
+                }
+            }
+            if [type] == "nginx-log" {
+                redis {
+                    host => "192.168.56.11"
+                    port => "6379"
+                    db => "6"
+                    data_type => "list"
+                    key => "nginx-log"
+                }
+            }
+            if [type] == "system-syslog" {
+                redis {
+                    host => "192.168.56.11"
+                    port => "6379"
+                    db => "6"
+                    data_type => "list"
+                    key => "system-syslog
+                }
+            }
+        }
+        10.启动llogstash
+        /opt/logstash/bin/logstash -f shipper.conf
+
+
+    1.使用另外一台机器
+    从redis中读取内容，存储到es中
+    input{
+
+        redis {
+            type => "system"
+            host => "192.168.56.11"
+            port => "6379"
+            db => "6"
+            data_type => "list"
+            key => "system"
+        }
+
+
+        redis {
+            type => "es-error"
+            host => "192.168.56.11"
+            port => "6379"
+            db => "6"
+            data_type => "list"
+            key => "es-error"
+        }
+
+        redis {
+            type => "nginx-log"
+            host => "192.168.56.11"
+            port => "6379"
+            db => "6"
+            data_type => "list"
+            key => "nginx-log"
+        }
+
+        redis {
+            type => "system-syslog"
+            host => "192.168.56.11"
+            port => "6379"
+            db => "6"
+            data_type => "list"
+            key => "system-syslog"
+        }
+    }
+
+    output{
+        if [type] == "system" {
+            elasticsearch {
+                hosts => ["192.168.56.11:9200"]
+                index => "system-%{+YYYY.MM.dd}"
+            }
+        }
+        if [type] == "es-error" {
+            elasticsearch {
+                hosts => ["192.168.56.11:9200"]
+                index => "es-error-%{+YYYY.MM.dd}"
+            }
+        }
+        if [type] == "nginx-log" {
+            elasticsearch {
+                hosts => ["192.168.56.11:9200"]
+                index => "nginx-log-%{+YYYY.MM.dd}"
+            }
+        }
+        if [type] == "system-syslog" {
+            elasticsearch {
+                hosts => ["192.168.56.11:9200"]
+                index => "system-syslog-%{+YYYY.MM.dd}"
+            }
+        }
+    }
+    2.启动node2上面
+    mv all.conf indexer.conf
+    /opt/logstash/bin/logstash -f indexer.conf
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="kibanasx">
+                        <h2>kibana上线</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+kibana上线注意事项:
+		需要记录日志：
+			系统日志/访问日志/错误日志/运行日志/设备日志等等
+
+		日志标准化：
+			路径：一定要规范，固定
+			格式：尽量使用json
+                            </ol>
+                        </pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+    <!--jquery-->
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js" rel="stylesheet" type="text/javascript"></script>
+    <!--jquery.nav-->
+    <script src="https://cdn.bootcss.com/jquery-one-page-nav/2.2.0/jquery.nav.js"></script>
+    <!--jqueryui-->
+    <script src="https://cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <script>
+        $( "#nav" ).accordion({
+            collapsible: true
+        });
+        $(function(){
+            $('#nav').onePageNav();
+        });
+    </script>
+</html>

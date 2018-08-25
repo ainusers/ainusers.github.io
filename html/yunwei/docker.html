@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<!--添加自适应标签-->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" shrink-to-fit=no">
+	<title>www.ainusers.top</title>
+	<!--title上面添加icon-->
+	<link rel="shortcut icon" href="../../images/head/head.png"/>
+</head>
+
+    <!--引入外部样式-->
+    <!--slide-->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link href="../../css/content/yunwei/linux/slide.css" rel="stylesheet">
+    <!--jqueryui-->
+    <link href="https://cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                <!--left-->
+                <ul id="nav">
+                    <li>
+                        <a href="#docker">docker</a>
+                        <ul>
+                            <li  class="current">
+                                <a href="#jczs">基本知识</a>
+                            </li>
+                            <li>
+                                <a href="#jxrq">镜像和容器</a>
+                            </li>
+                            <li>
+                                <a href="#wlcc">网络和存储</a>
+                            </li>
+                            <li>
+                                <a href="#gjrq">构建容器</a>
+                            </li>
+                            <li>
+                                <a href="#gjjx">构建镜像</a>
+                            </li>
+                            <li>
+                                <a href="#syck">私有仓库</a>
+                            </li>
+                            <li>
+                                <a href="#kz">docker扩展</a>
+                            </li>
+                            <li>
+                                <a href="#qt">其他知识</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-10">
+                <!--container-->
+                <div id="container">
+                    <div class="section" id="jczs">
+                        <h2>基础知识</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+docker
+	1.码头工人
+	2.docker是基于lxc技术之上构建的容器引擎
+	3.Docker是通过内核虚拟化，而kvm是通过硬件虚拟化技术
+	4.构建->运输->运行
+
+	keystone(权限)	nova()	neutron(网络)	(镜像)	dashboard(客户端)
+
+	docker组成
+		docker client
+		docker server
+	docker组件
+		镜像：image
+		容器：container
+		仓库：repository
+	安装docker
+		centos6：docker -io
+		centos7：yum install -y docker
+	docker能干什么
+		1.多环境问题
+		2.持续部署
+	一个好的架构师，不能把鸡蛋放在一个篮子里
+    Docker的概念：
+		1）容器 docker的容器概念，可以理解为一个容器就是一个运行中的操作系统，里面可以跑N个第三方程序。
+               实际上也正是如此，所有的容器都是一个最小版本的LINUX。类似于vmware虚拟机的概念。
+               docker是轻量级的，启动快，但配置相对复杂。
+		2）镜像 和容器的区别在于，镜像就是关闭的操作系统，可以在里面安装N个应用。可以通过命令生成、修改、删除、导出、导入镜像。
+		3）仓库 ，类似于MAVEN仓库，保存镜像的地方。
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="jxrq">
+                        <h2>镜像和容器</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+docker镜像和容器
+    docker改变了什么
+        面向产品：产品交付(自定义demo环境包)
+        面向开发：简化环境配置
+        面向测试：多版本测试
+        面向运维：环境一致性(环境回退)
+        面向架构：自动化扩容(微服务)
+    docker命令操作：
+        查找镜像：docker search
+        拉取镜像：docker pull centos		（类似于git pull，从github仓库/docker hub仓库）
+        查看镜像：docker images
+        docker镜像的导出和导入
+        镜像导出：docker save centos > /opt/centos.tar.gz
+        镜像导入：docker load < /opt/centos.tar.gz
+        删除镜像：docker rmi 镜像id(image id)		(注意镜像如果创建了容器，镜像是不可以被删除的)
+
+
+        查看容器：docker ps -al
+        启动容器退出后自动删除：docker run --rm centos /bin/bash
+        启动容器：docker run --name -h hostname
+        启动容器2：docker start 容器id
+        杀掉全部正在运行的docker容器ID：docker kill $(docker ps -a -q)			停止容器：docker stop 容器id(container id)
+        进入容器：docker exec | docker attach
+            进入容器2：nsenter关键字name space
+            如果没有这个命令，需要安装yum install util-linux
+            获取启动进程PID：docker inspect --format "{{.State.Pid}}" 启动的容器ID
+            nsenter -t 容器PID -u -i -n -p
+        删除容器：docker rm
+        创建一个名字为mydocker的容器并运行：docker run --name mydocker -it centos /bin/bash	（如果没有centos这个镜像，会从docker hub上面下载）
+    理论上一个容器就是一个进程，exit退出容器，服务停止。(单服务单容器，容器隔离理念)
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="wlcc">
+                        <h2>网络和存储</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+docker网络和存储
+	网络：
+		1.默认网络：docker做端口映射brctl show
+		  (随机映射，指定端口映射)
+		2.默认已经有了nginx镜像
+			随机映射
+			a)创建nginx容器
+				docker run -d -P nginx
+			b)查看启动nginx容器信息
+				docker ps -al
+				找到映射的80对外端口，浏览器访问：192.168.56.11:32768
+			c)查看nginx容器日志信息
+				docker logs 容器ID
+			指定端口映射
+			a)启动nginx容器：docker run -d -p 81:80 nginx
+	存储：
+		数据卷(共享目录nfs)/数据卷容器
+		数据卷(-v /data)
+			随机分配物理机硬盘目录和docker映射的目录
+			docker run -it --name volume-test1 -v /data centos
+			查看物理机硬盘挂载目录以及docker容器挂载目录信息(mounts)
+			docker inspect 容器ID
+			可以cd进入该目录，创建文件，docker中/data也会有创建的该文件
+		数据卷(-v src:dst)
+			指定物理机硬盘目录和docker映射的目录(rw:读写，ro:只读)
+			docker run -it -v /opt:/opt:rw centos
+		数据卷容器(--volumes-from)
+			多容器共享目录设置
+				docker run -d --name nfs -v /data centos
+				docker run -it --name test1 --volumes-from nfs centos
+				启动nfs容器
+				docker start 容器ID
+				查看nfs挂载的位置
+				docker inspect nfs
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="gjrq">
+                        <h2>构建容器</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+手动构建容器：
+    1.docker run --name mynginx -it centos
+    2.搜索：mirrors.aliyun.com
+       找到epel中对应版本复制链接
+       rpm -ivh 复制的链接
+    3.yum install -y nginx
+       注意服务启动，需要在前端运行
+    4.docker commit -m "my nginx" 容器id oldboyedu/mynginx:v1
+    5.查看容器中是否有mynginx
+       docker images
+    6.docker run -it --name nginxv1 oldboyedu/mynginx:v1
+    7.修改配置文件，使nginx在前台运行
+       vi /etc/nginx/nginx.conf
+       在最上面添加：daemon off;
+    8.修改后重新打包镜像
+       docker commit -m "my nginx" v1容器id oldboyedu/mynginx:v2
+    9.启动
+       docker run -d -p 82:80 oldboyedu/mynginx:v2 nginx
+    10.查看
+       docker ps -a
+    11.访问
+       192.168.56.11:82
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="gjjx">
+                        <h2>构建镜像</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+dockerfile(快速构建镜像)
+    #基础镜像
+    FROM centos
+
+    #维护者信息
+    MAINTAINER ainusers
+
+    #命令模块
+    # RUN:所有需要执行的命令前面都需要加上RUN
+    # ADD:copy文件(会自动解压)
+    #CMD :启动镜像执行的命令=/bin/bash
+    #EXPOSE:端口号
+
+    RUN rpm -ivh http://mirrors.aliyun.com/epel/epel-release-latest-7.noarch.rpm
+    RUN yum install -y nginx
+    ADD index.html /usr/share/nginx/html/index.html
+    RUN echo "daemon off;" >> /etc/nginx/nginx.conf
+    EXPOSE 80
+    CMD ["nginx"]
+
+    mkdir /opt/dockerfile/nginx -p
+    将要替换的index.html放在该目录下
+    vi Dockerfile(D必须大写)
+    将刚才的内容拷贝进去即可
+
+    执行构建刚才dockerfile文件
+    docker build -t oldboyedu/mynginx:v3 /opt/dockerfile/nginx
+    启动nginx容器
+    docker run -d -p 82:80 oldboyedu/mynginx:v3
+    访问
+    192.168.56.11:83
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="syck">
+                        <h2>私有仓库</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+docker registry(私有仓库构建)
+    构建(dockerfile)    ->    运输(私有仓库)    ->     运行
+    github  ->  dockerhub
+    gitlab   ->   docker registry
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="kz">
+                        <h2>docker扩展</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+docker扩展
+    1.dockerWEB管理界面：shipyard
+    2.docker集群管理工具：swarm mesos k8s
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="qt">
+                        <h2>其他知识</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+docker：
+	镜像/容器/仓库(docker hub)/Dockerfile/Docker API
+
+简述：
+	docker：开源，容器引擎。
+	优点：
+		安全性：沙箱机制(类似ipone的app[相互之间没有任何接口])
+		可移植性：一次封装，到处运行(类似java[一次编译,到处运行])
+		独立性：不依赖于任何语言,框架包括系统
+		易用性：快速交付/部署/迁移/扩展/更新
+		实用性: 秒级启动/硬盘占用空间小/单机支持上千容器
+	最重要的有两点：
+		1.docker是持续交付/部署的代表技术之一
+		2.解决本公司多环境差异性问题(开发/测试/生产)
+		3.功能突出体现在极简安装环境/持续部署项目
+
+拉取镜像地址：
+	https://hub.daocloud.io/
+	docker hub(存储镜像文件仓库[类似maven/nexus存储依赖jar])
+
+知识点：
+	1.理解docker和vm
+		docker：笔记本
+		vm：台式机
+	2.理解镜像和容器
+		镜像：.iso镜像文件(win7、win10)
+		容器：在运行的镜像文件(添加了部分改动层由镜像变为容器)
+	3.每一个容器都是一个小型纯净linux系统
+
+安装：
+	环境要求： CentOS 6.5-> 系统内核版本为2.6.32-431或者更高版本
+		   CentOS 7  -> 系统内核版本为3.10 以上
+	查看内核版本：
+		uname -r
+	install：
+		yum install epel-release(依赖epel第三方库[其他可自行根据报错查看依赖包])
+		yum -y install docker-io
+	启动docker服务：
+		service docker start
+	查看docker服务：
+		ps -ef|grep docker
+
+
+-- 一个命令安装环境demo
+
+
+常用命令：(以下镜像名称统一使用centos代表)
+	服务管理：service docker start/status/stop/restart
+	docker信息查看：docker info/docker -v/docker version
+	搜索镜像：docker search centos
+	下载镜像：docker pull centos
+	查看镜像列表：docker images
+	删除镜像：docker rmi images_name[首先删除容器，再删除镜像]
+	查看镜像详细信息：docker inspect centos
+	创建容器(注:[每次都会创建一个新的容器])：docker run centos -it /bin/bash
+	查看所有容器：docker ps -a
+	进入容器：docker start -ai centos_name
+	进入容器：docker attach centos_name/centos_id[该容器需已启动]
+	退出容器：exit
+	启动容器：docker start centos_id
+	关闭容器：docker stop  centos_id
+	删除容器：docker rm centos_id
+	停止所有容器：docker stop $(docker ps -qa)
+	删除所有容器：docker rm $(docker ps -qa)
+	查看容器内操作日志：docker logs centos_id
+
+
+其他：
+	pull镜像加速(docker hub镜像仓库)
+	Dockerfile(自动化构建镜像语法)
+	Docker API
+                            </ol>
+                        </pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+    <!--jquery-->
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js" rel="stylesheet" type="text/javascript"></script>
+    <!--jquery.nav-->
+    <script src="https://cdn.bootcss.com/jquery-one-page-nav/2.2.0/jquery.nav.js"></script>
+    <!--jqueryui-->
+    <script src="https://cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <script>
+        $( "#nav" ).accordion({
+            collapsible: true
+        });
+        $(function(){
+            $('#nav').onePageNav();
+        });
+    </script>
+</html>
