@@ -1,8 +1,0 @@
-/*跳动的文字*/
-#swiper_5 #code{margin-bottom: 5rem; float:left;width:800px;height:500px;color:#333;font-family:"Consolas","Monaco","Bitstream Vera Sans Mono","Courier New","sans-serif";font-size:20px}
-
-#swiper_5 #code .keyword{color:#7f0055;font-weight:bold}
-#swiper_5 #code .placeholder{margin-left:15px}
-#swiper_5 #code .space{margin-left:7px}
-#swiper_5 #code .comments{color:#3f7f5f}
-#swiper_5 #code .import{color:green;font-weight:bold}
