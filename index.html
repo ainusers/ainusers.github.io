@@ -17,8 +17,10 @@
     <link href="https://cdn.bootcss.com/Swiper/4.2.0/css/swiper.min.css" rel="stylesheet">
     <!--scrollDown-->
     <link href="css/scroll/scrollDown.css" rel="stylesheet">
+    <!--圆形展示-->
+    <link href="css/index/circle.css" rel="stylesheet">
     <!--文字输出效果-->
-    <link href="css/index/default.css" type="text/css" rel="stylesheet">
+    <link href="css/index/out.css" type="text/css" rel="stylesheet">
     <!--引入外部样式-->
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <style type="text/css">
@@ -30,19 +32,61 @@
             <!-- wrapper -->
             <div class="swiper-container" >
                 <div class="swiper-wrapper" >
-                    <div class="swiper-slide" id="swiper_1" style="/*background-image: url('images/index/ball.jpg');*/background-size: 100% 100%; background-repeat: no-repeat;opacity: 1">
-                        <video id="video" controls="controls" autoplay="autoplay" loop="loop">
-                            <!--兼容多浏览器-->
-                            <source src="video/index/zdqc.mp4" type="video/mp4">
-                        </video>
+                    <div class="swiper-slide" id="swiper_1" style="background-image: url('images/index/ball.jpg');background-size: 100% 100%; background-repeat: no-repeat;opacity: 1">
+                        <div class="ani" swiper-animate-effect="bounceInUp" style="padding-left: 5rem;">
+                            <video id="video" controls="controls" autoplay="autoplay" loop="loop">
+                                <source src="video/index/zdqc.mp4" type="video/mp4">
+                            </video>
+                        </div>
                         <!--<div class="ani" swiper-animate-effect="fadeInLeft" style="padding-left: 5rem;">
                             <div id="code">
                                 <h1 style="color: blue;">无论有多艰难，都不能放手。</h1>
                             </div>
                         </div>-->
                     </div>
-                    <div class="swiper-slide" id="swiper_2" style="background-image: url('images/index/person.jpg');background-size: 100% 100%; background-repeat: no-repeat;opacity: 1">
-
+                    <div class="swiper-slide" id="swiper_2" style="background-image: url('images/index/person.jpg');background-size: 100% 100%; background-repeat: no-repeat;opacity: 0.8">
+                        <div class="ani" swiper-animate-effect="zoomInDown" style="padding-left: 5rem;">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="ih-item circle effect16 right_to_left">
+                                        <a href="#">
+                                            <div class="img"><img src="images/assets/4.jpg" alt="img"></div>
+                                            <div class="info">
+                                                <h3>Heading here</h3>
+                                                <p>Description goes here</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="ih-item circle effect15 left_to_right"><a href="#">
+                                        <div class="img"><img src="images/assets/1.jpg" alt="img"></div>
+                                        <div class="info">
+                                            <h3>Heading here</h3>
+                                            <p>Description goes here</p>
+                                        </div>
+                                    </a></div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="ih-item circle effect10 bottom_to_top"><a href="#">
+                                        <div class="img"><img src="images/assets/3.jpg" alt="img"></div>
+                                        <div class="info">
+                                            <h3>Heading here</h3>
+                                            <p>Description goes here</p>
+                                        </div>
+                                    </a></div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="ih-item circle effect14 left_to_right"><a href="#">
+                                        <div class="img"><img src="images/assets/4.jpg" alt="img"></div>
+                                        <div class="info">
+                                            <h3>Heading here</h3>
+                                            <p>Description goes here</p>
+                                        </div>
+                                    </a></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="swiper-slide" id="swiper_3" style="background-image: url('images/index/man.jpg');background-size: 100% 100%; background-repeat: no-repeat;opacity: 1">
 
@@ -64,7 +108,7 @@
     <!--jquery-->
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js" rel="stylesheet" type="text/javascript"></script>
     <!--动态背景-->
-    <script src="js/index/beijing.js"></script>
+    <script src="js/index/home.js"></script>
     <!--文字滚动效果-->
     <script type="text/javascript" src="js/index/wenzi.js"></script>
     <!--swiper-->
@@ -96,7 +140,7 @@
         /*动态背景*/
         /*$(function($){
             $('#swiper_1').vidbg({
-                'mp4': 'video/index/mp4_video_1.3gp'
+                'mp4': 'video/index/home.3gp'
             }, {
                 // Options
                 muted: true,
