@@ -17,33 +17,41 @@
     <link href="https://cdn.bootcss.com/Swiper/4.2.0/css/swiper.min.css" rel="stylesheet">
     <!--scrollDown-->
     <link href="css/scroll/scrollDown.css" rel="stylesheet">
+    <!--文字输出效果-->
+    <link href="css/index/default.css" type="text/css" rel="stylesheet">
     <!--引入外部样式-->
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <style type="text/css">
 
-    <body>
+    </style>
+
+    <body">
         <div class="container-fluid">
             <!-- wrapper -->
             <div class="swiper-container" >
                 <div class="swiper-wrapper" >
-                    <div class="swiper-slide" id="swiper_1" >
-                        <div class="ani" swiper-animate-effect="fadeInLeft" style="padding-left: 5rem;">
-                            <h1>广告占位</h1>
-                        </div>
+                    <div class="swiper-slide" id="swiper_1" style="/*background-image: url('images/index/ball.jpg');*/background-size: 100% 100%; background-repeat: no-repeat;opacity: 1">
+                        <video id="video" controls="controls" autoplay="autoplay" loop="loop">
+                            <!--兼容多浏览器-->
+                            <source src="video/index/zdqc.mp4" type="video/mp4">
+                        </video>
+                        <!--<div class="ani" swiper-animate-effect="fadeInLeft" style="padding-left: 5rem;">
+                            <div id="code">
+                                <h1 style="color: blue;">无论有多艰难，都不能放手。</h1>
+                            </div>
+                        </div>-->
                     </div>
-                    <div class="swiper-slide" id="swiper_3">
-                        <div class="ani" swiper-animate-effect="fadeInLeft" style="padding-left: 5rem;">
-                            <h1>广告占位</h1>
-                        </div>
+                    <div class="swiper-slide" id="swiper_2" style="background-image: url('images/index/person.jpg');background-size: 100% 100%; background-repeat: no-repeat;opacity: 1">
+
                     </div>
-                    <div class="swiper-slide" id="swiper_4">
-                        <div class="ani" swiper-animate-effect="fadeInLeft" style="padding-left: 5rem;">
-                            <h1>广告占位</h1>
-                        </div>
+                    <div class="swiper-slide" id="swiper_3" style="background-image: url('images/index/man.jpg');background-size: 100% 100%; background-repeat: no-repeat;opacity: 1">
+
                     </div>
-                    <div class="swiper-slide" id="swiper_5">
-                        <div class="ani" swiper-animate-effect="fadeInLeft" style="padding-left: 5rem;">
-                            <h1>广告占位</h1>
-                        </div>
+                    <div class="swiper-slide" id="swiper_4" style="background-image: url('images/index/yuanfang.jpg');background-size: 100% 100%; background-repeat: no-repeat;opacity: 1">
+
+                    </div>
+                    <div class="swiper-slide" id="swiper_5" style="background-image: url('images/index/e.jpg');background-size: 100% 100%; background-repeat: no-repeat;opacity: 1">
+
                     </div>
                 </div>
                 <!-- circle -->
@@ -55,6 +63,10 @@
     <!--引入外部js文件-->
     <!--jquery-->
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js" rel="stylesheet" type="text/javascript"></script>
+    <!--动态背景-->
+    <script src="js/index/beijing.js"></script>
+    <!--文字滚动效果-->
+    <script type="text/javascript" src="js/index/wenzi.js"></script>
     <!--swiper-->
     <script src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.min.js"></script>
     <script src="js/scroll/swiper.animate1.0.3.min.js"></script>
@@ -62,7 +74,7 @@
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
     <script type="text/javascript">
-        /*swiper  3.x 2.x*/
+        /*div滚动*/
         var swiper = new Swiper('.swiper-container', {
             onInit: function(swiper){ //Swiper2.x的初始化是onFirstInit
                 swiperAnimateCache(swiper); //隐藏动画元素
@@ -79,6 +91,19 @@
             spaceBetween: 30,
             mousewheelControl: true
         });
+        /*文字滚动*/
+        $("#code").typewriter();
+        /*动态背景*/
+        /*$(function($){
+            $('#swiper_1').vidbg({
+                'mp4': 'video/index/mp4_video_1.3gp'
+            }, {
+                // Options
+                muted: true,
+                loop: true,
+                overlay: true
+            });
+        });*/
     </script>
 
 </html>
