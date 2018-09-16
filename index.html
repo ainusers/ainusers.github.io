@@ -12,6 +12,10 @@
 
     <!--scroll-->
     <link type="text/css" href="css/scroll/style.css" rel="stylesheet"/>
+    <!--btn-->
+    <link type="text/css" href="css/door/btn.css" rel="stylesheet"/>
+    <!--feiji-->
+    <link type="text/css" href="css/door/feiji.css" rel="stylesheet"/>
     <!--swiper-->
     <link href="https://cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/Swiper/4.2.0/css/swiper.min.css" rel="stylesheet">
@@ -32,8 +36,8 @@
             <!-- wrapper -->
             <div class="swiper-container" >
                 <div class="swiper-wrapper" >
-                    <div class="swiper-slide" id="swiper_1" style="background-image: url('images/index/ball.jpg');background-size: 100% 100%; background-repeat: no-repeat;opacity: 1">
-                        <video id="video" controls="controls" autoplay="autoplay" loop="loop">
+                    <div class="swiper-slide" id="swiper_1" style="/*background-image: url('images/index/ball.jpg');*/background-size: 100% 100%; background-repeat: no-repeat;opacity: 1">
+                        <video id="video" controls="controls" autoplay="autoplay" loop="loop" style="margin-top: 5%">
                             <source src="video/index/zdqc.mp4" type="video/mp4">
                         </video>
                         <!--<div class="ani" swiper-animate-effect="fadeInLeft" style="padding-left: 5rem;">
@@ -43,7 +47,7 @@
                         </div>-->
                     </div>
                     <div class="swiper-slide" id="swiper_2" style="background-image: url('images/index/person.png');background-size: 100% 100%; background-repeat: no-repeat;opacity: 0.8">
-                        <div class="ani" swiper-animate-effect="zoomInDown" style="padding-left: 5rem;">
+                        <div class="ani" swiper-animate-effect="zoomInDown" style="padding-left: 5rem;margin-top: 15%">
                             <div class="row">
                                 <div class="col-sm-3">
                                     <div class="ih-item circle effect16 right_to_left">
@@ -93,7 +97,29 @@
 
                     </div>-->
                     <div class="swiper-slide" id="swiper_5" style="background-image: url('images/index/e.png');background-size: 100% 100%; background-repeat: no-repeat;opacity: 1">
+                        <button id="toIndex" class="btns btn-4" style="margin-left: 50rem;">去主页看看吧</button>
 
+                        <div id="plate" class="front" style="visibility: hidden">
+                            <textarea class="message">以后的你，会感谢现在努力的自己。</textarea>
+                            <button class="send"> 发送 </button> <br/>
+                            <div id="bottom"><a href="" id="url_link"> * </a></div>
+                        </div>
+
+                        <div id="container" class="beginning">
+                            <div id="left-wing">
+                                <div class="top_left curvable"> </div>
+                                <div class="bottom_left curvable"> </div>
+                                <div class="wing wing1"></div>
+                                <div class="wing wing2"></div>
+                            </div>
+
+                            <div id="right-wing">
+                                <div class="top_right curvable"> </div>
+                                <div class="bottom_right curvable"> </div>
+                                <div class="wing wing3"></div>
+                                <div class="wing wing4"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!-- circle -->
@@ -146,6 +172,37 @@
                 overlay: true
             });
         });*/
+        /*btn事件*/
+        $("#toIndex").click(function(){
+            $("#plate").css('visibility','visible');
+            $().ready(function () {
+                $('.send').click(function () {
+                    setTimeout(function () {
+                        $('#plate').removeClass('front');
+                        $('#container').removeClass('beginning');
+                        $('.curvable').addClass('curved');
+                        setTimeout(function () {
+                            $('#container').addClass('hover');
+                            setTimeout(function () {
+                                $('#container').addClass('fly_away_first');
+                                setTimeout(function () {
+                                    $('#container').addClass('fly_away');
+                                    $("#plate").css('visibility','hidden');
+                                    setTimeout(function(){
+                                        window.open("html/door/door.html")
+                                    },2500)
+                                    /*setTimeout(function () {
+                                        $('#plate').addClass('front');
+                                        $('#container').removeClass('fly_away fly_away_first hover').addClass('beginning');
+                                        $('.curvable').removeClass('curved');
+                                    }, 3000);*/
+                                }, 1000);
+                            }, 2000);
+                        }, 2800);
+                    }, 200);
+                })
+            });
+        })
     </script>
 
 </html>
