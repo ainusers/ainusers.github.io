@@ -8,7 +8,14 @@
 		<!--title上面添加icon-->
 		<link rel="shortcut icon" href="../../images/head/head.png"/>
 	</head>
+	<style type="text/css">
+		embed{float: right}
+		.shutter{margin-top: 10px !important;}
+		marquee{width: 95%}
+	</style>
 
+	<!--自定义css-->
+	<link type="text/css" href="../../css/door/custom.css" rel="stylesheet">
 	<!--背景图片-->
 	<link type="text/css" href="../../css/door/door.css" rel="stylesheet"/>
 	<!--轮播+head-->
@@ -20,7 +27,13 @@
 
 	<div class="wraper">
 		<!--logo-->
-		<img src="../../images/head/wenzi.png" style="height: 60px;">
+		<div height="50rem" width="150rem">
+			<img src="../../images/head/wenzi.png" style="height: 60px;margin-left: 9rem">
+			<embed height="60rem" width="150rem" type="application/x-shockwave-flash"
+				   pluginspage="http://www.macromedia.com/go/getflashplayer"
+				   src="http://chabudai.sakura.ne.jp/blogparts/honehoneclock/honehone_clock_wh.swf" quality="high" autostart="1"
+				   wmode="transparent">
+		</div>
 		<div class="nav">
 			<ul>
 				<li class="nav-item"><a href="#" target="_blank">博客首页</a></li>
@@ -48,6 +61,15 @@
 				<li class="next"></li>
 			</ul>
 		</div>
+
+		<!--scroll-->
+		<div class="language-scroll">
+			<label>通知：</label>
+			<marquee class="marquee" behavior="scroll" scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();">
+				<p>网站正在开发中，更多功能敬请期待。</p>
+			</marquee>
+		</div>
+
 	</div>
 
 
