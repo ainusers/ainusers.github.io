@@ -21,8 +21,6 @@
     <link href="https://cdn.bootcss.com/Swiper/4.2.0/css/swiper.min.css" rel="stylesheet">
     <!--scrollDown-->
     <link href="css/scroll/scrollDown.css" rel="stylesheet">
-    <!--圆形展示-->
-    <link href="css/index/circle.css" rel="stylesheet">
     <!--文字输出效果-->
     <link href="css/index/out.css" type="text/css" rel="stylesheet">
     <!--引入外部样式-->
@@ -31,14 +29,14 @@
 
     </style>
 
-    <body">
+    <body>
         <div class="container-fluid">
             <!-- wrapper -->
             <div class="swiper-container" >
                 <div class="swiper-wrapper" >
-                    <div class="swiper-slide" id="swiper_1" style="/*background-image: url('images/index/ball.jpg');*/background-size: 100% 100%; background-repeat: no-repeat;opacity: 1">
-                        <video id="video" controls="controls" autoplay="autoplay" loop="loop" style="margin-top: 5%">
-                            <source src="video/index/zdqc.mp4" type="video/mp4">
+                    <div class="swiper-slide" id="swiper_1" style="/*background-image: url('images/index/ball.jpg');*/background-size: 100% 100%; background-repeat: no-repeat;">
+                        <video id="video" autoplay="autoplay" loop="loop" style="width: 100%;height: 100%">
+                            <source src="video/index/zdqc2.mp4" type="video/mp4">
                         </video>
                         <!--<div class="ani" swiper-animate-effect="fadeInLeft" style="padding-left: 5rem;">
                             <div id="code">
@@ -46,60 +44,38 @@
                             </div>
                         </div>-->
                     </div>
-                    <div class="swiper-slide" id="swiper_2" style="background-image: url('images/index/person.png');background-size: 100% 100%; background-repeat: no-repeat;opacity: 0.8">
-                        <div class="ani" swiper-animate-effect="zoomInDown" style="padding-left: 5rem;margin-top: 15%">
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <div class="ih-item circle effect16 right_to_left">
-                                        <a href="#">
-                                            <div class="img"><img src="images/gifts/1.png" alt="img"></div>
-                                            <div class="info">
-                                                <h3>1</h3>
-                                                <p>2</p>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="ih-item circle effect15 left_to_right"><a href="#">
-                                        <div class="img"><img src="images/gifts/2.png" alt="img"></div>
-                                        <div class="info">
-                                            <h3>3</h3>
-                                            <p>4</p>
-                                        </div>
-                                    </a></div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="ih-item circle effect10 bottom_to_top"><a href="#">
-                                        <div class="img"><img src="images/gifts/3.png" alt="img"></div>
-                                        <div class="info">
-                                            <h3>5</h3>
-                                            <p>6</p>
-                                        </div>
-                                    </a></div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="ih-item circle effect14 left_to_right"><a href="#">
-                                        <div class="img"><img src="images/gifts/4.png" alt="img"></div>
-                                        <div class="info">
-                                            <h3>7</h3>
-                                            <p>8</p>
-                                        </div>
-                                    </a></div>
-                                </div>
+                    <div class="swiper-slide" id="swiper_2" style="background-color: #57cfe1; background-size: 100% 100%;">
+                        <div class="ami-container">
+                            <div class="ani" swiper-animate-effect="fadeInLeft" style="margin-top: 15%">
+                                <img src="images/index/second_miss.png" style="float: left;padding-left: 30%; height: 445px;">
                             </div>
                         </div>
                     </div>
-                    <!--<div class="swiper-slide" id="swiper_3" style="background-image: url('images/index/man.jpg');background-size: 100% 100%; background-repeat: no-repeat;opacity: 1">
-
+                    <div class="swiper-slide" id="swiper_3" style="background-color: #fe8e34;background-size: 100% 100%;">
+                        <div class="ami-container">
+                            <div class="ani" swiper-animate-effect="fadeInLeft" style="margin-top: 15%">
+                                <img src="images/index/fourth_girl.png" style="float: left;padding-left: 50%; height: 445px;">
+                            </div>
+                        </div>
                     </div>
-                    <div class="swiper-slide" id="swiper_4" style="background-image: url('images/index/yuanfang.jpg');background-size: 100% 100%; background-repeat: no-repeat;opacity: 1">
-
-                    </div>-->
-                    <div class="swiper-slide" id="swiper_5" style="background-image: url('images/index/e.png');background-size: 100% 100%; background-repeat: no-repeat;opacity: 1">
+                    <div class="swiper-slide" id="swiper_4" style="background-color: #fe798f;background-size: 100% 100%;">
+                        <div class="ami-container">
+                            <div class="ani" swiper-animate-effect="fadeInRight" style="margin-top: 15%">
+                                <img src="images/index/third_man.png" style="float: left;padding-left: 30%; height: 445px;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide" id="swiper_5" style="background-color: #f7ec75;background-size: 100% 100%;">
+                        <div class="ami-container">
+                            <div class="ani" swiper-animate-effect="fadeInLeft" style="margin-top: 15%">
+                                <img src="images/index/fifth_boy.png" style="float: left;padding-left: 50%; height: 445px;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide" id="swiper_6" style="background-color: #fcfce7;background-image: url('images/index/e.png');background-size: 100% 100%; background-repeat: no-repeat;">
                         <button id="toIndex" class="btns btn-4" style="margin-left: 50rem;">去主页看看吧</button>
-
-                        <div id="plate" class="front" style="visibility: hidden">
+                        <!--纸飞机-->
+                        <div id="plate" class="front">
                             <textarea class="message">以后的你，会感谢现在努力的自己。</textarea>
                             <button class="send"> 发送 </button> <br/>
                             <div id="bottom"><a href="" id="url_link"> * </a></div>
@@ -173,8 +149,9 @@
             });
         });*/
         /*btn事件*/
+        $("#plate").attr('style',"visibility:hidden");
         $("#toIndex").click(function(){
-            $("#plate").css('visibility','visible');
+            $("#plate").attr('style',"visibility:visible");
             $().ready(function () {
                 $('.send').click(function () {
                     setTimeout(function () {
@@ -186,8 +163,8 @@
                             setTimeout(function () {
                                 $('#container').addClass('fly_away_first');
                                 setTimeout(function () {
+                                    $("#plate").attr('style',"visibility:hidden");
                                     $('#container').addClass('fly_away');
-                                    $("#plate").css('visibility','hidden');
                                     setTimeout(function(){
                                         window.open("html/door/door.html")
                                     },2500)

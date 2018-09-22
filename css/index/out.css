@@ -4,3 +4,5 @@
 #code .keyword{color:#7f0055;font-weight:bold}
 #code .placeholder{margin-left:15px}#code .space{margin-left:7px}
 #code .comments{color:#3f7f5f}
+
+.ami-container{margin: 0 auto;height: 100%;position: relative}
