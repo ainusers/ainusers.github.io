@@ -1,6 +1,6 @@
 body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl, dt,dd,ul,ol,li,pre,form,fieldset,legend,button,input,textarea,th,td,iframe{margin:0; padding:0;}
 body,button,input,select,textarea { font-family: tahoma,Arial,"Microsoft YaHei",SimSun; font-size: 12px; line-height: 1.5em;color:#222}
-h1,h2,h3,h4,h5,h6{font-size:100%;font-weight: normal;}
+h1,h2,h3,h4,h5,h6{/*font-size:100%;*/font-weight: normal;}
 fieldset,img{border:0;}
 img{ vertical-align:top}
 address,caption,cite,dfn,em,th,var,optgroup{font-style:normal;font-weight:normal;}

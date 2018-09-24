@@ -12,8 +12,21 @@
 		embed{float: right}
 		.shutter{margin-top: 10px !important;}
 		marquee{width: 95%}
+		.wraper{overflow-y: scroll}
+		.containers{margin: 0 auto;margin-top: 20px;}
+		.containers .title h2{font-size: 18px;color: #4e555d}
+		.j_empCar_blocks {width: 100%;margin: 0 auto;display: -webkit-flex;justify-content: space-between;}
+		.j_enpCar_sblock {width: 200px;background: #ffffff;border-radius: 5px;overflow: hidden;}
+		.show{margin-top: 20px}
+
+		/*区分块元素*/
+		.wraper>.shutter {box-shadow: 0 2px 8px 0 rgba(7,17,27,.06)}
+		.wraper>.row {box-shadow: 0 2px 4px 0 rgba(7,17,27,.06);}
+
 	</style>
 
+	<!--黑板展示-->
+	<link type="text/css" href="../../css/door/heiban/style.css" rel="stylesheet">
 	<!--自定义css-->
 	<link type="text/css" href="../../css/door/custom.css" rel="stylesheet">
 	<!--背景图片-->
@@ -64,11 +77,160 @@
 
 		<!--scroll-->
 		<div class="language-scroll">
-			<label>通知：</label>
-			<marquee class="marquee" behavior="scroll" scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();">
+			<label style="color: red">通知：</label>
+			<strong><marquee class="marquee" behavior="scroll" scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();">
 				<p>网站正在开发中，更多功能敬请期待。</p>
-			</marquee>
+			</marquee></strong>
 		</div>
+
+
+		<!--黑板展示-->
+		<div class="row">
+			<div class="col-md-3" style="float: left;">
+				<img src="../../images/door/heiban/robot.png" style="margin-top: 7rem;width: 410px">
+			</div>
+			<div class="col-md-9" style="float: right">
+				<div class="box">
+					<div class="bcon">
+						<h1><b>看黑板，记终点了。</b></h1>
+						<!-- 代码开始 -->
+						<div class="list_lh">
+							<ul>
+								<li>
+									<p></p>
+									<p><a href="html/kjscf.html" target="_blank" class="a_blue">靠技术吃饭</a><span>17:28:05</span></p>
+								</li>
+								<li>
+									<p></p>
+									<p><a href="html/kjscf.html" target="_blank" class="a_blue">靠技术吃饭</a><span>17:28:05</span></p>
+								</li>
+								<li>
+									<p></p>
+									<p><a href="html/kjscf.html" target="_blank" class="a_blue">靠技术吃饭</a><span>17:28:05</span></p>
+								</li>
+								<li>
+									<p></p>
+									<p><a href="html/kjscf.html" target="_blank" class="a_blue">靠技术吃饭</a><span>17:28:05</span></p>
+								</li>
+								<li>
+									<p></p>
+									<p><a href="html/kjscf.html" target="_blank" class="a_blue">靠技术吃饭</a><span>17:28:05</span></p>
+								</li>
+								<li>
+									<p></p>
+									<p><a href="html/kjscf.html" target="_blank" class="a_blue">靠技术吃饭</a><span>17:28:05</span></p>
+								</li>
+							</ul>
+						</div>
+						<!-- 代码结束 -->
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<!--java-->
+		<div class="containers">
+			<div class="title" style="clear: both">
+				<h2>java</h2>
+			</div>
+			<div class="show">
+				<div class="j_empCar_blocks">
+					<a href="/cmooc/HTML5" target="_blank">
+						<div class="j_enpCar_sblock" style="box-shadow: rgb(229, 229, 229) 3px 3px 0.5px;">
+							<div class="frist">
+								<img src="../../images/door/java/java.jpg" style="height: 135px; transform: scale(1); transition: all 0.4s;">
+							</div>
+							<div class="second">
+								<div>HTML5大前端开发</div>
+							</div>
+						</div>
+					</a>
+					<a href="/cmooc/HTML5" target="_blank">
+						<div class="j_enpCar_sblock" style="box-shadow: rgb(229, 229, 229) 3px 3px 0.5px;">
+							<div class="frist">
+								<img src="../../images/door/java/java.jpg" style="height: 135px; transform: scale(1); transition: all 0.4s;">
+							</div>
+							<div class="second">
+								<div>HTML5大前端开发</div>
+							</div>
+						</div>
+					</a>
+					<a href="/cmooc/HTML5" target="_blank">
+						<div class="j_enpCar_sblock" style="box-shadow: rgb(229, 229, 229) 3px 3px 0.5px;">
+							<div class="frist">
+								<img src="../../images/door/java/java.jpg" style="height: 135px; transform: scale(1); transition: all 0.4s;">
+							</div>
+							<div class="second">
+								<div>HTML5大前端开发</div>
+							</div>
+						</div>
+					</a>
+					<a href="/cmooc/HTML5" target="_blank">
+						<div class="j_enpCar_sblock" style="box-shadow: rgb(229, 229, 229) 3px 3px 0.5px;">
+							<div class="frist">
+								<img src="../../images/door/java/java.jpg" style="height: 135px; transform: scale(1); transition: all 0.4s;">
+							</div>
+							<div class="second">
+								<div>HTML5大前端开发</div>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<!--python-->
+		<div class="containers">
+			<div class="title">
+				<h2>python</h2>
+			</div>
+			<div class="show">
+				<div class="j_empCar_blocks">
+					<a href="/cmooc/HTML5" target="_blank">
+						<div class="j_enpCar_sblock" style="box-shadow: rgb(229, 229, 229) 3px 3px 0.5px;">
+							<div class="frist">
+								<img src="../../images/door/java/python.jpg" style="height: 135px; transform: scale(1); transition: all 0.4s;">
+							</div>
+							<div class="second">
+								<div>HTML5大前端开发</div>
+							</div>
+						</div>
+					</a>
+					<a href="/cmooc/HTML5" target="_blank">
+						<div class="j_enpCar_sblock" style="box-shadow: rgb(229, 229, 229) 3px 3px 0.5px;">
+							<div class="frist">
+								<img src="../../images/door/java/python.jpg" style="height: 135px; transform: scale(1); transition: all 0.4s;">
+							</div>
+							<div class="second">
+								<div>HTML5大前端开发</div>
+							</div>
+						</div>
+					</a>
+					<a href="/cmooc/HTML5" target="_blank">
+						<div class="j_enpCar_sblock" style="box-shadow: rgb(229, 229, 229) 3px 3px 0.5px;">
+							<div class="frist">
+								<img src="../../images/door/java/python.jpg" style="height: 135px; transform: scale(1); transition: all 0.4s;">
+							</div>
+							<div class="second">
+								<div>HTML5大前端开发</div>
+							</div>
+						</div>
+					</a>
+					<a href="/cmooc/HTML5" target="_blank">
+						<div class="j_enpCar_sblock" style="box-shadow: rgb(229, 229, 229) 3px 3px 0.5px;">
+							<div class="frist">
+								<img src="../../images/door/java/python.jpg" style="height: 135px; transform: scale(1); transition: all 0.4s;">
+							</div>
+							<div class="second">
+								<div>HTML5大前端开发</div>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+
 
 	</div>
 
@@ -90,6 +252,8 @@
 	<script src="../../js/door/player/velocity.js"></script>
 	<script src="../../js/door/player/shutter.js"></script>
 	<script src="../../js/door/jquery.movebg.js"></script>
+	<!--黑板展示-->
+	<script src="../../js/door/heiban/scroll.js"></script>
 	<script type="text/javascript">
 		$(function(){
 			$(".nav").movebg({width:120/*滑块的大小*/,extra:40/*额外反弹的距离*/,speed:300/*滑块移动的速度*/,rebound_speed:400/*滑块反弹的速度*/});
@@ -104,4 +268,14 @@
 				fullPage: false // 是否全屏展示
 			});
 		});
+        /*scroll*/
+        $(document).ready(function(){
+            $('.list_lh li:even').addClass('lieven');
+        })
+        $(function(){
+            $("div.list_lh").myScroll({
+                speed:40, //数值越大，速度越慢
+                rowHeight:68 //li的高度
+            });
+        });
 	</script>
