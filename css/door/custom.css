@@ -1,3 +1,20 @@
 *{padding: 0;margin: 0}
 .language-scroll{background-color: #e5e5e5;padding: 15px;margin-top: 10px}
 .language-scroll label{float: left}
+p{margin: 0 0 !important;}
+embed{float: right}
+.shutter{margin-top: 10px !important;}
+marquee{width: 95%}
+.wraper{overflow-y: scroll;overflow-x: hidden}
+.containers{margin-top: 10px}
+.containers .title h2{font-size: 18px;color: #4e555d}
+.j_empCar_blocks {width: 100%;margin: 0 auto;display: -webkit-flex;justify-content: space-between;}
+.j_enpCar_sblock {width: 200px;background: #ffffff;border-radius: 5px;overflow: hidden;}
+.show{margin-top: 20px}
+/*工具集中营*/
+.icon_ul {float: left;width: 100%;height: 250px;padding: 28px 0 0 28px;background: #fff;overflow: hidden;}
+.icon_ul li {float: left;position: relative;width: 158px;height: 198px;overflow: hidden;margin: 0 10px 10px 0;top: 0;
+    border: 1px solid #05f1f1;position: relative;cursor: pointer;}
+.icon_ul li a {display: block;width: 158px;height: 198px;text-align: center;}
+.icon_ul li img {margin-top: 38px;position: relative;left: auto;bottom: auto;top: 0;}
+.icon_ul li p {font-size: 18px;position: relative;right: auto;bottom: auto;bottom: 0;padding-top: 30px;}

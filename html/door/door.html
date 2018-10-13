@@ -9,20 +9,9 @@
 		<link rel="shortcut icon" href="../../images/head/head.png"/>
 	</head>
 	<style type="text/css">
-		embed{float: right}
-		.shutter{margin-top: 10px !important;}
-		marquee{width: 95%}
-		.wraper{overflow-y: scroll}
-		.containers{margin: 0 auto;margin-top: 20px;}
-		.containers .title h2{font-size: 18px;color: #4e555d}
-		.j_empCar_blocks {width: 100%;margin: 0 auto;display: -webkit-flex;justify-content: space-between;}
-		.j_enpCar_sblock {width: 200px;background: #ffffff;border-radius: 5px;overflow: hidden;}
-		.show{margin-top: 20px}
-
 		/*区分块元素*/
 		.wraper>.shutter {box-shadow: 0 2px 8px 0 rgba(7,17,27,.06)}
 		.wraper>.row {box-shadow: 0 2px 4px 0 rgba(7,17,27,.06);}
-
 	</style>
 
 	<!--黑板展示-->
@@ -35,6 +24,8 @@
 	<link href="../../css/door/css/reset.css" rel="stylesheet" type="text/css">
 	<link href="../../css/door/css/index.css" rel="stylesheet" type="text/css">
 	<link href="../../css/door/player/shutter.css" rel="stylesheet" type="text/css">
+	<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 	<body>
 
@@ -78,51 +69,53 @@
 		<!--scroll-->
 		<div class="language-scroll">
 			<label style="color: red">通知：</label>
-			<strong><marquee class="marquee" behavior="scroll" scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();">
-				<p>网站正在开发中，更多功能敬请期待。</p>
-			</marquee></strong>
+			<marquee class="marquee" behavior="scroll" scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();">
+				<label style="margin-bottom: 0">网站正在开发中，更多功能敬请期待。</label>
+			</marquee>
 		</div>
 
 
 		<!--黑板展示-->
-		<div class="row">
-			<div class="col-md-3" style="float: left;">
-				<img src="../../images/door/heiban/robot.png" style="margin-top: 7rem;width: 410px">
-			</div>
-			<div class="col-md-9" style="float: left">
-				<div class="box">
-					<div class="bcon">
-						<h1><b>拿小本本，记重点了。</b></h1>
-						<!-- 代码开始 -->
-						<div class="list_lh">
-							<ul>
-								<li>
-									<p></p>
-									<p><a href="html/kjscf.html" target="_blank" class="a_blue">靠技术吃饭</a><span>17:28:05</span></p>
-								</li>
-								<li>
-									<p></p>
-									<p><a href="html/kjscf.html" target="_blank" class="a_blue">靠技术吃饭</a><span>17:28:05</span></p>
-								</li>
-								<li>
-									<p></p>
-									<p><a href="html/kjscf.html" target="_blank" class="a_blue">靠技术吃饭</a><span>17:28:05</span></p>
-								</li>
-								<li>
-									<p></p>
-									<p><a href="html/kjscf.html" target="_blank" class="a_blue">靠技术吃饭</a><span>17:28:05</span></p>
-								</li>
-								<li>
-									<p></p>
-									<p><a href="html/kjscf.html" target="_blank" class="a_blue">靠技术吃饭</a><span>17:28:05</span></p>
-								</li>
-								<li>
-									<p></p>
-									<p><a href="html/kjscf.html" target="_blank" class="a_blue">靠技术吃饭</a><span>17:28:05</span></p>
-								</li>
-							</ul>
+		<div class="containers">
+			<div class="row">
+				<div class="col-md-5" style="float: left;">
+					<img src="../../images/door/heiban/robot.png" style="margin-top: 15rem;width: 370px">
+				</div>
+				<div class="col-md-7" style="float: left">
+					<div class="box">
+						<div class="bcon">
+							<h1><b>拿小本本，记重点了。</b></h1>
+							<!-- 代码开始 -->
+							<div class="list_lh">
+								<ul>
+									<li>
+										<p></p>
+										<p><a href="html/kjscf.html" target="_blank" class="a_blue">靠技术吃饭</a><span>17:28:05</span></p>
+									</li>
+									<li>
+										<p></p>
+										<p><a href="html/kjscf.html" target="_blank" class="a_blue">靠技术吃饭</a><span>17:28:05</span></p>
+									</li>
+									<li>
+										<p></p>
+										<p><a href="html/kjscf.html" target="_blank" class="a_blue">靠技术吃饭</a><span>17:28:05</span></p>
+									</li>
+									<li>
+										<p></p>
+										<p><a href="html/kjscf.html" target="_blank" class="a_blue">靠技术吃饭</a><span>17:28:05</span></p>
+									</li>
+									<li>
+										<p></p>
+										<p><a href="html/kjscf.html" target="_blank" class="a_blue">靠技术吃饭</a><span>17:28:05</span></p>
+									</li>
+									<li>
+										<p></p>
+										<p><a href="html/kjscf.html" target="_blank" class="a_blue">靠技术吃饭</a><span>17:28:05</span></p>
+									</li>
+								</ul>
+							</div>
+							<!-- 代码结束 -->
 						</div>
-						<!-- 代码结束 -->
 					</div>
 				</div>
 			</div>
@@ -131,6 +124,46 @@
 
 		<!--java-->
 		<div class="containers">
+			<div class="title" style="clear: both">
+				<h2>工具集中营</h2>
+			</div>
+			<ul class="icon_ul">
+				<li class="a_gd">
+					<img src="http://www.itheima.com/images/kind11.jpg" class="a_gd">
+					<a href="../gongju/shoujigongju/shoujigongju.html" target="_blank">
+						<p class="a_gd">收集工具</p>
+					</a>
+				</li>
+				<li class="a_gd">
+					<img src="http://www.itheima.com/images/kind22.jpg" class="a_gd">
+					<a href="#" target="_blank">
+						<p class="a_gd">xxx</p>
+					</a>
+				</li>
+				<li class="a_gd">
+					<img src="http://www.itheima.com/images/kind33.jpg" class="a_gd">
+					<a href="#" target="_blank">
+						<p class="a_gd">xxx</p>
+					</a>
+				</li>
+				<li class="a_gd">
+					<img src="http://www.itheima.com/images/kind44.jpg" class="a_gd">
+					<a href="#" target="_blank">
+						<p class="a_gd">xxx</p>
+					</a>
+				</li>
+				<li class="a_gd">
+					<img src="http://www.itheima.com/images/kind3.jpg" class="a_gd">
+					<a href="#" target="_blank">
+						<p class="a_gd">xxx</p>
+					</a>
+				</li>
+			</ul>
+		</div>
+
+
+		<!--java-->
+		<!--<div class="containers">
 			<div class="title" style="clear: both">
 				<h2>java</h2>
 			</div>
@@ -178,59 +211,7 @@
 					</a>
 				</div>
 			</div>
-		</div>
-
-		<!--python-->
-		<div class="containers">
-			<div class="title">
-				<h2>python</h2>
-			</div>
-			<div class="show">
-				<div class="j_empCar_blocks">
-					<a href="/cmooc/HTML5" target="_blank">
-						<div class="j_enpCar_sblock" style="box-shadow: rgb(229, 229, 229) 3px 3px 0.5px;">
-							<div class="frist">
-								<img src="../../images/door/java/python.jpg" style="height: 135px; transform: scale(1); transition: all 0.4s;">
-							</div>
-							<div class="second">
-								<div>HTML5大前端开发</div>
-							</div>
-						</div>
-					</a>
-					<a href="/cmooc/HTML5" target="_blank">
-						<div class="j_enpCar_sblock" style="box-shadow: rgb(229, 229, 229) 3px 3px 0.5px;">
-							<div class="frist">
-								<img src="../../images/door/java/python.jpg" style="height: 135px; transform: scale(1); transition: all 0.4s;">
-							</div>
-							<div class="second">
-								<div>HTML5大前端开发</div>
-							</div>
-						</div>
-					</a>
-					<a href="/cmooc/HTML5" target="_blank">
-						<div class="j_enpCar_sblock" style="box-shadow: rgb(229, 229, 229) 3px 3px 0.5px;">
-							<div class="frist">
-								<img src="../../images/door/java/python.jpg" style="height: 135px; transform: scale(1); transition: all 0.4s;">
-							</div>
-							<div class="second">
-								<div>HTML5大前端开发</div>
-							</div>
-						</div>
-					</a>
-					<a href="/cmooc/HTML5" target="_blank">
-						<div class="j_enpCar_sblock" style="box-shadow: rgb(229, 229, 229) 3px 3px 0.5px;">
-							<div class="frist">
-								<img src="../../images/door/java/python.jpg" style="height: 135px; transform: scale(1); transition: all 0.4s;">
-							</div>
-							<div class="second">
-								<div>HTML5大前端开发</div>
-							</div>
-						</div>
-					</a>
-				</div>
-			</div>
-		</div>
-
+		</div>-->
 
 	</div>
 
@@ -254,6 +235,9 @@
 	<script src="../../js/door/jquery.movebg.js"></script>
 	<!--黑板展示-->
 	<script src="../../js/door/heiban/scroll.js"></script>
+	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
 	<script type="text/javascript">
 		$(function(){
 			$(".nav").movebg({width:120/*滑块的大小*/,extra:40/*额外反弹的距离*/,speed:300/*滑块移动的速度*/,rebound_speed:400/*滑块反弹的速度*/});
