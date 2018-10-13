@@ -17,12 +17,14 @@
     <link type="text/css" href="css/door/feiji.css" rel="stylesheet"/>
     <!--swiper-->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.0/css/swiper.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/Swiper/4.2.0/css/swiper.min.css" rel="stylesheet">
     <!--scrollDown-->
     <link href="css/scroll/scrollDown.css" rel="stylesheet">
     <!--文字输出效果-->
     <link href="css/index/out.css" type="text/css" rel="stylesheet">
-    <!--引入外部样式-->
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
     <style type="text/css">
 
     </style>
@@ -105,12 +107,14 @@
     <!--文字滚动效果-->
     <script type="text/javascript" src="js/index/wenzi.js"></script>
     <!--swiper-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.0/js/swiper.min.js"></script>
+    <script src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.min.js"></script>
     <script src="js/scroll/swiper.animate1.0.3.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
     <script type="text/javascript">
         /*div滚动*/
-        /*var swiper = new Swiper('.swiper-container', {
+        var swiper = new Swiper('.swiper-container', {
             onInit: function(swiper){ //Swiper2.x的初始化是onFirstInit
                 swiperAnimateCache(swiper); //隐藏动画元素
                 swiperAnimate(swiper); //初始化完成开始动画
@@ -118,18 +122,18 @@
             onSlideChangeEnd: function(swiper){
                 swiperAnimate(swiper); //每个slide切换结束时也运行当前slide动画
             },
-            /!*circle*!/
+            /*circle*/
             pagination: '.swiper-pagination',
             direction: 'vertical',
             slidesPerView: 1,
             paginationClickable: true,
             spaceBetween: 30,
             mousewheelControl: true
-        });*/
-        /*文字滚动*/
-        //$("#code").typewriter();
-        /*动态背景*/
-        /*$(function($){
+        });
+        //文字滚动
+        $("#code").typewriter();
+        //动态背景
+        $(function($){
             $('#swiper_1').vidbg({
                 'mp4': 'video/index/home.3gp'
             }, {
@@ -138,7 +142,7 @@
                 loop: true,
                 overlay: true
             });
-        });*/
+        });
         /*btn事件*/
         /*$("#plate").attr('style',"visibility:hidden");*/
         $("#toIndex").click(function(){
