@@ -16,5 +16,5 @@ marquee{width: 95%}
 .icon_ul li {float: left;position: relative;width: 155px;height: 198px;overflow: hidden;margin: 0 0 0 1.5rem;top: 0;
     border: 1px solid #05f1f1;position: relative;cursor: pointer;}
 .icon_ul li a {display: block;width: 158px;height: 198px;text-align: center;}
-.icon_ul li img {margin-top: 38px;position: relative;left: auto;bottom: auto;top: 0;}
+.icon_ul li img { margin-top: 38px;position: relative;left: auto;bottom: auto;top: 0;}
 .icon_ul li p {font-size: 18px;position: relative;right: auto;bottom: auto;bottom: 0;padding-top: 30px;}

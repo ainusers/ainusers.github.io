@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--添加自适应标签-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" shrink-to-fit=no">
+    <title>www.ainusers.top</title>
+    <!--title上面添加icon-->
+    <link rel="shortcut icon" href="../../../images/head/head.png"/>
+</head>
+
+    <!--引入外部样式-->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link href="../../../css/quanzhan/linux/slide.css" rel="stylesheet">
+    <!--jqueryui-->
+    <link href="https://cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                <!--left-->
+                <ul id="nav">
+                    <li>
+                        <a href="#jczs">nginx基础知识</a>
+                        <ul>
+                            <li  class="current">
+                                <a href="#az">nginx安装</a>
+                            </li>
+                            <li>
+                                <a href="#xhl">nginx信号量</a>
+                            </li>
+                            <li>
+                                <a href="#xnzj">nginx虚拟主机</a>
+                            </li>
+                            <li>
+                                <a href="#rz">nginx日志</a>
+                            </li>
+                            <li>
+                                <a href="#dsrzqg">定时日志切割</a>
+                            </li>
+                            <li>
+                                <a href="#location">location</a>
+                            </li>
+                            <li>
+                                <a href="#rewrite">rewrite重写</a>
+                            </li>
+                            <li>
+                                <a href="#ys">gzip压缩</a>
+                            </li>
+                            <li>
+                                <a href="#hc">expires缓存</a>
+                            </li>
+                            <li>
+                                <a href="#fxdl">反向代理</a>
+                            </li>
+                            <li>
+                                <a href="#yhcl">优化策略</a>
+                            </li>
+                            <li>
+                                <a href="#xnyc">性能压测</a>
+                            </li>
+                            <li>
+                                <a href="#fwjq">服务集群</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-10">
+                <!--container-->
+                <div id="container">
+                    <div class="section" id="az">
+                        <h2>nginx安装</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+yum install -y gcc gcc-c++
+yum install -y pcre pcre-devel openssl openssl-devel zlib zlib-devel
+wget http://nginx.org/download/nginx-1.9.9.tar.gz
+./configure --perfix=/usr/local/nginx(自定义路径)
+如果在编译过程中出现缺少包依赖的问题
+例如提示信息如下：
+./configure:error the http rewrite module requires the pcre library
+调试：nginx依赖pcre(正则)库
+yum install pcre pcre-devel
+./configure --prefix=/usr/local/nginx
+make&&make install
+启动
+如果80端口被占用
+netstat -ant
+netstat -antp	查看端口占用的程序，杀掉占用80端口后继续
+./nginx	启动nginx
+注意访问页面要先关闭防火墙service iptables stop
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="xhl">
+                        <h2>nginx信号量</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+nginx信号量(可以实现对nginx服务进行控制)
+通过信号来控制nginx的重启和关闭
+nginx服务启动通常会有一个主进程和一个worker进程(工作原理类似于公司运转)
+主进程通过控制worker进程的处理请求，管理子进程。
+子进程是用来处理客户端的请求的。
+关闭nginx服务(必须是主进程)	kill -INT 26662
+优雅的关闭nginx服务(等请求结束后再关闭)	kill -QUIT 26662
+重新读取新的配置文件(软重启)  kill -HUP 26733
+window.location.href="/"	页面不停刷新
+备份旧日志，创建日志写入新文件	 kill -USER1 26733(前提是将原文件改成a.log.bak 创建新文件a.log)
+如果不想总是查看nginx进程号	直接在logs下面查看pid文件即可
+kill -HUP `cat logs/nginx.pid`
+./nginx -s reload	重启
+./nginx -s stop		停止
+./nginx -s reopen	重新读取配置文件
+./nginx -t	可以测试配置文件的正确性                        </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="xnzj">
+                        <h2>nginx虚拟主机</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+虚拟主机配置(设置基于域名/端口/IP的虚拟主机配置)
+nginx配置文件详解(目录/usr/local/tools/nginx/conf/nginx.conf)
+worker_processes:1
+            指有一个工作的子进程(nginx中master有一个管理的进程[小弟])
+            太大无益，因为要争夺cpu，一般设置为cpu数目*核数
+Event{
+    worker_connections:1024
+}
+            指的是一个worker能同时允许产生多少连接
+
+//虚拟主机
+http{
+    //虚拟主机段
+    server1{
+        Location{
+
+        }
+    }
+    server2{
+
+    }
+}
+修改完配置文件之后呢，./nginx -s reload(重新读取配置文件)
+nginx基于配置文件可以设置基于域名/端口/IP的虚拟主机配置
+域名：
+    server {
+        listen		80；		(监听端口号)
+        server_name	z.com;		(配置映射域名)
+
+        location / {
+            root z.com;		(配置本机目录)
+            index index.html	(默认访问页面)
+        }
+    }
+//需要修改本机c:/windows/system32/drivers/etc/hosts文件
+//	>> 192.168.1.200  z.com
+端口：
+    server {
+        listen 2022;
+        server_name z.com;
+
+        location / {
+            root /var/www/html;
+            index index.html;
+        }
+    }
+IP:
+    server {
+        listen 80;
+        server_name 192.168.1.200;
+
+        location / {
+            root html/ip;
+            index index.html;
+        }
+    }
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="rz">
+                        <h2>nginx日志</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+nginx日志管理
+nginx可以针对不同的server做不同的log(有的服务器不支持)
+自定义应用生产日志
+server {
+    listen 80;
+    server_name z.com;
+
+    location / {
+        root z.com;
+        index index.html;
+    }
+
+    access_log logs/z.com.access.log main;	(日志的目录 格式)
+}
+//注意：需要将nginx.conf中的log_format main *** 注释放开
+main类型格式的日志定义了日志的输出格式
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="dsrzqg">
+                        <h2>定时日志切割</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+nginx定时任务和日志切割
+修改系统时间	date -s '2013-09-21 19:00:38'
+查看昨天日期	date -d	yesterday
+clock -w	时间设置生效
+获取命令的返回值 	使用`反引号/$()
+获取变量的返回值	使用$变量名
+crontab -e	定时任务*代表：分 时 日 月 周
+*/1 * * * * /usr/local/tools/nginx/exe_sh/logs_timer.sh >/dev/null 2>&1
+nginx定时任务/日志切割举例(logs_timer.sh)
+#!/bin/bash
+LOGPATH=/usr/local/tools/nginx/logs/host.access.log
+BASEPATH=/usr/local/tools/nginx/logs_bak/$(date -d yesterday +%Y-%m-%d)
+mkdir -p $BASEPATH
+BAK=$BASEPATH/$(date -d yesterday +%Y-%m-%d).access.log
+mv $LOGPATH $BAK
+touch $LOGPATH
+kill -USR1 $(cat /usr/local/tools/nginx/logs/nginx.pid)
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="location">
+                        <h2>location</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+location语法：定位(精准>其他、默认>正则)
+location匹配总结
+精准匹配(匹配精准直接返回)-->普通匹配()如果命中多个，那么选择最长的(匹配精确度高)记忆结果
+-->正则匹配(顺序由上到下，如果有直接返回，如果没有返回普通匹配记忆结果)
+根据uri进行不同的定位
+大致分为三种：
+location=patt {} [精准匹配]
+location patt {} [一般匹配]
+location ~(波浪线) patt {} [正则匹配]
+首先查看有没有精准匹配如果有则停止匹配过程
+//如果精准匹配的是目录的话，那么匹配的就是/，而不是精准匹配的文件
+如果访问192.168.1.200,且已经设置了精准，第一个命中
+location = / {
+    root /var/www/html/;
+    index index.htm index.html;
+}
+location / {
+    root html;
+    index index.html index.htm;
+}
+如果直接访问192.168.1.200/index.htm  第一个命中
+如果访问192，168.1.200/，且已经设置了精准，第二个默认匹配
+location = /index.htm {
+    root /var/www/html/;
+    index index.htm index.html;
+}
+location  /index.htm {
+    root html;
+    index index.html index.htm;
+}
+//如果缺少root，那么会默认继承总体配置root html
+192.168.1.200=192.168.1.200/
+如果不满足精确匹配那么会自动匹配一般匹配
+
+location正则匹配
+联网下载	wget 外网地址
+如果默认的/和正则冲突的情况下,/会生效，同时正则如果符合的情况下会对/进行覆盖
+一般匹配和默认/冲突时，一般匹配生效，因为它匹配的更长，更准确。
+location / {
+    root /usr/local/nginx/html;
+    index index.html index.htm;
+}
+location /foo {
+    root /var/www/html;
+    index index.html;
+}
+访问192.168.1.200/foo	/foo生效
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="rewrite">
+                        <h2>rewrite重写</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+rewrite重写
+条件判断的写法
+=：判断相等，用于字符串的比较
+~：用正则来匹配(此处正则区分大小写)
+~*：不区分大小写的正则
+-f-d-e：判断是否为文件，目录，存在
+例子1：
+    location / {
+        if($remote_addr = 192.168.1.100){
+            return 403;
+        }
+    root html;
+    index index.html index.htm
+    }
+./sbin/nginx -s reload
+
+例子2：
+    location / {
+        if($http_user_agent ~ MSIE){
+            rewrite ^.*$ /ie.html;
+            break;
+        }
+    }
+
+例子3：(页面文件不存在)[break 必须添加]
+    location / {
+        if(! -e $document_root$fastcgi_script_name){
+            rewrite ^.*$ /404.html break;
+        }
+    }
+
+ 例子4：(判断使用ie浏览器，并且访问的不是ie.html，才进行重写操作)
+    location / {
+        if($http_user_agent ~* msie){
+            set $isie 1;
+        }
+        if($fastcgi_script_name = ie.html){
+            set $isie 0;
+        }
+        if($isie 1){
+            rewrite ^.*$ /ie.html
+        }
+    }
+
+例子5：
+    location /ainusers_ip.html {
+        if ( $remote_addr = '192.168.79.1' ) {
+        # rewrite ^.*$ /ainusers_port.html break;
+        rewrite /ainusers_ip.html  /index.html break;
+        }
+        root   ainusers.com;
+        index  ainusers_port.html index.html index.htm;
+    }
+
+例子6：
+location / {
+        # root   html;
+        # index  index.html index.htm;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-Ip $remote_addr;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        proxy_pass http://127.0.0.1:8080;
+    }
+
+例子7：
+    # location / {
+        # root   html;
+        # index  index.html index.htm;
+        # proxy_set_header Host $host;
+        # proxy_set_header X-Real-Ip $remote_addr;
+        # proxy_set_header X-Forwarded-For $remote_addr;
+        # proxy_pass http://127.0.0.1:8080;
+    # }
+
+    例子8：
+    # location /ip.html {
+            # rewrite ^.*$ /index.html; break;
+    # }
+
+    例子9：
+    # location /ip.html {
+            # proxy_set_header Host $host;
+            # proxy_set_header X-Real-Ip $remote_addr;
+            # proxy_set_header X-Forwarded-For $remote_addr;
+            # proxy_pass http://my_turn/;
+    # }
+例子10：
+url重写实战
+    location /ecshop {
+        rewrite "good-(\d{1,7})\.html" /ecshop/goods.php?id=$1;
+        或者
+        rewrite  good-(\d+)\.html /ecshop/goods.php?id=$1;
+    }
+    正则数据1-7位，包含的连接，必须加""
+    正则回调机制，$1可以跟随前面变量的变化而变化
+    复杂度高的，放在rewrite最前面，匹配的最多。
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="ys">
+                        <h2>gzip压缩</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+gzip压缩提升网站速度
+常用参数
+gzip on/off	是否开启gzip
+gzip_buffers 32 4k|16 8k	缓存(压缩在内存中缓冲几块，每块多大)
+gzip_comp_level[1-9]	推荐6# 压缩机别(级别)[级别越高压缩越小，压缩越小，越浪费CPU资源]
+gzip_disable	正则匹配UA	什么样的uri不进行gzip压缩
+gzip_min_length 200#	开始压缩的最小长度(最小就不要压缩了，意义不存在)
+gzip_http_version 1.0|1.1#开始压缩的http协议版本(可以不设置，目前几乎均位1.1协议)
+gzip_proxied	#设置请求者代理服务器，该如何缓存内容
+gzip_types text/plain application/xml #对哪些类型的文件用压缩如txt/xml/html/css
+gzip_vary on/off	是否传输gzip压缩标志
+//在nginx官网文档中context上下文代表该控件的位置
+举例：
+server{
+    gzip on;
+    gzip_buffers 32 4k;
+    gzip_comp_level 6;
+    gzip_min_length 200;
+    gzip_types text/css text/xml application/x-javascript;
+}
+如果字节数太少那么就需要进行压缩了
+当出现content-encoding:gzip就会进行压缩了
+注意：/MP3这样的二进制文件进行压缩，因为压缩比例不大，而且占用内存
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="hc">
+                        <h2>expires缓存</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+expires缓存
+nginx缓存设置，提高网站性能
+对于网站图片，一旦发布且改动较小，我们可以将图片缓存在浏览器端
+就可以使用nginx中expires设置
+cache-control:max-age=60 	缓存最大时间
+content-encoding:gzip		压缩性能优化
+date -s '2013-10-01 16:33:44'	修改服务器时间
+//注意一定要将服务器时间与不敌时间同步,不然会导致缓存失败
+举例：
+location ~* \.(jpg|jpeg|gif|png){
+    root html;
+    expires 1d;
+}
+静态html/css/js/img比较适合
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="fxdl">
+                        <h2>反向代理</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+nginx优秀的反向代理服务器+负载均衡+动静分离
+	支持1个proxy，1个upstream分别支持反向代理和负载均衡
+	反向代理(动静分离)：nginx在中间的转发流程[动态部分有tomcat/apache负责。静态部分由nginx负责]
+	举例：
+	location ~ \.php$ {
+		proxy_pass http://192.168.1.200:8080;
+	}
+	反向代理
+	举例1：
+	upstream imgserver {
+		server 192.168.1.200:81 wight=1 max_fails=2 fail_timeout=3;
+		server 192.168.1.200:82 wight=1 max_fails=2 fail_timeout=3;
+	}
+	server {
+		listen 81；
+		server_name locahost;
+		root html;
+		access_log logs/81-access.log main;
+	}
+	server {
+		listen 82;
+		server_name localhost;
+		root html;
+		access_log logs/82-access.log main;
+	}
+	//图片服务器
+	location ~* \.(jpg|jpeg|gif|png)${
+		#反向代理会导致后端服务器IP，为前端服务器的IP，而不是客户端真正的IP？（携带过去）
+		proxy_set_header X-Forwarded-For $remote_addr;
+		proxy_pass http://imgserver;
+	}
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="yhcl">
+                        <h2>优化策略</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+大访问量优化思路
+第一请求的过滤：
+开发人员：合并css，图片，减少mysql查询
+运维人员expires，利用浏览器缓存减少查询
+以及利用cdn来相应请求
+最后剩下的就是不可避免的请求->通过负载均衡来支持
+第二处理请求：
+请求的分发以及平均
+优化：
+    nginx单机1w并发优化(快餐店位置优化思路)
+    ulimit -n 	一个进程最多打开1024个文件
+优化思路：
+socket:
+    nginx:
+        1.建立socket链接是否可以很多
+    系统层面:
+        1.打开文件是否能打开很多
+        2.最大连接数[somaxconn](ulimit -n 20000  暂时性修改连接数)
+        3.加快tcp连接的回收(recycle)
+        4.空的tcp是否允许回收利用(reuse)
+        5.(不要做洪水攻击防御)
+文件：
+    nginx：
+        1.子进程允许打开的文件[worker_limit_nofiles]
+    系统：
+        1.ulimit -n	设置一个比较大的值
+具体优化操作：
+1.nginx.conf:
+    events {
+        worker_connections 10240;
+    }
+2.somaxconn:
+    more /proc/sys/net/core/somaxconn
+    修改：echo 50000 > /proc/sys/net/core/somaxconn
+3.加快tcp的回收：
+    cat /proc/sys/net/ipv4/tcp_tw_recycle
+    修改：echo 1 > /proc/sys/net/ipv4/tcp_tw_recycle
+4.洪水抵御：
+    more /proc/sys/net/ipv4/tcp_sysncookies
+    不做洪水抵御：echo 0 > /proc/sys/net/ipv4/tcp_syncookies
+5.空连接回收：
+    echo 1 > /proc/sys/net/ipv4/tcp_tw_reuse
+6.一个工作进程允许打开多少个文件：
+    （全局位置）worker_rlimit_nofile 10000
+配置完成重新启动
+7.http连接快速断开
+    keepalive_timeout 0;
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="xnyc">
+                        <h2>性能压测</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+压测：
+压力测试以及nginx性能统计
+ulimit -n	查看当前支持的最大连接数
+./confiure --help |grep status		查找nginx显示性能测试详细信息的统计模块
+编译步骤：
+./configure --prefix=/usr/local/nginx/ --add-module=/app/ngx_http_consistent_hash-master
+--with-http_stub_status_module
+make && make install
+统计模块在nginx配置文件中配置
+location /status {
+    stub_status on;
+    access_log off;
+    allow 192.168.1.100
+    deny all;
+}
+重新加载配置
+./sbin/nginx -s reload
+直接访问192.168.1.202/status即可
+使用apache的ab执行程序进行压力测试
+./bin/ab -c 2000 -n 8000 http://192.168.1.202/index.html
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="fwjq">
+                        <h2>服务集群</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+服务器集群环境搭建
+使用第三方服务依赖upstream
+集群构建方式如下
+upstream phpserver {
+    server 192.168.1.200:9000
+    server 192.168.1.200:9001
+    server 192.168.1.200:9003
+    server 192.168.1.200:9004
+}
+location ~ \.php$ {
+    root html;
+    fastcgi_pass phpserver;
+    fastcgi_index index.php;
+    fastcgi_param SCRIPT_FILENAME /scripts$fastcgi_script_name;
+    include fastcgi_params;
+}
+telnet 192.168.1.204 11211
+                            </ol>
+                        </pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+    <!--jquery-->
+    <script src="../../../js/index/jquery-3.3.1.min.js"></script>
+    <!--jquery.nav-->
+    <script src="https://cdn.bootcss.com/jquery-one-page-nav/2.2.0/jquery.nav.js"></script>
+    <!--jqueryui-->
+    <script src="https://cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <script>
+        $( "#nav" ).accordion({
+            collapsible: true
+        });
+        $(function(){
+            $('#nav').onePageNav();
+        });
+    </script>
+</html>
