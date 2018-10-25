@@ -68,11 +68,14 @@
                         </div>
                     </div>-->
                     <div class="swiper-slide" id="swiper_6" style="background-color: #fcfce7;background-image: url('images/index/e1.png');background-size: 100% 100%; background-repeat: no-repeat;">
+                        <!--展示信息-->
                         <div style="margin: 0 auto">
                             <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
                             <span class="post-meta-divider">|</span>
-                            <span id="busuanzi_container_site_uv">总访客<span id="busuanzi_value_site_uv"></span>人</span>
+                            <span id="busuanzi_container_site_uv">总访客<span id="busuanzi_value_site_uv"></span>人</span><br/>
+                            <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
                         </div>
+                        <!--进入主页-->
                         <button id="toIndex" class="btns btn-4" style="margin-left: 50rem;">去主页看看吧</button>
                         <!--纸飞机-->
                         <div id="plate" class="front" style="visibility: hidden">
@@ -120,6 +123,21 @@
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
     <script type="text/javascript">
+        //网站运行时间
+        var now = new Date();
+        function createtime() {
+            var grt= new Date("08/26/2017 16:42:38");//此处修改你的建站时间或者网站上线时间
+            now.setTime(now.getTime()+250);
+            days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+            hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+            if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+            mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+            seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+            snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+            document.getElementById("timeDate").innerHTML = "感谢您的支持与信任,本站已安全运行 "+dnum+" 天 ";
+            document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+        }
+        setInterval("createtime()",250);
         /*div滚动*/
         var swiper = new Swiper('.swiper-container', {
             onInit: function(swiper){ //Swiper2.x的初始化是onFirstInit
