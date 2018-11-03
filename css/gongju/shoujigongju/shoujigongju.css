@@ -1,0 +1,27 @@
+body{background-image: url("../../../images/nav/jishuzhan/bg.png")}
+.show{margin-left: 2rem;margin-bottom: 2rem}
+.show a{margin-left: 1rem;}
+.contents{
+	background-color: #fff;
+	width: 70%;
+	border: solid 1px #d1d5da;
+	-webkit-box-shadow: 0 0 5px rgba(202, 203, 204, .8);
+	-moz-box-shadow: 0 0 5px rgba(202, 203, 204, .5);
+	background-color: rgba(255,255,255,.5);
+	box-shadow: 1px 2px 6px rgba(63,74,105,.16);
+	margin: 0 auto;
+	border-radius: 8px;
+	padding: 5px 15px;
+}
+
+/*适配*/
+/*横向放置的手机分辨率*/
+@media screen and (max-width:767px) {
+	/*后续补充*/
+}
+/*竖向放置的手机以及分别率*/
+@media screen and (max-width: 480px) {
+	.contents{width: 100% !important;height: 100vh !important;}
+	#_gj{padding: 0 !important;}
+	.alert-info{background-color: rgba(255,255,255,.5) !important;}
+}
