@@ -67,7 +67,7 @@
                             </div>
                         </div>
                     </div>-->
-                    <div class="swiper-slide" id="swiper_6" style="background-color: #fcfce7;background-image: url('images/index/e1.png');background-size: 100% 100%; background-repeat: no-repeat;">
+                    <div class="swiper-slide" id="swiper_6">
                         <!--展示信息-->
                         <div style="margin: 0 auto">
                             <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
@@ -76,7 +76,7 @@
                             <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
                         </div>
                         <!--进入主页-->
-                        <button id="toIndex" class="btns btn-4" style="margin-left: 50rem;">去主页看看吧</button>
+                        <button id="toIndex" class="btns btn-4">去主页看看吧</button>
                         <!--纸飞机-->
                         <div id="plate" class="front" style="visibility: hidden">
                             <textarea class="message" style="text-align: center">以后的你，会感谢现在努力的自己。</textarea>
@@ -134,8 +134,8 @@
             mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
             seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
             snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
-            document.getElementById("timeDate").innerHTML = "感谢您的支持与信任,本站已安全运行 "+dnum+" 天 ";
-            document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+            document.getElementById("timeDate").innerHTML = "感谢您的支持,本站已安全运行"+dnum+"天";
+            document.getElementById("times").innerHTML = hnum + "小时" + mnum + "分" + snum + "秒";
         }
         setInterval("createtime()",250);
         /*div滚动*/
@@ -186,7 +186,12 @@
                                     $("#plate").attr('style',"visibility:hidden");
                                     $('#container').addClass('fly_away');
                                     setTimeout(function(){
-                                        window.open("html/door/door.html")
+                                        if($(window).width() < 480){
+                                            console.log(1)
+                                            location.href='html/door/door.html'
+                                        }else{
+                                            window.open("html/door/door.html")
+                                        }
                                     },2500)
                                     /*setTimeout(function () {
                                         $('#plate').addClass('front');
