@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <!--添加自适应标签-->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" shrink-to-fit=no">
+        <title>甜先森</title>
+        <!--title上面添加icon-->
+        <link rel="shortcut icon" href="../../../images/head/head.png"/>
+    </head>
+    <style type="text/css">
+
+    </style>
+
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link href="../../../../product/bootstrap/css/bootstrap.css" type="text/css" rel="stylesheet">
+    <link href="../../../../css/quanzhan/pachong/pachong.css" type="text/css" rel="stylesheet">
+
+<body>
+    <div class="containers">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="contents">
+                    <!--提示信息-->
+                    <div class="bs-example bs-example-standalone" data-example-id="dismissible-alert-js">
+                        <div class="alert alert-info alert-dismissible fade in" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            <strong>注意：</strong>爬取堆糖网_校花_img
+                        </div>
+                    </div>
+                    <figure class="highlight">
+                        <pre>
+                            <code class="language-html" data-lang="html">
+#!/usr/bin/python
+# coding: UTF-8
+# cause by ty
+
+import requests
+import urllib.parse
+import threading
+
+# 设置最大线程锁
+thread_lock = threading.BoundedSemaphore(value=10)
+
+
+# 通过单个url获取数据
+def get_page(url):
+    page = requests.get(url)
+    page = page.content
+    page = page.decode('utf-8')
+    return page
+
+# 获取所有链接
+def get_all_page(label):
+    pages = []
+    url = 'https://www.duitang.com/napi/blog/list/by_search/?kw={}&start={}&limit=100'
+    # 将中文转为acsil码
+    label = urllib.parse.quote(label)
+    for index in range(0,5000,100):
+        u = url.format(label,index)
+        page = get_page(u)
+        pages.append(page)
+    return pages
+
+# 解析数据获取图片链接
+def get_img(page,startpart,endpart):
+    all_string = []
+    end = 0
+    while page.find(startpart,end) != -1:
+        start = page.find(startpart,end) + len(startpart)
+        end = page.find(endpart,start)
+        img_url = page[start:end]
+        all_string.append(img_url)
+    return all_string
+
+# 获取所有的图片链接
+def get_all_img(pages):
+    img_urls = []
+    for page in pages:
+        urls = get_img(page,'path":"','"')
+        img_urls.extend(urls)
+    return img_urls
+
+
+# download
+def download_img(url,m):
+    r = requests.get(url)
+    path = 'datas/'+str(m)+'.jpg'
+    with open(path,'wb') as f:
+        f.write(r.content)
+    # 多线程解锁
+    thread_lock.release()
+
+# 主函数
+def main(label):
+    pages = get_all_page(label)
+    img_urls = get_all_img(pages)
+    n = 0
+    for url in img_urls:
+        n += 1
+        print('正在下载第{}张图片'.format(n))
+        # 多线程加锁
+        thread_lock.acquire()
+        t = threading.Thread(target=download_img(url,n))
+        t.start()
+
+# 主函数调用
+main('校花')
+                            </code>
+                        </pre>
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+    <!--引入外部js文件-->
+    <!--jquery-->
+    <script src="../../../../js/index/jquery-3.3.1.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="../../../../product/bootstrap/js/bootstrap.min.js"></script>
+</html>
