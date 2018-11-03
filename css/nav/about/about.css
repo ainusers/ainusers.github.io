@@ -24,7 +24,7 @@ body{background-image: url("../../../images/nav/about/bg.png");background-repeat
 @media screen and (max-width: 480px) {
 	.contents{width: 100% !important;}
 	#control{padding: 0 !important;}
-	#ryzs{width:100px; height:150px;}
-	#ryzsnr{width:200px;height:100px;}
+	#ryzs{width:90px; height:130px;}
+	#ryzsnr{width:180px;height:100px;}
 	.alert-danger{background-color: rgba(255,255,255,.5) !important;}
 }
