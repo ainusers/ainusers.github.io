@@ -1,0 +1,30 @@
+body{background-image: url("../../../images/nav/about/bg.png");background-repeat: no-repeat;background-size: contain}
+.show{margin-left: 2rem;margin-bottom: 2rem}
+.show a{margin-left: 1rem;text-transform: lowercase}
+.contents{
+	width: 75%;
+	border: solid 1px #d1d5da;
+	-webkit-box-shadow: 0 0 5px rgba(202, 203, 204, .8);
+	-moz-box-shadow: 0 0 5px rgba(202, 203, 204, .5);
+	background-color: rgba(255,255,255,.5);
+	box-shadow: 1px 2px 6px rgba(63,74,105,.16);
+	margin: 0 auto;
+	border-radius: 8px;
+	padding: 5px 15px;
+}
+#ryzs{width:300px; height:400px;}
+#ryzsnr{width:500px;height:400px;}
+
+/*适配*/
+/*横向放置的手机分辨率*/
+@media screen and (max-width:767px) {
+	/*后续补充*/
+}
+/*竖向放置的手机以及分别率*/
+@media screen and (max-width: 480px) {
+	.contents{width: 100% !important;}
+	#control{padding: 0 !important;}
+	#ryzs{width:100px; height:150px;}
+	#ryzsnr{width:200px;height:100px;}
+	.alert-danger{background-color: rgba(255,255,255,.5) !important;}
+}
