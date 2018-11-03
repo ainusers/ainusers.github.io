@@ -48,4 +48,6 @@ embed{float: right}
     #person{display: none}
     .bcon{margin:0 !important;}
     .list_lh{width:80% !important;}
+    .icon_ul{height:auto !important;}
+    .glyphicon{top:0 !important;}
 }

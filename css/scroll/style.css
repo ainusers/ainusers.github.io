@@ -30,7 +30,7 @@ a{color:#666; text-decoration:none;}
 }
 /*竖向放置的手机以及分别率*/
 @media screen and (max-width: 480px) {
-    #plate{width: 350px !important;}
+    #plate{width: 330px !important;}
     #toIndex{margin-left: 18rem;padding: 0 0 !important;}
     #swiper_6{background-color: #fcfce7;background-image: url('../../images/index/e1.png');background-size: 100% 100%; background-repeat: no-repeat;}
 }
