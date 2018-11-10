@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <!--添加自适应标签-->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" shrink-to-fit=no">
+        <title>甜先森</title>
+        <!--title上面添加icon-->
+        <link rel="shortcut icon" href="../../../../images/head/head.png"/>
+    </head>
+    <style type="text/css">
+
+    </style>
+
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link href="../../../../product/bootstrap/css/bootstrap.css" type="text/css" rel="stylesheet">
+    <link href="../../../../css/quanzhan/pachong/pachong.css" type="text/css" rel="stylesheet">
+
+<body>
+    <div class="containers">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="contents">
+                    <!--提示信息-->
+                    <div class="bs-example bs-example-standalone" data-example-id="dismissible-alert-js">
+                        <div class="alert alert-info alert-dismissible fade in" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            <strong>注意：</strong>爬取艺龙酒店_价格/名称（待完善）
+                        </div>
+                    </div>
+                    <figure class="highlight">
+                        <pre>
+                            <code class="language-html" data-lang="html">
+#!/usr/bin/python
+# coding=utf-8
+# author:ty
+
+# 网络请求模块
+import requests
+import re
+import pandas as pd
+import time
+import random
+
+
+# 请求网址
+url = 'http://hotel.elong.com/ajax/tmapilist/asyncsearch'
+
+for n in list(map(lambda x:str(x),range(1,607))):
+    print(n)
+    header = {
+        'Accept': 'application/json, text/javascript, */*; q=0.01',
+        'Accept-Encoding': 'gzip, deflate',
+        'Accept-Language': 'zh-CN,zh;q=0.8',
+        'Cache-Control': 'no-cache',
+        'Connection': 'keep-alive',
+        'Content-Length': '1662',
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        'Host': 'hotel.elong.com',
+        'Origin': 'http://hotel.elong.com',
+        'Pragma': 'no-cache',
+        'Referer': 'http://hotel.elong.com/beijing/',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.221 Safari/537.36 SE 2.X MetaSr 1.0',
+        'X-Requested-With': 'XMLHttpRequest',
+    }
+    data = {
+        'code': '7475643',
+        'listRequest.areaID': '',
+        'listRequest.bookingChannel': '1',
+        'listRequest.cardNo': '192928',
+        'listRequest.checkInDate': '2018-11-10 00:00:00',
+        'listRequest.checkOutDate': '2018-11-11 00:00:00',
+        'listRequest.cityID': '0101',
+        'listRequest.cityName': '北京市',
+        'listRequest.customLevel': '11',
+        'listRequest.distance': '20',
+        'listRequest.endLat': '0',
+        'listRequest.endLng': '0',
+        'listRequest.facilityIds': '',
+        'listRequest.highPrice': '0',
+        'listRequest.hotelBrandIDs': '',
+        'listRequest.isAdvanceSave': 'false',
+        'listRequest.isAfterCouponPrice': 'true',
+        'listRequest.isCoupon': 'false',
+        'listRequest.isDebug': 'false',
+        'listRequest.isLimitTime': 'false',
+        'listRequest.isLogin': 'false',
+        'listRequest.isMobileOnly': 'true',
+        'listRequest.isNeed5Discount': 'true',
+        'listRequest.isNeedNotContractedHotel': 'false',
+        'listRequest.isNeedSimilarPrice': 'false',
+        'listRequest.isReturnNoRoomHotel': 'true',
+        'listRequest.isStaySave': 'false',
+        'listRequest.isTrace': 'false',
+        'listRequest.isUnionSite': 'false',
+        'listRequest.keywords': '',
+        'listRequest.keywordsType': '0',
+        'listRequest.language': 'cn',
+        'listRequest.listType': '0',
+        'listRequest.lowPrice': '0',
+        'listRequest.orderFromID': '50',
+        'listRequest.pageIndex': n,
+        'listRequest.pageSize': '20',
+        'listRequest.payMethod': '0',
+        'listRequest.personOfRoom': '0',
+        'listRequest.poiId': '0',
+        'listRequest.promotionChannelCode': '0000',
+        'listRequest.proxyID': 'ZD',
+        'listRequest.rankType': '0',
+        'listRequest.returnFilterItem': 'true',
+        'listRequest.sectionId': '',
+        'listRequest.sellChannel': '1',
+        'listRequest.seoHotelStar': '0',
+        'listRequest.sortDirection': '1',
+        'listRequest.sortMethod': '1',
+        'listRequest.starLevels': '',
+        'listRequest.startLat': '0',
+        'listRequest.startLng': '0',
+        'listRequest.taRecommend': 'false',
+        'listRequest.themeIds': '',
+        'listRequest.traceId': '381d06f6-4890-4d5d-9ff9-a43cbc8d0a7c',
+        'listRequest.wordId': '',
+        'listRequest.wordType': '0',
+        'listRequest.elongToken': '7ec1403a-43f1-40ff-9808-fce887051798',
+    }
+
+    # 间歇性执行
+    time.sleep(random.randint(1,3))
+    print(data)
+
+    # 请求数据
+    html = requests.post(url,data=data,headers=header)
+    print(html.json())
+
+    # 提取数据
+    hotel_price = re.findall('<span class="h_pri_num ">(.*?)</span>',html.json()['value']['hotelListHtml'])
+    hotel_name = re.findall('<span class="info_cn">(.*?)</span>',html.json()['value']['hotelListHtml'])
+    print(hotel_name)
+    print(hotel_price)
+
+    # 转换输入框
+    data = list(map(lambda x:(hotel_price[x],hotel_name[x]),range(len(hotel_name))))
+    data2 = pd.DataFrame(data)
+
+
+    # 写数据
+    data2.to_csv('C:\\Users\\ainusers\\Desktop\\contents\\contents.csv',header=False,index=False,mode='a+')
+                            </code>
+                        </pre>
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+    <!--引入外部js文件-->
+    <!--jquery-->
+    <script src="../../../../js/index/jquery-3.3.1.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="../../../../product/bootstrap/js/bootstrap.min.js"></script>
+</html>
