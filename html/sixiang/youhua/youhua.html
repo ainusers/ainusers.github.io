@@ -9,7 +9,7 @@
         <link rel="shortcut icon" href="../../../images/head/head.png"/>
     </head>
     <style type="text/css">
-
+        .contents img{margin-left: 18%}
     </style>
 
     <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
@@ -28,29 +28,50 @@
                             <strong>注意：</strong>数据库优化小结
                         </div>
                     </div>
+                    <img src="../../../images/sixiang/youhua/youhua.png">
                     <figure class="highlight">
                         <pre>
                             <code class="language-html" data-lang="html">
 1.数据表设计
+    1)单实例表数目必须小于500
+    2)单表列数目必须小于30
+    3)表必须有主键，例如自增主键
 2.字段数据类型
     1)不要将数字存储为字符串类型
     2)尽可能使用较小的整数类型使表更小。如：mediumint/int
     3)针对“性别”，“国家”，“民族”，“状态”应该使用enum而不是varchar
+    4)尽可能把字段定义为NOT NULL并且提供默认值
+    5)禁止使用ENUM，可使用TINYINT代替
+    6)使用可以存下你的数据的最小的数据类型
 3.索引
     1)遵守最左前缀原则
     2)避免重复索引(单个索引和联合索引中索引重复)
     3)避免浪费索引(在性别列添加索引)
-    4)在where/group by等字段上面添加索引
-    5)索引最多6个，不宜过多
+    4)在where/group by/order by等字段上面添加索引
+    5)单标索引最多6个，不宜过多
     6)禁止在更新十分频繁、区分度不高的属性上建立索引
     7)建立组合索引时，必须把区分度高的字段放在前面
 4.查询语句优化
-    1)使用explain,慢查询进行sql分析
+    1)使用explain,profile进行sql分析
     2)尽量命中索引，避免权标扫描
     3)当确定只有一行数据的时候使用limit 1
     4)禁止使用SELECT *，只获取必要的字段
+    5)禁止在WHERE条件的属性上使用函数或者表达式
+    6)禁止负向查询(NOT、!=、<>、!<、!>、NOT IN、NOT LIKE)，以及%开头的模糊查询
+    7)尽量使用TIMESTAMP而非DATETIME
 5.服务器端优化
     1)my.cnf配置文件优化
+    2)sysctl.conf文件优化
+6.其他
+    1)分表
+    2)读写分离
+7.常用语句优化demo
+    1)in优化
+      原句：select count(1) from table1 where id in (select id from table2)
+      优化：select count(distinct u1.id) from table1 u1 join table2 u2 on u1.id = u2.id
+    2)limit优化
+      原句：select * from table u order by u.id desc limit 1000,20
+      优化：select * from table u where u.id <2020 and u.id >2000 order by u.id limit 2000,20
                             </code>
                         </pre>
                     </figure>
