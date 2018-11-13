@@ -57,8 +57,11 @@
     3)当确定只有一行数据的时候使用limit 1
     4)禁止使用SELECT *，只获取必要的字段
     5)禁止在WHERE条件的属性上使用函数或者表达式
-    6)禁止负向查询(NOT、!=、<>、!<、!>、NOT IN、NOT LIKE)，以及%开头的模糊查询
+    6)禁止负向查询(NOT、!=、<>、!<、!>、NOT IN、NOT LIKE、or)，以及%开头的模糊查询,会导致全表扫描
     7)尽量使用TIMESTAMP而非DATETIME
+    8)where 子句中对字段进行null值判断将导致引擎放弃使用索引而进行全表扫描
+    9)where 子句中对字段进行表达式或函数操作将导致引擎放弃使用索引而进行全表扫描
+    10)like 'abc%'不会引起全表扫描,而like '%abc%'会
 5.服务器端优化
     1)my.cnf配置文件优化
     2)sysctl.conf文件优化
@@ -72,6 +75,12 @@
     2)limit优化
       原句：select * from table u order by u.id desc limit 1000,20
       优化：select * from table u where u.id <2020 and u.id >2000 order by u.id limit 2000,20
+    3)or优化
+      原句：select id from t where num=10 or num=20
+      优化：select id from t where num=10  union all  select id from t where num=20
+    4)in优化
+      原句：select num from a where num in(select num from b)
+      优化：select num from a where exists(select 1 from b where num=a.num)
                             </code>
                         </pre>
                     </figure>
