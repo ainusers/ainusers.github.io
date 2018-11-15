@@ -66,6 +66,7 @@
     10)like 'abc%'不会引起全表扫描,而like '%abc%'会
     11)拆分查询:一条复杂拆分成几条简单的查询
     12)分解关联查询:多表关联，可以对每一个表单查，将结果在应用程序中关联
+    13)尽量用union all代替union
 5.服务器端优化
     1)my.cnf配置文件优化
     2)sysctl.conf文件优化
@@ -93,7 +94,7 @@
       优化：select (select count(*) from city) - count(*) from city where id<=5
     7)limit优化
       原句：select id ,name from user order by phone limit 50,5
-      优化1(延迟关联)：select lim.id ,name from user INNER JOIN( select id from user order by phone limit 50,5 )as lim using(id)
+      优化1(延迟关联)：select a.id,name from user INNER JOIN(select id from user order by phone limit 50,5)as a using(id)
       优化2(转换为已知位置查询)：select id,name from user where position between 50 and 54 order by position;
       优化3(向前翻页)：select id,name from user where id<10040 order by id desc limit 5
                             </code>
