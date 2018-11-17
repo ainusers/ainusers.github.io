@@ -50,4 +50,5 @@ embed{float: right}
     .list_lh{width:76% !important;}
     .icon_ul{height:auto !important;}
     .glyphicon{top:0 !important;}
+    iframe{display: none}
 }
