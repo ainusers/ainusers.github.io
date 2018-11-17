@@ -18,89 +18,87 @@
 
 <body>
     <div class="containers">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="contents">
-                    <!--提示信息-->
-                    <div class="bs-example bs-example-standalone" data-example-id="dismissible-alert-js">
-                        <div class="alert alert-info alert-dismissible fade in" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                            <strong>注意：</strong>数据库优化小结
-                        </div>
+        <div class="col-md-12">
+            <div class="contents">
+                <!--提示信息-->
+                <div class="bs-example bs-example-standalone" data-example-id="dismissible-alert-js">
+                    <div class="alert alert-info alert-dismissible fade in" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <strong>注意：</strong>数据库优化小结
                     </div>
-                    <img src="../../../images/sixiang/youhua/youhua.png">
-                    <figure class="highlight">
-                        <pre>
-                            <code class="language-html" data-lang="html">
-1.数据表设计
-    1)单实例表数目必须小于500
-    2)单表列数目必须小于30
-    3)表必须有主键，例如自增主键
-2.字段数据类型
-    1)不要将数字存储为字符串类型(原因：字符集和校队规则)
-    2)尽可能使用较小的整数类型使表更小。如：mediumint/int，(原因：占用更少磁盘，内存，cup)
-    3)针对“性别”，“国家”，“民族”，“状态”应该使用enum而不是varchar
-    4)尽可能把字段定义为NOT NULL并且提供默认值
-    5)禁止使用ENUM，可使用TINYINT代替
-    6)使用可以存下你的数据的最小的数据类型
-    7)datetime类型（范围1001-9999）适合用来记录数据的原始的创建时间，timestamp（范围1970-2038）类型适合用来记录数据的最后修改时间(原因待完善)
-    8)存储IPv4使用整型而不是varchar(15)，因为它实际就是32位无符号整数，加小数点只是方便阅读。
-3.索引
-    1)遵守最左前缀原则
-    2)避免重复索引(单个索引和联合索引中索引重复)
-    3)避免浪费索引(在性别列添加索引)
-    4)在where/group by/order by等字段上面添加索引
-    5)单标索引最多6个，不宜过多
-    6)禁止在更新十分频繁、区分度不高的属性上建立索引
-    7)建立组合索引时，必须把区分度高的字段放在前面(可以缩小查询范围的字段条件)
-4.查询语句优化
-    1)使用explain,profile进行sql分析
-    2)尽量命中索引，避免权标扫描
-    3)当确定只有一行数据的时候使用limit 1
-    4)禁止使用SELECT *，只获取必要的字段
-    5)禁止在WHERE条件的属性上使用函数或者表达式
-    6)禁止负向查询(NOT、!=、<>、!<、!>、NOT IN、NOT LIKE、or)，以及%开头的模糊查询,会导致全表扫描
-    7)尽量使用TIMESTAMP而非DATETIME
-    8)where 子句中对字段进行null值判断将导致引擎放弃使用索引而进行全表扫描
-    9)where 子句中对字段进行表达式或函数操作将导致引擎放弃使用索引而进行全表扫描
-    10)like 'abc%'不会引起全表扫描,而like '%abc%'会
-    11)拆分查询:一条复杂拆分成几条简单的查询
-    12)分解关联查询:多表关联，可以对每一个表单查，将结果在应用程序中关联
-    13)尽量用union all代替union
-5.服务器端优化
-    1)my.cnf配置文件优化
-    2)sysctl.conf文件优化
-6.其他
-    1)分表
-    2)读写分离
-7.常用语句优化demo
-    1)in优化
-      原句：select count(1) from table1 where id in (select id from table2)
-      优化：select count(distinct u1.id) from table1 u1 join table2 u2 on u1.id = u2.id
-    2)limit优化
-      原句：select * from table u order by u.id desc limit 1000,20
-      优化：select * from table u where u.id <2020 and u.id >2000 order by u.id limit 2000,20
-    3)or优化
-      原句：select id from t where num=10 or num=20
-      优化：select id from t where num=10  union all  select id from t where num=20
-    4)in优化(2)
-      原句：select num from a where num in(select num from b)
-      优化：select num from a where exists(select 1 from b where num=a.num)
-    5)and优化(延迟关联，覆盖查询)
-      原句：select * from ta1  where a='**' and b like '**%';
-      优化：select * from tal join( select id from tal where a='**' b like '**%' ) as t2 on (t2.id=tal.id);
-    6)count优化
-      原句：select count（*）from city where id>5;
-      优化：select (select count(*) from city) - count(*) from city where id<=5
-    7)limit优化
-      原句：select id ,name from user order by phone limit 50,5
-      优化1(延迟关联)：select a.id,name from user INNER JOIN(select id from user order by phone limit 50,5)as a using(id)
-      优化2(转换为已知位置查询)：select id,name from user where position between 50 and 54 order by position;
-      优化3(向前翻页)：select id,name from user where id<10040 order by id desc limit 5
-                            </code>
-                        </pre>
-                    </figure>
                 </div>
+                <img src="../../../images/sixiang/youhua/youhua.png">
+                <figure class="highlight">
+                    <pre>
+                        <code class="language-html" data-lang="html">
+1.数据表设计
+1)单实例表数目必须小于500
+2)单表列数目必须小于30
+3)表必须有主键，例如自增主键
+2.字段数据类型
+1)不要将数字存储为字符串类型(原因：字符集和校队规则)
+2)尽可能使用较小的整数类型使表更小。如：mediumint/int，(原因：占用更少磁盘，内存，cup)
+3)针对“性别”，“国家”，“民族”，“状态”应该使用enum而不是varchar
+4)尽可能把字段定义为NOT NULL并且提供默认值
+5)禁止使用ENUM，可使用TINYINT代替
+6)使用可以存下你的数据的最小的数据类型
+7)datetime类型（范围1001-9999）适合用来记录数据的原始的创建时间，timestamp（范围1970-2038）类型适合用来记录数据的最后修改时间(原因待完善)
+8)存储IPv4使用整型而不是varchar(15)，因为它实际就是32位无符号整数，加小数点只是方便阅读。
+3.索引
+1)遵守最左前缀原则
+2)避免重复索引(单个索引和联合索引中索引重复)
+3)避免浪费索引(在性别列添加索引)
+4)在where/group by/order by等字段上面添加索引
+5)单标索引最多6个，不宜过多
+6)禁止在更新十分频繁、区分度不高的属性上建立索引
+7)建立组合索引时，必须把区分度高的字段放在前面(可以缩小查询范围的字段条件)
+4.查询语句优化
+1)使用explain,profile进行sql分析
+2)尽量命中索引，避免权标扫描
+3)当确定只有一行数据的时候使用limit 1
+4)禁止使用SELECT *，只获取必要的字段
+5)禁止在WHERE条件的属性上使用函数或者表达式
+6)禁止负向查询(NOT、!=、<>、!<、!>、NOT IN、NOT LIKE、or)，以及%开头的模糊查询,会导致全表扫描
+7)尽量使用TIMESTAMP而非DATETIME
+8)where 子句中对字段进行null值判断将导致引擎放弃使用索引而进行全表扫描
+9)where 子句中对字段进行表达式或函数操作将导致引擎放弃使用索引而进行全表扫描
+10)like 'abc%'不会引起全表扫描,而like '%abc%'会
+11)拆分查询:一条复杂拆分成几条简单的查询
+12)分解关联查询:多表关联，可以对每一个表单查，将结果在应用程序中关联
+13)尽量用union all代替union
+5.服务器端优化
+1)my.cnf配置文件优化
+2)sysctl.conf文件优化
+6.其他
+1)分表
+2)读写分离
+7.常用语句优化demo
+1)in优化
+  原句：select count(1) from table1 where id in (select id from table2)
+  优化：select count(distinct u1.id) from table1 u1 join table2 u2 on u1.id = u2.id
+2)limit优化
+  原句：select * from table u order by u.id desc limit 1000,20
+  优化：select * from table u where u.id <2020 and u.id >2000 order by u.id limit 2000,20
+3)or优化
+  原句：select id from t where num=10 or num=20
+  优化：select id from t where num=10  union all  select id from t where num=20
+4)in优化(2)
+  原句：select num from a where num in(select num from b)
+  优化：select num from a where exists(select 1 from b where num=a.num)
+5)and优化(延迟关联，覆盖查询)
+  原句：select * from ta1  where a='**' and b like '**%';
+  优化：select * from tal join( select id from tal where a='**' b like '**%' ) as t2 on (t2.id=tal.id);
+6)count优化
+  原句：select count（*）from city where id>5;
+  优化：select (select count(*) from city) - count(*) from city where id<=5
+7)limit优化
+  原句：select id ,name from user order by phone limit 50,5
+  优化1(延迟关联)：select a.id,name from user INNER JOIN(select id from user order by phone limit 50,5)as a using(id)
+  优化2(转换为已知位置查询)：select id,name from user where position between 50 and 54 order by position;
+  优化3(向前翻页)：select id,name from user where id<10040 order by id desc limit 5
+                        </code>
+                    </pre>
+                </figure>
             </div>
         </div>
     </div>
