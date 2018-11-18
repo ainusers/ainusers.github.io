@@ -44,9 +44,8 @@ ul {
 	margin-left: 1em;
 }
 
-/* ��Ҫ���벿�� */
 #nav {left: 20px;list-style: none;margin: 0;position: fixed;top: 3rem;}
-#nav li {margin-bottom: 2px;width: 10rem;}
+#nav li {margin-bottom: 2px;width: 15rem;}
 #nav a {background: #ededed;color: #666;display: block;	font-size: 14px;padding: 5px 10px;text-decoration: none;text-transform: uppercase;}
 #nav a:hover {background: #dedede;}
 /*#nav .current a {background: #666;color: #ededed;}*/
@@ -55,11 +54,10 @@ ul {
 .section p:last-child {	margin-bottom: 0;}
 /*left list*/
 .ui-accordion .ui-accordion-content{padding: 0em !important;}
-#nav ul   {overflow-y: scroll;height: 30rem;width: 10rem;overflow-x: hidden}
+#nav ul   {overflow-y: scroll;height: 40rem;width: 15rem;overflow-x: hidden}
 #nav ul li  {background: #dedede;}
+#nav ul li a {text-transform: lowercase}
 #nav li ul .current a {background: #666;color: #ededed;}
 #nav ul li {background: #ededed;color: #666;display: block;	font-size: 14px;padding: 5px 10px;text-decoration: none;text-transform: uppercase;}
 /*content*/
 pre{padding: 0rem !important;}
-
-/* ������������֮�� www.lanrenzhijia.com */
