@@ -1,4 +1,3 @@
-
 @keyframes cc{
 	0%{opacity: 0.4;transform: scale(0.1) ;top: -500px;}
 	50%{opacity: 0.4;transform: scale(0.1) rotateX(90deg);top: -50px;}
@@ -13,11 +12,10 @@
     }
 }
 html,body{
-	height:100%;
+	height:100vh;
 	width:100%;
-	background: url(../img/loginbg1.jpg) no-repeat center center;
-	background-size:1920px 1000px;
-	perspective:500px;
+	background: url(../img/bg.jpg) no-repeat center center;
+	background-size: contain;
 }
 *{
 		font-family:"仿宋";
@@ -25,15 +23,14 @@ html,body{
 .login{
 	width:450px;
 	position: relative;
-	top: 0;
-	margin: 15% auto;
+	margin: 0 auto;
 	background:rgba(255,255,255,1);
 	border-radius: 10px;
     color: #27d;
+	margin-top: 10%;
     animation: cc 4s ease-in-out ;
 }
 .login header{
-	
     padding: 10px;
     border-bottom: 1px solid #27d;
 }
@@ -71,7 +68,7 @@ html,body{
    width:100%;
    outline:none;
 }
-.dl{
+#dl{
 	width:150px;
 	height:40px;
 	background:#27d;
