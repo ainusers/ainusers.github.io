@@ -71,6 +71,11 @@
                     <img id="ryzs" src=".././../../images/nav/about/ry1.png">
                     <img id="ryzsnr" src=".././../../images/nav/about/ry2.png">
                 </div>
+                <!--旅游-->
+                <div class="show">
+                    <h3>旅游</h3>
+                    <div id = "tour" style = "width:100%;height:45rem"></div>
+                </div>
                 <!--联系方式-->
                 <div class="show">
                     <h3>联系方式</h3>
@@ -93,5 +98,60 @@
     <script src="../../../js/index/jquery-3.3.1.min.js"></script>
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="../../../product/bootstrap/js/bootstrap.min.js"></script>
+    <!--echarts-->
+    <script src="../../../js/echarts/echarts.min.js"></script>
+    <script src="../../../js/echarts/china.js"></script>
 
+    <script type="text/javascript">
+        var mydata = [
+            {name: '北京',value: "10" },
+            {name: '天津',value: '1'},
+            {name: '安徽',value: "2"},
+            {name: '上海',value: "1"},
+            {name: '陕西',value: "1"}
+        ];
+        var optionMap = {
+            backgroundColor: '#FFFFFF',
+            title: {
+                text: '我记得要走过每一座城市的',
+                subtext: '',
+                x:'center'
+            },
+            tooltip : {
+                trigger: 'item',
+            },
+            //左侧小导航图标
+            visualMap: {
+                show : true,
+                x: 'left',
+                y: 'center',
+                splitList: [
+                    {start: 0, end:1},{start: 1, end: 3},
+                    {start: 3, end: 5},{start: 5, end: 7},
+                    {start: 7, end: 9},{start: 9, end: 10}
+                ],
+                color: ['#5475f5', '#9feaa5', '#85daef','#74e2ca', '#e6ac53', '#9fb5ea']
+            },
+            //配置属性
+            series: [{
+                name: '我来过这儿',
+                type: 'map',
+                mapType: 'china',
+                roam: true,
+                label: {
+                    normal: {
+                        show: true  //省份名称
+                    },
+                    emphasis: {
+                        show: false
+                    }
+                },
+                data:mydata  //数据
+            }]
+        };
+        //初始化echarts实例
+        var myChart = echarts.init(document.getElementById('tour'));
+        //使用制定的配置项和数据显示图表
+        myChart.setOption(optionMap);
+    </script>
 </html>
