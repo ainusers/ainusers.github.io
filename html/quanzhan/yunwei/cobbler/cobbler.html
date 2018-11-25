@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<!--添加自适应标签-->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" shrink-to-fit=no">
+	<title>甜先森</title>
+	<!--title上面添加icon-->
+	<link rel="shortcut icon" href="../../../../images/head/head.png"/>
+</head>
+
+    <!--引入外部样式-->
+    <link href="../../../../product/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="../../../../css/quanzhan/linux/slide.css" rel="stylesheet">
+    <!--jqueryui-->
+    <link href="../../../../product/jqueryui/jquery-ui.min.css" rel="stylesheet">
+    <link href="http://jqueryui.com/resources/demos/style.css" rel="stylesheet">
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                <!--left-->
+                <ul id="nav">
+                    <li>
+                        <a href="#cobbler">cobbler</a>
+                        <ul>
+                            <li  class="current">
+                                <a href="#jczs">基本知识</a>
+                            </li>
+                            <li>
+                                <a href="#az">cobbler安装</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-10">
+                <!--container-->
+                <div id="container">
+                    <div class="section" id="jczs">
+                        <h2>cobbler基础知识</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+1.cobbler是自动化安装系统的一种技术，属于自动化运维工程师范畴
+2.cobbler是基于pxe(引导程序)+kickstart(自动应答技术)，封装的简化版
+3.应用场景：对于上百台，上前台的机器安装系统的操作予以便利
+                            </ol>
+                        </pre>
+                    </div>
+                    <div class="section" id="az">
+                        <h2>cobbler安装</h2>
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+1.安装apache
+		yum install -y httpd
+2.安装依赖环境
+    # 安装官方自带的epel源，不过速度比较慢
+    yum install -y epel-release
+    yum install -y cobbler
+    yum install -y dhcp tftp-server pykickstart httpd
+    yum install -y cobbler-web
+    安装cobbler-web的时候，如果遇到django版本问题
+    wget https://kojipkgs.fedoraproject.org//packages/Django14/1.4.14/1.el6/noarch/Django14-1.4.14-1.el6.noarch.rpm
+    rpm -ivh Django14-1.4.14-1.el6.noarch.rpm
+    或者
+    https://download.csdn.net/download/ainuser/10527632
+3.启动httpd
+		/etc/init.d/httpd restart或者service httpd start
+4.启动cobbler
+    /etc/init.d/cobblerd start或者service cobblerd start
+5.检查缺失的配置(执行cobbler check之前要先启动httpd否则会报错)
+    cobbler check	(如果出现的不是8条错误列表，请关闭selinux/IP tables并且重启cobbler试一下)
+6.解决检查出现的问题
+    a)第一个问题
+    vi /etc/cobbler/settings
+    manage_dhcp: 1
+    server: 192.168.1.129
+    next_server: 192.168.1.129
+    b)第二个问题
+    vi /etc/xinetd.d/tftp
+    disable  = no
+    c)第三个问题
+    vi /etc/xinetd.d/rsync
+    disable = no
+    d)第四个问题
+    cobbler get-loaders
+    如果遇到问题**bear，试试yum clean all
+    或者
+    wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-6.repo
+    e)第五个问题
+    openssl passwd -1 -salt 'salt' '123456'
+    $1$salt$638tR8bROOvPnPklDQ9Vf/
+    vi /etc/cobbler/settings
+    default_password_crypted:"生成的新密码"($1$salt$638tR8bROOvPnPklDQ9Vf/)
+    f)第六个问题
+    service iptables stop
+    剩余有三个报错不用处理
+    g)第七个问题
+    vi /etc/cobbler/dhcp.template
+        option routers             192.168.1.2;
+
+    文件生效
+    service cobblerd restart
+    cobbler sync
+    cobbler check(文件检查发现dhcpd启动问题没有了)
+8.导入安装源
+    mount /dev/cdrom /mnt/	//卸载命令是umount /mnt
+    cobbler import --path=/mnt/ --name=CentOS-6.9-x86_64  --arch=x86_64
+    验证是否镜像是否导入成功
+    cobbler list
+    cobbler profile report
+9.指定kickstart文件
+    cobbler profile edit --name=CentOS-6.9-x86_64 --kickstart=/var/lib/cobbler/kickstarts/sample_end.ks
+    cobbler profile edit --name=CentOS-6.9-x86_64 --kopts='net.iframes=0 biosdevname=0'
+    cobbler sync
+
+    启动服务
+        chkconfig httpd on
+        chkconfig dhcpd on
+        chkconfig xinetd on
+        chkconfig cobblerd on
+
+        service httpd restart
+        service dhcpd restart
+        service xinetd restart
+        service cobblerd restart
+10.设置bios(自动化创建虚拟机待验证)
+    新建虚拟机后
+    启动->电源->power on to bios
+    1）将网卡启动设置为第一启动项
+    network boot from intel放置在第一位
+    2）修改启动界面提示信息(可选)
+    vi /etc/cobbler/pxe/pxedefault.template
+    cobbler sync
+    send ctrl+alt_del 重启操作
+11.测试cobbler
+    进入选项界面后点击centos-6.9x86_64
+12.访问web
+    http://192.168.1.104/cobbler_web
+    cobbler/cobbler
+                            </ol>
+                        </pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+    <!--jquery-->
+    <script src="../../../../js/index/jquery-3.3.1.min.js"></script>
+    <!--jquery.nav-->
+    <script src="../../../../product/jqueryui/jquery.nav.js"></script>
+    <!--jqueryui-->
+    <script src="../../../../product/jqueryui/jquery-ui.min.js"></script>
+
+    <script>
+        $( "#nav" ).accordion({
+            collapsible: true
+        });
+        $(function(){
+            $('#nav').onePageNav();
+        });
+    </script>
+</html>

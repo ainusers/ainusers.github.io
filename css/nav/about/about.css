@@ -27,4 +27,5 @@ body{background-image: url("../../../images/nav/about/bg.png");background-repeat
 	#ryzs{width:120px; height:130px;}
 	#ryzsnr{width:180px;height:100px;}
 	.alert-danger{background-color: rgba(255,255,255,.5) !important;}
+	#tour,#lv{display: none}
 }
