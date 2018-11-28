@@ -78,7 +78,7 @@ width:100%
 .no {display:block;background:url("icons/no.png") no-repeat center center}
 .att {display:block;background:url("icons/att.png") no-repeat center center}
 .sep {width:100%;}
-.sep .image-hover {margin:20px 20px 20px 0px}
+.sep .image-hover {margin:20px 10px 20px 0px}
 
 /****** image hover ******/
 
