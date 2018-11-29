@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--添加自适应标签-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" shrink-to-fit=no">
+    <title>甜先森</title>
+    <!--title上面添加icon-->
+    <link rel="shortcut icon" href="../../../../images/head/head.png"/>
+</head>
+
+    <!--引入外部样式-->
+    <link href="../../../../product/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="../../../../css/quanzhan/linux/slide.css" rel="stylesheet">
+    <!--jqueryui-->
+    <link href="../../../../product/jqueryui/jquery-ui.min.css" rel="stylesheet">
+    <link href="http://jqueryui.com/resources/demos/style.css" rel="stylesheet">
+
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <!--left-->
+            <ul id="nav">
+                <li>
+                    <a href="#jdk" style="text-transform: lowercase">jdk环境搭建</a>
+                    <ul>
+                        <li  class="current">
+                            <a href="#hjzb">环境准备</a>
+                        </li>
+                        <li>
+                            <a href="#ksaz">开始安装</a>
+                        </li>
+                        <li>
+                            <a href="#tyhj">通用环境(选)</a>
+                        </li>
+                        <li>
+                            <a href="#dyhhj">单用户环境</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-10">
+            <!--container-->
+            <div id="container">
+                <div class="section" id="hjzb">
+                    <h2>环境准备</h2>
+                    <pre class="prettyprint linenums">
+                            <ol class="linenums">
+1.下载jdk源码包，下载地址：https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+                            </ol>
+                        </pre>
+                </div>
+                <div class="section" id="ksaz">
+                    <h2>开始安装</h2>
+                    <pre class="prettyprint linenums">
+                            <ol class="linenums">
+1.进入指定目录下：
+    cd /usr/local/
+2.创建存放安装包目录：
+    mkdir tools
+3.进入该目录下并上传安装包：
+    cd tools
+    可以使用xftp工具或者rz -be命令进行文件传输(rz命令可能需要额外下载依赖)
+4.上传成功后，解压文件(我这边以tar包为例)
+    tar -zxvf jdk-8u191-linux-x64.tar.gz
+如果是rpm包
+    rpm -ivh xxx.rpm
+5.解压成功后，修改为简易名称
+    mv jdk1.8.0_191 jdk1.8
+                            </ol>
+                        </pre>
+                </div>
+                <div class="section" id="tyhj">
+                    <h2>通用环境(二选一)</h2>
+                    <pre class="prettyprint linenums">
+                            <ol class="linenums">
+1.编辑环境配置文件
+    vi /etc/profile
+2.配置信息如下所示
+    # java_profile
+    export JAVA_HOME=/usr/local/tools/jdk1.8
+    export PATH=$JAVA_HOME/bin:$PATH
+    export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+3.文件生效
+    source /etc/profile
+4.测试环境
+    java -version
+5.测试结果如下所示
+    java version "1.8.0_191"
+    Java(TM) SE Runtime Environment (build 1.8.0_191-b12)
+    Java HotSpot(TM) 64-Bit Server VM (build 25.191-b12, mixed mode)
+                            </ol>
+                        </pre>
+                </div>
+                <div class="section" id="dyhhj">
+                    <h2>单用户环境(二选一)</h2>
+                    <pre class="prettyprint linenums">
+                            <ol class="linenums">
+1.创建用户
+    useradd ty
+2.设置密码
+    passwd ty -> 输入密码 -> 重复输入密码
+3.切换用户
+    su ty
+4.进入当前用户家目录
+    cd ~
+5.查看.bash_profile文件(单用户环境配置文件)
+    ls -a
+6.编辑环境配置文件
+    vi .bash_profile
+7.修改文件内容
+    # java_profile
+    export JAVA_HOME=/usr/local/tools/jdk1.8
+    export PATH=$JAVA_HOME/bin:$PATH
+    export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+8.文件生效
+    source ~/.bash_profile
+9.保存成功后测试环境
+    java -version
+                            </ol>
+                        </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+    <!--jquery-->
+    <script src="../../../../js/index/jquery-3.3.1.min.js"></script>
+    <!--jquery.nav-->
+    <script src="../../../../product/jqueryui/jquery.nav.js"></script>
+    <!--jqueryui-->
+    <script src="../../../../product/jqueryui/jquery-ui.min.js"></script>
+
+<script>
+    $( "#nav" ).accordion({
+        collapsible: true
+    });
+    $(function(){
+        $('#nav').onePageNav();
+    });
+</script>
+</html>
