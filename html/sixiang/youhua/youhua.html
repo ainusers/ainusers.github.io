@@ -36,6 +36,9 @@
     1)单实例表数目必须小于500
     2)单表列数目必须小于30
     3)表必须有主键，例如自增主键
+    4)符合三范式
+    5)垂直拆分（解决数据表过宽的问题）
+    6)水平拆分（解决数据量过大的问题）
 2.字段数据类型
     1)不要将数字存储为字符串类型(原因：字符集和校队规则)
     2)尽可能使用较小的整数类型使表更小。如：mediumint/int，(原因：占用更少磁盘，内存，cup)
@@ -71,13 +74,25 @@
     12)分解关联查询:多表关联，可以对每一个表单查，将结果在应用程序中关联
     13)尽量用union all代替union
     14)有些情况下，可以使用连接来替代子查询
-5.服务器端优化
+5.配置文件优化
     1)my.cnf配置文件优化
-    2)sysctl.conf文件优化
-6.其他
+    2)/etc/sysctl.conf系统文件优化
+        # 增加tcp支持的队列数
+        net.ipv4.tcp_max_syn_backlog=65535
+        # 减少断开连接时，资源回收
+        net.ipv4.tcp_max_tw_buckets=8000
+        net.ipv4.tcp_tw_reuse=1
+        net.ipv4.tcp_tw_recycle=1
+        net.ipv4.tcp_fin_timeout=10
+    3)/etc/security/limits.conf文件数量优化
+        soft nofile 65535
+        hard nofile 65535
+6.服务器磁盘优化
+    raid0+raid1
+7.其他
     1)分表，分库，分区，分片
     2)读写分离
-7.数据库引擎
+8.数据库引擎
     MyISAM引擎是MySQL 5.1及之前版本的默认引擎，它的特点是
         1)不支持行锁，读取时对需要读到的所有表加锁，写入时则对表加排它锁
         2)不支持事务；
@@ -94,7 +109,7 @@
         1)支持崩溃后的安全恢复；
         1)不支持全文索引。
     小结：MyISAM适合SELECT密集型的表，而InnoDB适合INSERT和UPDATE密集型的表
-8.mysql调优参数
+9.mysql调优参数
     thread_concurrency：并发线程数，设为CPU核数的两倍。
     max_user_connection：最大连接数，默认为0无上限，最好设一个合理上限。
     wait_timeout：数据库连接闲置时间，闲置连接会占用内存资源。可以从默认的8小时减到半小时。
@@ -111,7 +126,7 @@
     read_buffer_size：MySQL读入缓冲区大小。对表进行顺序扫描的请求将分配一个读入缓冲区，MySQL会为它分配一段内存缓冲区。如果对表的顺序扫描请求非常频繁，可以通过增加该变量值以及内存缓冲区大小提高其性能。
     sort_buffer_size：MySQL执行排序使用的缓冲大小。如果想要增加ORDER BY的速度，首先看是否可以让MySQL使用索引而不是额外的排序阶段。如果不能，可以尝试增加sort_buffer_size变量的大小。
     read_rnd_buffer_size：MySQL随机读缓冲区大小。当按任意顺序读取行时(例如按照排序顺序)，将分配一个随机读缓存区。进行排序查询时，MySQL会首先扫描一遍该缓冲，以避免磁盘搜索，提高查询速度，如果需要排序大量数据，可适当调高该值。但MySQL会为每个客户连接发放该缓冲空间，所以应尽量适当设置该值，以避免内存开销过大。
-9.常用语句优化demo
+10.常用语句优化demo
     1)in优化
       原句：select count(1) from table1 where id in (select id from table2)
       优化：select count(distinct u1.id) from table1 u1 join table2 u2 on u1.id = u2.id
@@ -135,6 +150,8 @@
       优化1(延迟关联)：select a.id,name from user INNER JOIN(select id from user order by phone limit 50,5)as a using(id)
       优化2(转换为已知位置查询)：select id,name from user where position between 50 and 54 order by position;
       优化3(向前翻页)：select id,name from user where id<10040 order by id desc limit 5
+11.优秀优化博客
+    http://www.cnblogs.com/clsn/p/8214048.html
                         </code>
                     </pre>
                 </figure>
