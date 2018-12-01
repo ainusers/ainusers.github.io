@@ -1,0 +1,21 @@
+@keyframes cc{
+	0%{opacity: 0.4;transform: scale(0.1) ;top: -500px;}
+	100%{opacity: 1;transform: scale(1) rotateX(0deg);top: 0;}
+}
+html,body{
+	height:97vh;
+	background: url(../../images/pay/bg.jpg) no-repeat center center;
+	background-size: cover;
+}
+.container-fluid{
+	padding-top:9rem;
+}
+.login{
+	height:250px;
+	width:200px;
+	margin-left:40%;
+	background:rgba(255,255,255,1);
+	border-radius: 10px;
+    animation: cc 4s ease-in-out ;
+}
+
