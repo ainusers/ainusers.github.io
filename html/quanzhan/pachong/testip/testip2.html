@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <!--添加自适应标签-->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" shrink-to-fit=no">
+        <title>甜先森</title>
+        <!--title上面添加icon-->
+        <link rel="shortcut icon" href="../../../../images/head/head.png"/>
+    </head>
+    <style type="text/css">
+
+    </style>
+
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link href="../../../../product/bootstrap/css/bootstrap.css" type="text/css" rel="stylesheet">
+    <link href="../../../../css/quanzhan/pachong/pachong.css" type="text/css" rel="stylesheet">
+
+<body>
+    <div class="containers">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="contents">
+                    <!--提示信息-->
+                    <div class="bs-example bs-example-standalone" data-example-id="dismissible-alert-js">
+                        <div class="alert alert-info alert-dismissible fade in" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            <strong>注意：</strong>测试国内代理IP可用性2(<a target="_blank" href="http://www.xicidaili.com/nn/1">http://www.xicidaili.com/nn/1</a>)
+                        </div>
+                    </div>
+                    <figure class="highlight">
+                        <pre>
+                            <code class="language-html" data-lang="html">
+# coding: utf-8
+import urllib.request
+import re
+import time
+from urllib3.connectionpool import xrange
+
+
+def getDL(page):
+     url = 'http://www.xicidaili.com/nt/{}'.format(page)
+     header = {
+         'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'
+     }
+
+     req=urllib.request.Request(url, headers=header)
+     res=urllib.request.urlopen(req)
+     html=res.read()
+     html = html.decode('utf-8')
+     srclist=re.findall(r'<tr class=(.|\n)*?<td>(\d+\.\d+\.\d+\.\d+)</td>(.|\n)*?<td>(\d+)</td>(.|\n)*?<td>(HTTP|HTTPS)</td>', html)
+     xlist = []
+     for item in srclist:
+         xlist.append((item[5],item[1],item[3]))
+     return xlist
+
+def testDL(ipstr):
+     proxy= urllib.request.ProxyHandler({'http':"{}:{}".format(ipstr[1], ipstr[2])})
+     opener=urllib.request.build_opener(proxy)
+     urllib.request.install_opener(opener)
+
+     try:
+        testUrl = 'http://httpbin.org/ip'
+        testUrl = 'http://2017.ip138.com/ic.asp'
+        req=urllib.request.Request(testUrl)
+        res=urllib.request.urlopen(req).read()
+        print("********************* √ {}    -- {}".format(ipstr, res))
+
+        with open("ok.txt","a") as f:
+             f.write("{} {} {}\n".format(ipstr[0], ipstr[1], ipstr[2]))
+             f.close()
+     except Exception as e:
+        print("******** ×, {} -- {}".format(ipstr, e))
+     time.sleep(1)
+
+def startTask():
+     for page in xrange(5):
+         list=getDL(page+1)
+         for item in list:
+             testDL(item)
+
+
+if __name__ == '__main__':
+     startTask()
+                            </code>
+                        </pre>
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+    <!--引入外部js文件-->
+    <!--jquery-->
+    <script src="../../../../js/index/jquery-3.3.1.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="../../../../product/bootstrap/js/bootstrap.min.js"></script>
+</html>
