@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <!--添加自适应标签-->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" shrink-to-fit=no">
+        <title>甜先森</title>
+        <!--title上面添加icon-->
+        <link rel="shortcut icon" href="../../../../images/head/head.png"/>
+    </head>
+    <style type="text/css">
+
+    </style>
+
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link href="../../../../product/bootstrap/css/bootstrap.css" type="text/css" rel="stylesheet">
+    <link href="../../../../css/quanzhan/pachong/pachong.css" type="text/css" rel="stylesheet">
+
+<body>
+    <div class="containers">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="contents">
+                    <!--提示信息-->
+                    <div class="bs-example bs-example-standalone" data-example-id="dismissible-alert-js">
+                        <div class="alert alert-info alert-dismissible fade in" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            <strong>注意：</strong>测试国内代理IP可用性(<a target="_blank" href="http://www.xicidaili.com/nn/1">http://www.xicidaili.com/nn/1</a>)
+                        </div>
+                    </div>
+                    <figure class="highlight">
+                        <pre>
+                            <code class="language-html" data-lang="html">
+#encoding=utf8
+#!/usr/bin/python
+import urllib.request
+import socket
+import bs4
+
+# 获取数据导入文件
+url = 'http://www.xicidaili.com/nn/2'
+header = {
+    'User-Agent':'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:43.0) Gecko/20100101 Firefox/43.0'
+}
+request = urllib.request.Request(url,headers=header)
+response = urllib.request.urlopen(request).read()
+soup = bs4.BeautifulSoup(response)
+ips = soup.findAll('tr')
+f = open("C:\\Users\\ainusers\\Desktop\\request.csv","w")
+
+for x in range(1,len(ips)):
+    ip = ips[x]
+    tds = ip.findAll("td")
+    ip_temp = tds[1].contents[0]+"\t"+tds[2].contents[0]+"\n"
+    f.write(ip_temp)
+
+
+# 测试
+socket.setdefaulttimeout(3)
+f = open("C:\\Users\\ainusers\\Desktop\\request.csv")
+lines = f.readlines()
+proxys = []
+for i in range(0,len(lines)):
+    ip = lines[i].strip("\n").split("\t")
+    proxy_host = "http://"+ip[0]+":"+ip[1]
+    proxy_temp = {"http":proxy_host}
+    proxys.append(proxy_temp)
+url = "http://ip.chinaz.com/getip.aspx"
+for proxy in proxys:
+    try:
+        opener = urllib.request.FancyURLopener(proxy)
+        res = opener.open(url)
+        res.read().decode('utf-8')
+    except Exception as e:
+        print(proxy)
+        print(e)
+        continue
+                            </code>
+                        </pre>
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+    <!--引入外部js文件-->
+    <!--jquery-->
+    <script src="../../../../js/index/jquery-3.3.1.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="../../../../product/bootstrap/js/bootstrap.min.js"></script>
+</html>
