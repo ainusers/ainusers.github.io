@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <!--添加自适应标签-->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" shrink-to-fit=no">
+        <title>甜先森</title>
+        <!--title上面添加icon-->
+        <link rel="shortcut icon" href="../../../../images/head/head.png"/>
+    </head>
+    <style type="text/css">
+
+    </style>
+
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link href="../../../../product/bootstrap/css/bootstrap.css" type="text/css" rel="stylesheet">
+    <link href="../../../../css/quanzhan/pachong/pachong.css" type="text/css" rel="stylesheet">
+
+<body>
+    <div class="containers">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="contents">
+                    <!--提示信息-->
+                    <div class="bs-example bs-example-standalone" data-example-id="dismissible-alert-js">
+                        <div class="alert alert-info alert-dismissible fade in" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            <strong>注意：</strong>爬取链家_武汉租房
+                        </div>
+                    </div>
+                    <figure class="highlight">
+                        <pre>
+                            <code class="language-html" data-lang="html">
+# -*- coding:utf-8 -*-
+import requests
+import re
+import random
+from bs4 import BeautifulSoup
+import pandas as pd
+
+
+def is_num_by_except(num):
+    try:
+        int(num)
+        return True
+    except ValueError:
+        #        print "%s ValueError" % num
+        return False
+
+
+def spider_1(url):
+    user_agent = [
+        'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36',
+        'Mozilla/5.0 (X11; U; Linux x86_64; zh-CN; rv:1.9.2.10) Gecko/20100922 Ubuntu/10.10 (maverick) Firefox/3.6.10',
+        'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11',
+        'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36',
+        'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/21.0.1180.71 Safari/537.1 LBBROWSER',
+        'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C; .NET4.0E; QQBrowser/7.0.3698.400)',
+        ]
+    headers = {
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+        'Accept-Encoding': 'gzip, deflate, sdch',
+        'Accept-Language': 'zh-CN,zh;q=0.8',
+        'User-Agent': user_agent[random.randint(0, 5)]
+    }
+
+    response = requests.get(url, headers=headers)
+    soup = BeautifulSoup(response.text, 'lxml')
+    page_array = []
+    titles = soup.select('#house-lst > li > div.info-panel > h2 > a')  # 标题
+    courts = soup.select('span.region')  # 小区
+    areas = soup.select('#house-lst > li > div.info-panel > div.col-1 > div.where > span.meters')  # 平米
+    zones = soup.select('#house-lst > li > div.info-panel > div.col-1 > div.where > span.zone')  # 几室几厅
+    prices = soup.select('#house-lst > li > div.info-panel > div.col-3 > div.price > span')  # 价格
+
+    for title, court, area, zone, price in zip(titles, courts, areas, zones, prices):
+        data = {
+            'title': title.get_text().strip(),
+            'court': court.get_text().strip(),
+            'roomWay': zone.get_text().strip(),
+            'square': area.get_text().strip(),
+            'price': price.get_text().strip(),
+        }
+        if is_num_by_except(data['square'][:-2]) == True:
+            data['square'] = data['square'][:-2]
+            data['danjia'] = int(int(data['price']) / int(data['square']))
+            if int(data['square']) > 20:
+                page_array.append(data)
+    return page_array
+
+
+def pandas_to_xlsx(info, file_name):
+    pd_look = pd.DataFrame(info)
+    sheet_n = '武汉租房'
+    pd_look.to_excel(file_name, sheet_name=sheet_n)
+
+
+def sort_xlsx(file_name):
+    df = pd.read_excel(file_name)
+    df = df.drop_duplicates()
+    df_zufang = df.groupby('court').mean()
+    df_zufang.to_excel("均一化" + file_name, '均一化')
+
+
+array_all = []
+list_qu = ['wuchang', 'hongshan', 'donghugaoxin']
+for qu in list_qu:
+    page = 1
+    url_qu = 'https://wh.lianjia.com/zufang/' + qu
+    while page < 3:
+        url = url_qu + '/pg' + str(page)
+        try:
+            array_all.extend(spider_1(url))
+        except:
+            pandas_to_xlsx(array_all)
+            break
+        page = page + 1
+        print(qu + str(page))
+
+
+pandas_to_xlsx(array_all, "链家武汉租房.xlsx")
+df = pd.read_excel("链家武汉租房.xlsx")
+df = df.drop_duplicates()
+df_zufang = df.groupby('court').mean()
+df_zufang.to_excel('租房均一化.xlsx', '均一化')
+                            </code>
+                        </pre>
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+    <!--引入外部js文件-->
+    <!--jquery-->
+    <script src="../../../../js/index/jquery-3.3.1.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="../../../../product/bootstrap/js/bootstrap.min.js"></script>
+</html>
