@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--添加自适应标签-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" shrink-to-fit=no">
+    <title>甜先森</title>
+    <!--title上面添加icon-->
+    <link rel="shortcut icon" href="../../../../images/head/head.png"/>
+</head>
+
+    <!--引入外部样式-->
+    <link href="../../../../product/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="../../../../css/quanzhan/linux/slide.css" rel="stylesheet">
+    <!--jqueryui-->
+    <link href="../../../../product/jqueryui/jquery-ui.min.css" rel="stylesheet">
+    <link href="http://jqueryui.com/resources/demos/style.css" rel="stylesheet">
+
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <!--left-->
+            <ul id="nav">
+                <li>
+                    <a href="#zookeeper" style="text-transform: lowercase">zookeeper搭建</a>
+                    <ul>
+                        <li class="current">
+                            <a href="#hjzb">环境准备</a>
+                        </li>
+                        <li>
+                            <a href="#ksaz">开始安装</a>
+                        </li>
+                        <li>
+                            <a href="#czml">操作命令</a>
+                        </li>
+                        <li>
+                            <a href="#pzsy">配置使用</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-10">
+            <!--container-->
+            <div id="container">
+                <div class="section" id="hjzb">
+                    <h2>环境准备</h2>
+                    <pre class="prettyprint linenums">
+                            <ol class="linenums">
+1.下载zookeeper源码包，下载地址：http://mirrors.hust.edu.cn/apache/zookeeper/
+                            </ol>
+                        </pre>
+                </div>
+                <div class="section" id="ksaz">
+                    <h2>开始安装</h2>
+                    <pre class="prettyprint linenums">
+                            <ol class="linenums">
+1.安装命令wget(可选)
+    yum install -y wget
+2.找一个安装目录(可自行选择)
+    cd /usr/local/tools
+3.下载zookeeper源码包
+    wget http://mirrors.hust.edu.cn/apache/zookeeper/zookeeper-3.4.12.tar.gz
+4.解压源码包
+    tar -zxvf zookeeper-3.4.12.tar.gz
+5.修改zookeeper配置文件名称
+    mv /usr/local/tools/zookeeper-3.4.12/conf/zoo_sample.cfg  zoo.cfg
+6.修改配置文件zoo.cfg
+    tickTime=2000
+    initLimit=10
+    syncLimit=5
+    dataDir=/usr/local/tools/zookeeper-3.4.12/data
+    dataLogDir=/usr/local/tools/zookeeper-3.4.12/log
+    clientPort=2181
+    server.1=192.168.16.227:2888:3888
+7.创建文件存放目录
+    mkdir /usr/local/tools/zookeeper-3.4.12/data
+    mkdir /usr/local/tools/zookeeper-3.4.12/log
+8.创建pid文件
+    echo 1  > /usr/local/tools/zookeeper-3.4.12/data/myid
+9.配置环境变量
+    vi ~/.bash_profile
+    文件内容如下
+        # .bash_profile
+        # Get the aliases and functions
+        if [ -f ~/.bashrc ]; then
+            . ~/.bashrc
+        fi
+
+        # User specific environment and startup programs
+
+        PATH=$PATH:$HOME/bin
+        export ZOOKEEPER_HOME=/usr/local/tools/zookeeper-3.4.12
+        export PATH=$ZOOKEEPER_HOME/bin:$PATH
+        expor PATH
+10.zookeeper启动
+    ./usr/local/tools/zookeeper-3.4.12/bin/zkServer.sh start
+11.配置开机启动(可选)
+12.测试是否成功
+    ./zkServer.sh status
+    显示如下信息，则启动成功
+        ZooKeeper JMX enabled by default
+        Using config: /usr/local/tools/zookeeper-3.4.12/bin/../conf/zoo.cfg
+        Mode: standalone
+                            </ol>
+                        </pre>
+                </div>
+                <div class="section" id="czml">
+                    <h2>操作命令</h2>
+                    <pre class="prettyprint linenums">
+                            <ol class="linenums">
+
+                            </ol>
+                        </pre>
+                </div>
+                <div class="section" id="pzsy">
+                    <h2>配置使用</h2>
+                    <pre class="prettyprint linenums">
+                            <ol class="linenums">
+
+                            </ol>
+                        </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+    <!--jquery-->
+    <script src="../../../../js/index/jquery-3.3.1.min.js"></script>
+    <!--jquery.nav-->
+    <script src="../../../../product/jqueryui/jquery.nav.js"></script>
+    <!--jqueryui-->
+    <script src="../../../../product/jqueryui/jquery-ui.min.js"></script>
+<script>
+    $( "#nav" ).accordion({
+        collapsible: true
+    });
+    $(function(){
+        $('#nav').onePageNav();
+    });
+</script>
+</html>
