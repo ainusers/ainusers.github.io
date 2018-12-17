@@ -12,6 +12,7 @@ body{background-image: url("../../../images/quanzhan/pachong/bg.png")}
 	border-radius: 8px;
 	padding: 5px 15px;
 }
+.contents a{margin-left: 4rem}
 
 /*适配*/
 /*横向放置的手机分辨率*/
