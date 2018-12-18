@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--添加自适应标签-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" shrink-to-fit=no">
+    <title>甜先森</title>
+    <!--title上面添加icon-->
+    <link rel="shortcut icon" href="../../../../images/head/head.png"/>
+</head>
+
+    <!--引入外部样式-->
+    <link href="../../../../product/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="../../../../css/quanzhan/linux/slide.css" rel="stylesheet">
+    <!--jqueryui-->
+    <link href="../../../../product/jqueryui/jquery-ui.min.css" rel="stylesheet">
+    <link href="http://jqueryui.com/resources/demos/style.css" rel="stylesheet">
+
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <!--left-->
+            <ul id="nav">
+                <li>
+                    <a href="#chandao" style="text-transform: lowercase">搭建禅道</a>
+                    <ul>
+                        <li class="current">
+                            <a href="#hjzb">环境准备</a>
+                        </li>
+                        <li>
+                            <a href="#ksazjy">第一种方式安装(建议)</a>
+                        </li>
+                        <li>
+                            <a href="#ksazer">第二种方式安装</a>
+                        </li>
+                        <li>
+                            <a href="#pzsy">配置使用</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-10">
+            <!--container-->
+            <div id="container">
+                <div class="section" id="hjzb">
+                    <h2>环境准备</h2>
+                    <pre class="prettyprint linenums">
+                            <ol class="linenums">
+-->第一种方式
+1.下载禅道：(64位)http://dl.cnezsoft.com/zentao/9.0.1/ZenTaoPMS.9.0.1.zbox_64.tar.gz
+            (32位)http://dl.cnezsoft.com/zentao/9.0.1/ZenTaoPMS.9.0.1.zbox_32.tar.gz
+2.其他版本：http://www.zentao.net/download.html<br/>
+-->第二种方式
+1.下载xampp：(64位)http://sourceforge.net/projects/xampp/files/XAMPP%20Linux/1.8.2/
+            或     xampp-linux-x64-1.8.2-6-installer.run/download
+             (32位)http://sourceforge.net/projects/xampp/files/XAMPP%20Linux/1.8.2/
+            或     xampp-linux-1.8.2-6-installer.run/download
+                            </ol>
+                        </pre>
+                </div>
+                <div class="section" id="ksazjy">
+                    <h2>第一种方式安装(建议)</h2>
+                    <pre class="prettyprint linenums">
+                            <ol class="linenums">
+1.下载禅道安装包(如果没有wget命令，建议先安装)
+    yum install -y wget
+    cd /opt
+    wget http://dl.cnezsoft.com/zentao/9.0.1/ZenTaoPMS.9.0.1.zbox_64.tar.gz
+2.寻找临时目录存放禅道文件,并解压(必须放置于/opt目录下)
+    tar -zxvf ZenTaoPMS.9.0.1.zbox_64.tar.gz
+3.启动禅道服务
+    ./opt/zbox/zbox start
+4.关闭防火墙
+    service iptables stop
+5.访问禅道(访问你的IP地址)
+    http://192.168.1.157/
+6.选择开源版(默认用户信息：admin/123456)
+                            </ol>
+                        </pre>
+                </div>
+                <div class="section" id="ksazer">
+                    <h2>第二种方式安装</h2>
+                    <pre class="prettyprint linenums">
+                            <ol class="linenums">
+1.
+                            </ol>
+                        </pre>
+                </div>
+                <div class="section" id="pzsy">
+                    <h2>idea配置使用</h2>
+                    <pre class="prettyprint linenums">
+                            <ol class="linenums">
+
+                            </ol>
+                        </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+    <!--jquery-->
+    <script src="../../../../js/index/jquery-3.3.1.min.js"></script>
+    <!--jquery.nav-->
+    <script src="../../../../product/jqueryui/jquery.nav.js"></script>
+    <!--jqueryui-->
+    <script src="../../../../product/jqueryui/jquery-ui.min.js"></script>
+<script>
+    $( "#nav" ).accordion({
+        collapsible: true
+    });
+    $(function(){
+        $('#nav').onePageNav();
+    });
+</script>
+</html>
