@@ -23,7 +23,7 @@
             <!--left-->
             <ul id="nav">
                 <li>
-                    <a href="#zookeeper" style="text-transform: lowercase">zookeeper搭建</a>
+                    <a href="#zookeeper" style="text-transform: lowercase">dubbo-admin搭建</a>
                     <ul>
                         <li class="current">
                             <a href="#hjzb">环境准备</a>
@@ -48,7 +48,10 @@
                     <h2>环境准备</h2>
                     <pre class="prettyprint linenums">
                             <ol class="linenums">
-1.下载zookeeper源码包，下载地址：http://mirrors.hust.edu.cn/apache/zookeeper/
+1.下载dubbo-admin地址(2.6.0版本以上不再有dubbo-admin)：https://github.com/apache/incubator-dubbo/tree/dubbo-2.6.0
+2.直接下载war包：
+3.必要环境：maven/jdk/tomcat
+4.maven下载地址：http://mirrors.hust.edu.cn/apache/maven/maven-3/3.5.4/binaries/
                             </ol>
                         </pre>
                 </div>
@@ -56,53 +59,9 @@
                     <h2>开始安装</h2>
                     <pre class="prettyprint linenums">
                             <ol class="linenums">
-1.安装命令wget(可选)
-    yum install -y wget
-2.找一个安装目录(可自行选择)
-    cd /usr/local/tools
-3.下载zookeeper源码包
-    wget http://mirrors.hust.edu.cn/apache/zookeeper/zookeeper-3.4.12.tar.gz
-4.解压源码包
-    tar -zxvf zookeeper-3.4.12.tar.gz
-5.修改zookeeper配置文件名称
-    mv /usr/local/tools/zookeeper-3.4.12/conf/zoo_sample.cfg  zoo.cfg
-6.修改配置文件zoo.cfg
-    tickTime=2000
-    initLimit=10
-    syncLimit=5
-    dataDir=/usr/local/tools/zookeeper-3.4.12/data
-    dataLogDir=/usr/local/tools/zookeeper-3.4.12/log
-    clientPort=2181
-    server.1=192.168.16.227:2888:3888
-7.创建文件存放目录
-    mkdir /usr/local/tools/zookeeper-3.4.12/data
-    mkdir /usr/local/tools/zookeeper-3.4.12/log
-8.创建pid文件
-    echo 1  > /usr/local/tools/zookeeper-3.4.12/data/myid
-9.配置环境变量
-    vi ~/.bash_profile
-    文件内容如下
-        # .bash_profile
-        # Get the aliases and functions
-        if [ -f ~/.bashrc ]; then
-            . ~/.bashrc
-        fi
-
-        # User specific environment and startup programs
-
-        PATH=$PATH:$HOME/bin
-        export ZOOKEEPER_HOME=/usr/local/tools/zookeeper-3.4.12
-        export PATH=$ZOOKEEPER_HOME/bin:$PATH
-        expor PATH
-10.zookeeper启动
-    ./usr/local/tools/zookeeper-3.4.12/bin/zkServer.sh start
-11.配置开机启动(可选)
-12.测试是否成功
-    ./zkServer.sh status
-    显示如下信息，则启动成功
-        ZooKeeper JMX enabled by default
-        Using config: /usr/local/tools/zookeeper-3.4.12/bin/../conf/zoo.cfg
-        Mode: standalone
+1.编译步骤(如已下载war包，则不用执行以下编译操作)
+    打开cmd，进入dubbo-admin路径
+2.
                             </ol>
                         </pre>
                 </div>
