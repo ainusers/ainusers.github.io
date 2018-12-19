@@ -29,7 +29,10 @@
                             <a href="#hjzb">环境准备</a>
                         </li>
                         <li>
-                            <a href="#azhj">安装环境</a>
+                            <a href="#azhj">安装环境(建议)</a>
+                        </li>
+                        <li>
+                            <a href="#azhjer">安装环境</a>
                         </li>
                     </ul>
                 </li>
@@ -51,11 +54,13 @@
             或     xampp-linux-x64-1.8.2-6-installer.run/download
              (32位)http://sourceforge.net/projects/xampp/files/XAMPP%20Linux/1.8.2/
             或     xampp-linux-1.8.2-6-installer.run/download
+2.下载禅道项目源码：http://dl.cnezsoft.com/zentao/7.2/ZenTaoPMS.7.2.stable.zip
+            或      http://sourceforge.net/projects/zentao/files/7.2/ZenTaoPMS.7.2.stable.zip/download
                             </ol>
                         </pre>
                 </div>
                 <div class="section" id="azhj">
-                    <h2>安装环境</h2>
+                    <h2>安装环境(第一种方式：建议)</h2>
                     <pre class="prettyprint linenums">
                             <ol class="linenums">
 1.下载禅道安装包(如果没有wget命令，建议先安装)
@@ -71,6 +76,33 @@
 5.访问禅道(访问你的IP地址)
     http://192.168.1.157/
 6.选择开源版(默认用户信息：admin/123456)
+                            </ol>
+                        </pre>
+                </div>
+                <div class="section" id="azhjer">
+                    <h2>安装环境(第二种方式)</h2>
+                    <pre class="prettyprint linenums">
+                            <ol class="linenums">
+1.上传xmapp文件至服务器/usr/local/tools目录
+2.赋予可执行权限
+    chmod +x xampp-linux-x64-1.8.2-6-installer.run
+3.执行文件(过程中，按照提示信息输入Y即可，之后会将xampp安装至/opt目录)
+    ./xampp-linux-x64-1.8.2-6-installer.run
+4.启动xampp
+    /opt/lampp/lampp start
+5.下载ZenTaoPMS.7.2.stable.zip后，解压文件得到zentaopms，将zentaopms整个文件夹上传到服务器的/opt/lampp/htdocs/目录
+6.访问项目
+    http://192.168.146.128/zentaopms/www/index.php
+7.进入安装界面会出现几个报错信息
+    chmod o=rwx -R /opt/lampp/htdocs/zentaopms/tmp/
+    chmod o=rwx -R /opt/lampp/htdocs/zentaopms/www/data
+    chmod 777 -R  /opt/lampp/htdocs/zentaopms/config
+8.数据库信息直接默认下一步，不需要修改
+9.默认用户信息admin/123456
+10.为了系统的安全，请您删掉这两个文件
+    rm -rf /opt/lampp/htdocs/zentaopms/www/install.php
+    rm -rf /opt/lampp/htdocs/zentaopms/www/upgrade.php
+11.刷新即可登录
                             </ol>
                         </pre>
                 </div>
