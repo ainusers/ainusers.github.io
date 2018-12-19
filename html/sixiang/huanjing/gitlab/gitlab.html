@@ -23,13 +23,19 @@
             <!--left-->
             <ul id="nav">
                 <li>
-                    <a href="#zookeeper" style="text-transform: lowercase">dubbo-admin搭建</a>
+                    <a href="#chandao" style="text-transform: lowercase">搭建gitlab</a>
                     <ul>
                         <li class="current">
                             <a href="#hjzb">环境准备</a>
                         </li>
                         <li>
-                            <a href="#ksaz">开始安装</a>
+                            <a href="#ksazjy">第一种方式安装(建议)</a>
+                        </li>
+                        <li>
+                            <a href="#ksazer">第二种方式安装</a>
+                        </li>
+                        <li>
+                            <a href="#pzsy">配置使用</a>
                         </li>
                     </ul>
                 </li>
@@ -42,27 +48,51 @@
                     <h2>环境准备</h2>
                     <pre class="prettyprint linenums">
                             <ol class="linenums">
-1.下载dubbo-admin地址(2.6.0版本以上不再有dubbo-admin)：https://github.com/apache/incubator-dubbo/tree/dubbo-2.6.0
-2.直接下载war包：
-3.必要环境：maven/jdk/tomcat
-4.maven下载地址：http://mirrors.hust.edu.cn/apache/maven/maven-3/3.5.4/binaries/
+-->第一种方式
+1.下载禅道：(64位)http://dl.cnezsoft.com/zentao/9.0.1/ZenTaoPMS.9.0.1.zbox_64.tar.gz
+            (32位)http://dl.cnezsoft.com/zentao/9.0.1/ZenTaoPMS.9.0.1.zbox_32.tar.gz
+2.其他版本：http://www.zentao.net/download.html<br/>
+-->第二种方式
+1.下载xampp：(64位)http://sourceforge.net/projects/xampp/files/XAMPP%20Linux/1.8.2/
+            或     xampp-linux-x64-1.8.2-6-installer.run/download
+             (32位)http://sourceforge.net/projects/xampp/files/XAMPP%20Linux/1.8.2/
+            或     xampp-linux-1.8.2-6-installer.run/download
                             </ol>
                         </pre>
                 </div>
-                <div class="section" id="ksaz">
-                    <h2>开始安装</h2>
+                <div class="section" id="ksazjy">
+                    <h2>第一种方式安装(建议)</h2>
                     <pre class="prettyprint linenums">
                             <ol class="linenums">
-1.编译步骤(如已下载war包，则不用执行以下编译操作)
-    打开cmd，进入dubbo-admin路径
-2.安装配置好jdk和maven环境(本次搭建均在window环境下)
-3.进入dubbo-admin进行打包(使用cmd窗口/git窗口均可执行)
-    cd C:\Users\tianyong\Desktop\incubator-dubbo-dubbo-2.6.0\incubator-dubbo-dubbo-2.6.0\dubbo-admin
-    mvn package -Dmaven.skip.test=true
-4.执行成功后，会出现target目录，生成的dubbo-admin-2.6.0.war即在该目录下
-5.将生成好的war包，放置/usr/local/tools/apache-tomcat-8.5.35/webapps中启动tomcat
-6.访问服务：http://192.168.16.227:8080/dubbo-admin-2.6.0/
-7.默认用户信息：root/root，此时dubbo-admin环境部署成功
+1.下载禅道安装包(如果没有wget命令，建议先安装)
+    yum install -y wget
+    cd /opt
+    wget http://dl.cnezsoft.com/zentao/9.0.1/ZenTaoPMS.9.0.1.zbox_64.tar.gz
+2.寻找临时目录存放禅道文件,并解压(必须放置于/opt目录下)
+    tar -zxvf ZenTaoPMS.9.0.1.zbox_64.tar.gz
+3.启动禅道服务
+    ./opt/zbox/zbox start
+4.关闭防火墙
+    service iptables stop
+5.访问禅道(访问你的IP地址)
+    http://192.168.1.157/
+6.选择开源版(默认用户信息：admin/123456)
+                            </ol>
+                        </pre>
+                </div>
+                <div class="section" id="ksazer">
+                    <h2>第二种方式安装</h2>
+                    <pre class="prettyprint linenums">
+                            <ol class="linenums">
+1.
+                            </ol>
+                        </pre>
+                </div>
+                <div class="section" id="pzsy">
+                    <h2>idea配置使用</h2>
+                    <pre class="prettyprint linenums">
+                            <ol class="linenums">
+
                             </ol>
                         </pre>
                 </div>
