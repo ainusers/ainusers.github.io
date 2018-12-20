@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--添加自适应标签-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" shrink-to-fit=no">
+    <title>甜先森</title>
+    <!--title上面添加icon-->
+    <link rel="shortcut icon" href="../../../../images/head/head.png"/>
+</head>
+
+    <!--引入外部样式-->
+    <link href="../../../../product/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="../../../../css/quanzhan/linux/slide.css" rel="stylesheet">
+    <!--jqueryui-->
+    <link href="../../../../product/jqueryui/jquery-ui.min.css" rel="stylesheet">
+    <link href="http://jqueryui.com/resources/demos/style.css" rel="stylesheet">
+
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <!--left-->
+            <ul id="nav">
+                <li>
+                    <a href="#activemq" style="text-transform: lowercase">搭建activemq</a>
+                    <ul>
+                        <li class="current">
+                            <a href="#hjzb">环境准备</a>
+                        </li>
+                        <li>
+                            <a href="#azhj">安装环境</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-10">
+            <!--container-->
+            <div id="container">
+                <div class="section" id="hjzb">
+                    <h2>环境准备</h2>
+                    <pre class="prettyprint linenums">
+                        <ol class="linenums">
+1.activemq安装包：https://archive.apache.org/dist/activemq/5.14.0/apache-activemq-5.14.0-bin.tar.gz
+2.activemq官网下载：http://activemq.apache.org/activemq-5140-release.html
+3.注意activemq需要依赖jdk环境
+                        </ol>
+                    </pre>
+                </div>
+                <div class="section" id="azhj">
+                    <h2>安装环境</h2>
+                    <pre class="prettyprint linenums">
+                        <ol class="linenums">
+0.依赖的jdk环境，可以参考这篇文章搭建：http://www.ainusers.top/html/sixiang/huanjing/jdk/jdk.html
+1.下载activemq安装包
+    wget https://archive.apache.org/dist/activemq/5.14.0/apache-activemq-5.14.0-bin.tar.gz
+2.解压下载activemq安装包压缩包
+    tar -zxvf apache-activemq-5.14.0-bin.tar.gz
+3.设置环境变量
+    # java_profile
+    export JAVA_HOME=/usr/local/tools/jdk1.8
+    export PATH=$JAVA_HOME/bin:$PATH
+    export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+    # activemq_profile
+    export ACTIVEMQ_HOME=/usr/local/tools/apache-activemq-5.14.0
+    export ACTIVEMQ_BIN=$ACTIVEMQ_HOME/bin
+    export PATH=${PATH}:${ACTIVEMQ_BIN}
+4.启动activemq
+    ./activemq start
+5.关闭防火墙
+    service iptables stop
+6.访问activemq
+    http://192.168.1.157:8161/admin/
+7.默认用户信息
+    admin/admin
+8.此时成功登陆activemq界面
+                        </ol>
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+    <!--jquery-->
+    <script src="../../../../js/index/jquery-3.3.1.min.js"></script>
+    <!--jquery.nav-->
+    <script src="../../../../product/jqueryui/jquery.nav.js"></script>
+    <!--jqueryui-->
+    <script src="../../../../product/jqueryui/jquery-ui.min.js"></script>
+<script>
+    $( "#nav" ).accordion({
+        collapsible: true
+    });
+    $(function(){
+        $('#nav').onePageNav();
+    });
+</script>
+</html>
