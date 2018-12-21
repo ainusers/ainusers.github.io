@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--添加自适应标签-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" shrink-to-fit=no">
+    <title>甜先森</title>
+    <!--title上面添加icon-->
+    <link rel="shortcut icon" href="../../../../images/head/head.png"/>
+</head>
+
+    <!--引入外部样式-->
+    <link href="../../../../product/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="../../../../css/quanzhan/linux/slide.css" rel="stylesheet">
+    <!--jqueryui-->
+    <link href="../../../../product/jqueryui/jquery-ui.min.css" rel="stylesheet">
+    <link href="http://jqueryui.com/resources/demos/style.css" rel="stylesheet">
+
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <!--left-->
+            <ul id="nav">
+                <li>
+                    <a href="#neo4j" style="text-transform: lowercase">搭建neo4j</a>
+                    <ul>
+                        <li class="current">
+                            <a href="#hjzb">环境准备</a>
+                        </li>
+                        <li>
+                            <a href="#azhj">安装环境</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-10">
+            <!--container-->
+            <div id="container">
+                <div class="section" id="hjzb">
+                    <h2>环境准备</h2>
+                    <pre class="prettyprint linenums">
+                        <ol class="linenums">
+1.neo4j：https://neo4j.com/download-center/#releases（选择community server版本）
+2.对jdk有依赖
+                        </ol>
+                    </pre>
+                </div>
+                <div class="section" id="azhj">
+                    <h2>安装环境</h2>
+                    <pre class="prettyprint linenums">
+                        <ol class="linenums">
+1.将neo4j-community-3.5.1-unix.tar.gz安装包放至/usr/local/tools目录
+    curl -O http://dist.neo4j.org/neo4j-community-3.4.5-unix.tar.gz
+    或者使用其他方式wget/rz -be/xftp
+2.解压neo4j
+    tar -zxvf neo4j-community-3.5.1-unix.tar.gz
+3.修改配置文件（可选）
+    # 修改第22行load csv时l路径，在前面加个#，可从任意路径读取文件
+    #dbms.directories.import=import
+    # 修改35行和36行，设置JVM初始堆内存和JVM最大堆内存
+    # 生产环境给的JVM最大堆内存越大越好，但是要小于机器的物理内存
+    dbms.memory.heap.initial_size=5g
+    dbms.memory.heap.max_size=10g
+    # 修改46行，可以认为这个是缓存，如果机器配置高，这个越大越好
+    dbms.memory.pagecache.size=10g
+    # 修改54行，去掉改行的#，可以远程通过ip访问neo4j数据库
+    dbms.connectors.default_listen_address=0.0.0.0
+    # 默认 bolt端口是7687，http端口是7474，https关口是7473，不修改下面3项也可以
+    # 修改71行，去掉#，设置http端口为7687，端口可以自定义，只要不和其他端口冲突就行
+    dbms.connector.bolt.listen_address=:7687
+    # 修改75行，去掉#，设置http端口为7474，端口可以自定义，只要不和其他端口冲突就行
+    dbms.connector.http.listen_address=:7474
+    # 修改79行，去掉#，设置http端口为7473，端口可以自定义，只要不和其他端口冲突就行
+    dbms.connector.https.listen_address=:7473
+    # 修改254行，设置neo4j可读可写
+    dbms.read_only=false
+4.启动neo4j
+    /usr/local/tools/neo4j-community-3.5.1/bin/neo4j start
+5.关闭防火墙
+    service iptables stop
+6.访问neo4j
+    http://192.168.16.227:7474/browser/
+7.默认登录信息
+    bolt://192.168.16.227:7687
+    neo4j/neo4j
+                        </ol>
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+    <!--jquery-->
+    <script src="../../../../js/index/jquery-3.3.1.min.js"></script>
+    <!--jquery.nav-->
+    <script src="../../../../product/jqueryui/jquery.nav.js"></script>
+    <!--jqueryui-->
+    <script src="../../../../product/jqueryui/jquery-ui.min.js"></script>
+<script>
+    $( "#nav" ).accordion({
+        collapsible: true
+    });
+    $(function(){
+        $('#nav').onePageNav();
+    });
+</script>
+</html>
