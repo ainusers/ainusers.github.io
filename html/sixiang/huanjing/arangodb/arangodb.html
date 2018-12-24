@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--添加自适应标签-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" shrink-to-fit=no">
+    <title>甜先森</title>
+    <!--title上面添加icon-->
+    <link rel="shortcut icon" href="../../../../images/head/head.png"/>
+</head>
+
+    <!--引入外部样式-->
+    <link href="../../../../product/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="../../../../css/quanzhan/linux/slide.css" rel="stylesheet">
+    <!--jqueryui-->
+    <link href="../../../../product/jqueryui/jquery-ui.min.css" rel="stylesheet">
+    <link href="http://jqueryui.com/resources/demos/style.css" rel="stylesheet">
+
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <!--left-->
+            <ul id="nav">
+                <li>
+                    <a href="#arangodb" style="text-transform: lowercase">搭建arangodb</a>
+                    <ul>
+                        <li class="current">
+                            <a href="#hjzb">环境准备</a>
+                        </li>
+                        <li>
+                            <a href="#azhj">安装环境</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-10">
+            <!--container-->
+            <div id="container">
+                <div class="section" id="hjzb">
+                    <h2>环境准备</h2>
+                    <pre class="prettyprint linenums">
+                        <ol class="linenums">
+1.arangodb官网下载(上面有安装包和几种安装方式)：
+    https://www.arangodb.com/download-arangodb-enterprise/install-enterprise/centos_/
+                        </ol>
+                    </pre>
+                </div>
+                <div class="section" id="azhj">
+                    <h2>安装环境</h2>
+                    <pre class="prettyprint linenums">
+                        <ol class="linenums">
+1.下载安装包并安装
+    cd /etc/yum.repos.d/
+    curl -OL https://download.arangodb.com/9c169fe900ff79790395784287bfa82f0dc0059375a34a2881b9b745c8efd42e/arangodb34/RPM/arangodb.repo
+    yum -y install arangodb3e-3.4.0
+2.修改默认密码
+    arango-secure-installation --> 输入密码 --> 重复输入密码
+3.修改配置文件
+    vi /etc/arangodb3/arangod.conf
+    endpoint = tcp://0.0.0.0:8529
+4.关闭防火墙
+    service iptables stop
+5.启动arangodb服务
+    service arangodb3 start
+6.浏览器访问arangodb服务
+    192.168.16.227:8529
+7.默认登录信息
+    root/上面修改后的密码(如果没有修改，即安装成功后日志信息中提供的默认随机密码)
+                        </ol>
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+    <!--jquery-->
+    <script src="../../../../js/index/jquery-3.3.1.min.js"></script>
+    <!--jquery.nav-->
+    <script src="../../../../product/jqueryui/jquery.nav.js"></script>
+    <!--jqueryui-->
+    <script src="../../../../product/jqueryui/jquery-ui.min.js"></script>
+<script>
+    $( "#nav" ).accordion({
+        collapsible: true
+    });
+    $(function(){
+        $('#nav').onePageNav();
+    });
+</script>
+</html>
