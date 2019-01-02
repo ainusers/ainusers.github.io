@@ -41,15 +41,21 @@
                         <ol class="linenums">
 1.安装git命令（不要使用yum install -y git）
     yum install -y wget
-    wget https://github.com/git/git/archive/v2.2.1.tar.gz
-    tar zxvf v2.2.1.tar.gz
-    cd git-2.2.1
-    yum  install -y autoconf
-    make configure
-    yum install -y gcc build-essential
-    ./configure --prefix=/usr/local/tools/git-2.2.1 --with-iconv=/usr/local/libiconv(路径请自行修改)
-    yum install perl-ExtUtils-MakeMaker package
-
+    wget https://github.com/git/git/archive/v2.8.0.tar.gz
+    # 安装依赖
+    yum -y install zlib-devel openssl-devel cpio expat-devel gettext-devel curl-devel perl-ExtUtils-CBuilder perl-ExtUtils-MakeMaker
+    yum install -y perl-ExtUtils-CBuilder perl-ExtUtils-MakeMaker
+    yum update curl libcurl
+    yum -y install libcurl-devel.x86_6
+    yum -y install expat-devel.x86_64
+    yum install -y tcl build-essential tk gettext
+    yum -y install gd  *openssl*
+    tar -zxvf v2.8.0.tar.gz
+    cd git-2.8.0/
+    # 编译安装(执行路径要相同)
+    make prefix=/usr/local all
+    make prefix=/usr/local install
+    git --version
 2.拉取最新代码
     git clone https://github.com/Meituan-Dianping/SQLAdvisor.git
 3.安装依赖项
