@@ -46,12 +46,20 @@
     yum -y install zlib-devel openssl-devel cpio expat-devel gettext-devel curl-devel perl-ExtUtils-CBuilder perl-ExtUtils-MakeMaker
     yum install -y perl-ExtUtils-CBuilder perl-ExtUtils-MakeMaker
     yum update curl libcurl
+    yum install -y bison
     yum -y install libcurl-devel.x86_6
     yum -y install expat-devel.x86_64
     yum install -y tcl build-essential tk gettext
     yum -y install gd  *openssl*
+    yum install gcc gcc-g++ g++
     tar -zxvf v2.8.0.tar.gz
     cd git-2.8.0/
+    #依赖项
+    wget http://ftp.gnu.org/pub/gnu/ncurses/ncurses-5.6.tar.gz
+    tar zxvf ncurses-5.6.tar.gz
+    cd ncurses-5.6
+    ./configure -prefix=/usr/local -with-shared-without-debug --without-cxx-binding
+    make && make install
     # 编译安装(执行路径要相同)
     make prefix=/usr/local all
     make prefix=/usr/local install
@@ -70,7 +78,27 @@
     cd /usr/lib64
     ln -s libperconaserverclient_r.so.18 libperconaserverclient_r.so
 7.编译依赖项sqlparser
-
+    cd /usr/local/tools/SQLAdvisor
+    cmake -DBUILD_CONFIG=mysql_release -DCMAKE_BUILD_TYPE=debug -DCMAKE_INSTALL_PREFIX=/usr/local/sqlparser ./
+    make && make install
+8.安装SQLAdvisor源码
+    cd /usr/local/tools/SQLAdvisor/sqladvisor
+    cmake -DCMAKE_BUILD_TYPE=debug ./
+    make
+    在本路径下生成一个sqladvisor可执行文件，这即是我们想要的
+9.将sqladvisor执行命令添加到系统命令中去
+    cp -frp /usr/local/tools/SQLAdvisor/sqladvisor/sqladvisor /usr/local/bin/
+10.sqladvisor使用
+    1)vi sql.cnf
+        [sqladvisor]
+        username=root
+        password=zabbix
+        host=localhost
+        port=3306
+        dbname=blog
+        sqls=select * from table where date >"2015-07-16 18:44:27";
+    2）执行命令
+        sqladvisor -f sql.cnf -v 1
                         </ol>
                     </pre>
                 </div>
