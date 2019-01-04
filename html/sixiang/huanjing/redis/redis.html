@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--添加自适应标签-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" shrink-to-fit=no">
+    <title>甜先森</title>
+    <!--title上面添加icon-->
+    <link rel="shortcut icon" href="../../../../images/head/head.png"/>
+</head>
+
+    <!--引入外部样式-->
+    <link href="../../../../product/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="../../../../css/quanzhan/linux/slide.css" rel="stylesheet">
+    <!--jqueryui-->
+    <link href="../../../../product/jqueryui/jquery-ui.min.css" rel="stylesheet">
+    <link href="http://jqueryui.com/resources/demos/style.css" rel="stylesheet">
+
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <!--left-->
+            <ul id="nav">
+                <li>
+                    <a href="#redis" style="text-transform: lowercase">搭建redis</a>
+                    <ul>
+                        <li class="current">
+                            <a href="#hjzb">环境准备</a>
+                        </li>
+                        <li>
+                            <a href="#azhj">安装环境</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-10">
+            <!--container-->
+            <div id="container">
+                <div class="section" id="hjzb">
+                    <h2>环境准备</h2>
+                    <pre class="prettyprint linenums">
+                        <ol class="linenums">
+1.redis安装包下载：http://download.redis.io/releases/
+                        </ol>
+                    </pre>
+                </div>
+                <div class="section" id="azhj">
+                    <h2>安装环境</h2>
+                    <pre class="prettyprint linenums">
+                        <ol class="linenums">
+1.下载redis安装包
+    wget http://download.redis.io/releases/redis-5.0.0.tar.gz
+2.解压压缩包
+    tar -zxvf redis-5.0.0.tar.gz
+3.进入redis目录
+    cd redis-5.0.0
+    make
+4.编译后安装
+    cd /usr/local/tools/redis-5.0.0/src
+    make install PREFIX=/usr/local/tools/redis
+5.redis后台启动
+    cd /usr/local/tools/redis-5.0.0
+    cp redis.conf /usr/local/tools/redis/bin/
+6.编辑配置文件，开启守护进程
+    cd /usr/local/tools/redis/bin
+    vi redis.conf
+    修改为：daemonize yes
+7.启动redis服务
+    ./redis-server redis.conf
+8.查看redis进程
+    ps -ef | grep redis
+8.客户端测试
+    ./redis-cli
+    set name tianyong
+    get name
+                        </ol>
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+    <!--jquery-->
+    <script src="../../../../js/index/jquery-3.3.1.min.js"></script>
+    <!--jquery.nav-->
+    <script src="../../../../product/jqueryui/jquery.nav.js"></script>
+    <!--jqueryui-->
+    <script src="../../../../product/jqueryui/jquery-ui.min.js"></script>
+<script>
+    $( "#nav" ).accordion({
+        collapsible: true
+    });
+    $(function(){
+        $('#nav').onePageNav();
+    });
+</script>
+</html>
