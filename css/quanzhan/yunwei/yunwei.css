@@ -9,9 +9,9 @@
 
 * {font-family:'Open Sans', sans-serif, Segoe UI light;font-weight:100}
 html, body {margin:0px;padding:0px;width:100%;height:100%}
-body {background:#d9d9d9 url("icons/background.jpg") repeat-y center top}
+body {background:#d9d9d9 url("http://gss0.baidu.com/-4o3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/b3b7d0a20cf431ad1f0fee2b4d36acaf2fdd98c7.jpg") repeat-y center top}
 
-body.light, body.light {background:#d9d9d9 url("icons/background.jpg") repeat-y center top!important}
+body.light, body.light {background:#d9d9d9 url("http://gss0.baidu.com/-4o3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/b3b7d0a20cf431ad1f0fee2b4d36acaf2fdd98c7.jpg") repeat-y center top!important}
 
 .container {padding:50px;width:990px;margin:0 auto}
 .logo {text-align:center;width:100%}

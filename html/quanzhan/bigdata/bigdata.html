@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--添加自适应标签-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" shrink-to-fit=no">
+    <title>甜先森</title>
+    <!--title上面添加icon-->
+    <link rel="shortcut icon" href="../../../images/head/head.png"/>
+</head>
+    <style type="text/css">
+        body{background-image: url("http://gss0.baidu.com/-4o3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/b3b7d0a20cf431ad1f0fee2b4d36acaf2fdd98c7.jpg")}
+        .contents{width: 60%;margin: 0rem auto;}
+        .show img{margin-left: 30%}
+    </style>
+
+    <!--引入外部样式-->
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link href="../../../css/nav/liuyanban/liuyanban.css" type="text/css" rel="stylesheet">
+    <link href="../../../product/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="../../../css/quanzhan/yunwei/yunwei.css" rel="stylesheet">
+
+<body>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="contents">
+                        <!--提示信息-->
+                        <div class="bs-example bs-example-standalone" data-example-id="dismissible-alert-js">
+                            <div class="alert alert-info alert-dismissible fade in" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                <strong>注意：</strong> 大数据以hadoop为中心
+                            </div>
+                        </div>
+
+                        <!--第一部分-->
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+<h5><strong>一、hadoop以及大数据两大基石(数据存储/数据处理)hdfs/map_reduce简介</strong></h5>
+    <strong>1）hadoop优点：</strong>
+                1.扩容能力强（支持数千节点）
+                2.效率高：分发数据，并行处理
+                3.成本低
+                4.可靠性：副本机制
+	<strong>2）hdfs：主从结构（namenode，datanode）</strong>
+                <strong>namenode：</strong>
+                    1.接收用户操作请求
+                    2.维护文件系统的目录结构
+                    3.管理文件和block之间的（顺序）关系，block和namenode之间的（管理_存储）关系
+                <strong>datanode：</strong>
+                    1.存储文件
+                    2.文件被划分为block块存储在磁盘上（方便管理和充分利用磁盘和文件损失）
+                    3.为保证数据安全，文件会有多个副本
+	<strong>3）mapreduce：主从结构（jobtracker，tasktrackers）</strong>
+                <strong>jobtracker：</strong>
+                    1.接受客户端提交的计算任务
+                    2.把计算任务接受tasktrackers执行
+                    3.监控tasktracker的执行情况
+                <strong>tasktrackers：</strong>
+                    1.执行jobtracker分配的计算任务
+                            </ol>
+                        </pre>
+
+                        <!--第二部分-->
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+<h5><strong>二、hadoop部署：伪分布/集群</strong></h5>
+    <strong>1)环境准备：需要依赖jdk环境</strong>
+                1.hadoop安装包下载
+                    https://www.apache.org/dyn/closer.cgi/hadoop/common/hadoop-3.0.3/hadoop-3.0.3.tar.gz
+                2.hadoop环境搭建
+                    cd /usr/local/tools
+                    mkdir hadoop
+                    wget http://mirror.bit.edu.cn/apache/hadoop/common/hadoop-3.0.3/hadoop-3.0.3.tar.gz
+                    tar -zxvf hadoop-3.0.3.tar.gz
+                            </ol>
+                        </pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+    <!--jquery-->
+    <script src="../../../js/index/jquery-3.3.1.min.js"></script>
+    <script src="../../../product/bootstrap/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+
+    </script>
+</html>
