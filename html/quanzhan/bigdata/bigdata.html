@@ -73,6 +73,19 @@
                     mkdir hadoop
                     wget http://mirror.bit.edu.cn/apache/hadoop/common/hadoop-3.0.3/hadoop-3.0.3.tar.gz
                     tar -zxvf hadoop-3.0.3.tar.gz
+                <strong>3.修改主机名称</strong>
+                    vi /etc/sysconfig/network
+                <strong>4.主机名和IP绑定</strong>
+                    vi /etc/hosts
+                    192.168.1.157 master
+                    192.168.1.158 slave1
+                    192.168.1.159 slave2
+                <strong>5.关闭防火墙自启动</strong>
+                    chkconfig iptables off
+                    验证
+                    chkconfig --list|grep iptables
+                <strong>6.ssh远程连接</strong>
+
                             </ol>
                         </pre>
                     </div>
