@@ -23,7 +23,7 @@
             <!--left-->
             <ul id="nav">
                 <li>
-                    <a href="#mongo" style="text-transform: lowercase">搭建mongo</a>
+                    <a href="#greenplum" style="text-transform: lowercase">搭建greenplum</a>
                     <ul>
                         <li class="current">
                             <a href="#hjzb">环境准备</a>
@@ -42,7 +42,7 @@
                     <h2>环境准备</h2>
                     <pre class="prettyprint linenums">
                         <ol class="linenums">
-
+1.greenplum安装包下载地址：https://network.pivotal.io/products/pivotal-gpdb/
                         </ol>
                     </pre>
                 </div>
@@ -50,7 +50,14 @@
                     <h2>安装环境</h2>
                     <pre class="prettyprint linenums">
                         <ol class="linenums">
-
+1.安装上传依赖
+    yum install -y lrzsz
+    rz -be  之后下载的安装包greenplum-db-5.3.0-rhel6-x86_64.zip上传至服务器目录
+2.安装解压包命令
+    yum install -y unzip
+    unzip greenplum-db-5.3.0-rhel6-x86_64.zip
+3.安装环境准备
+    3.1
                         </ol>
                     </pre>
                 </div>
