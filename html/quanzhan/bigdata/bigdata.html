@@ -85,7 +85,20 @@
                     验证
                     chkconfig --list|grep iptables
                 <strong>6.ssh远程连接</strong>
-
+                    cd ~
+                    //生成秘钥
+                    ssh-keygen -t rsa
+                    cd ~/.ssh
+                    //创建交流公钥(因为ssh远程连接的时候会读取该文件)
+                    cp id_ras.pub authorized_keys
+                    //拷贝公钥
+                    scp -p ~/.ssh/id_rsa.pub root@远程机器IP:/root/.ssh/authorized_keys
+                    //验证
+                    ssh 远程机器IP
+                <strong>7.安装jdk</strong>
+                    参照：http://www.ainusers.top/html/sixiang/huanjing/jdk/jdk.html
+    <strong>2)安装步骤：安装hadoop</strong>
+                <strong>1.配置hadoop环境变量</strong>
                             </ol>
                         </pre>
                     </div>
