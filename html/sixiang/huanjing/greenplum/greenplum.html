@@ -141,6 +141,34 @@
     3.5设置selinux
         vi /etc/selinux/config
         SELINUX=disabled
+    3.6修改主机名称
+        vi /etc/sysconfig/network
+        HOSTNAME=master
+4.greenplum安装步骤
+    4.1创建gpadmin用户
+        useradd gpadmin
+        passwd gpadmin
+    4.2执行greenplum安装命令
+        ./greenplum-db-5.3.0-rhel6-x86_64.bin
+        一直按空格键，知道more信息结束
+        yes
+        回车
+        yes
+        yes
+    4.3设置gpadmin用户环境
+        cd /home/gpadmin
+        .bashrc .bash_profile这两个文件均需要修改
+        文件中添加最后两行配置信息
+        source /usr/local/greenplum-db/greenplum_path.sh
+        export MASTER_DATA_DIRECTORY=/data1/gpdata/master/gpseg-1
+    4.4准备节点服务器信息文件
+        注：文件中为各个节点的主机名，该文件主要是用于批量操作，通过用户名进行识别各个主机，进行连接，批量操控
+        mkdir /usr/local/greenplum-db/gpinit
+        vi all_host
+        master
+        slave1
+        slave2
+    4.5建立节点服务器间的信任
                         </ol>
                     </pre>
                 </div>
