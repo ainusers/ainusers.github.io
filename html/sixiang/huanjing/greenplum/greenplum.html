@@ -144,6 +144,11 @@
     3.6修改主机名称
         vi /etc/sysconfig/network
         HOSTNAME=master
+    3.7主机名映射IP
+        vi /etc/hosts
+        192.168.16.227 master
+        192.168.16.228 slave1
+        192.168.16.229 slave2
 4.greenplum安装步骤
     4.1创建gpadmin用户
         useradd gpadmin
@@ -161,6 +166,8 @@
         文件中添加最后两行配置信息
         source /usr/local/greenplum-db/greenplum_path.sh
         export MASTER_DATA_DIRECTORY=/data1/gpdata/master/gpseg-1
+        source .bashrc
+        source .bash_profile
     4.4准备节点服务器信息文件
         注：文件中为各个节点的主机名，该文件主要是用于批量操作，通过用户名进行识别各个主机，进行连接，批量操控
         mkdir /usr/local/greenplum-db/gpinit
@@ -169,6 +176,34 @@
         slave1
         slave2
     4.5建立节点服务器间的信任
+        注：建立各节点直接的信任，使得各个几点之间可以连接，远程、批量操控；
+        按照提示输入root密码，记住：这一步不能输入gpadmin的密码，因为批量安装时需要在/usr/local（安装路径）下创建目录，需要root权限
+        用root用户操作命令之前，需要进行操作
+        source /usr/local/greenplum-db/greenplum_path.sh  # 切换环境变量
+        gpssh-exkeys -f /opt/gpinit/all_host
+        ->输入slave1密码->输入slave2密码
+    4.6批量安装
+        注：将master上的greenplum打包通过scp命令传到all_host中的主机上，解压并赋予目录gpadmin的权限
+        gpseginstall -f /usr/local/tools/gpinit/all_host -u gpadmin -p gpadmin
+    4.7检查批量安装情况
+        注：返回结果中各节点目录与master节点一致则成功
+        gpssh -f /usr/local/tools/gpinit/all_host -e ls -l $GPHOME
+    4.8创建存储目录
+        master
+            mkdir -p /usr/local/tools/gpdata/master
+            chown gpadmin:gpadmin /usr/local/tools/gpdata/master
+            scp -r  /usr/local/tools/gpinit @192.168.16.228:/usr/local/tools/
+            scp -r  /usr/local/tools/gpinit @192.168.16.229:/usr/local/tools/
+        slave1
+            source /usr/local/greenplum-db/greenplum_path.sh
+            gpssh -f /usr/local/tools/gpinit/all_host -e 'mkdir -p /usr/local/tools/gpdata/slave1'
+            gpssh -f /usr/local/tools/gpinit/all_host -e 'chown -R gpadmin:gpadmin /usr/local/tools/gpdata/slave1'
+        slave2
+            source /usr/local/greenplum-db/greenplum_path.sh
+            gpssh -f /usr/local/tools/gpinit/all_host -e 'mkdir -p /usr/local/tools/gpdata/slave2'
+            gpssh -f /usr/local/tools/gpinit/all_host -e 'chown -R gpadmin:gpadmin /usr/local/tools/gpdata/slave2'
+    4.9设置时钟同步
+    5.0创建gp初始化文件
                         </ol>
                     </pre>
                 </div>
