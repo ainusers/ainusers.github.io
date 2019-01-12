@@ -64,7 +64,7 @@
                         <!--第二部分-->
                         <pre class="prettyprint linenums">
                             <ol class="linenums">
-<h5><strong>二、hadoop部署：伪分布/集群</strong></h5>
+<h5><strong>二、hadoop部署：集群</strong></h5>
     <strong>1)环境准备：需要依赖jdk环境</strong>
                 <strong>1.hadoop安装包下载</strong>
                     https://www.apache.org/dyn/closer.cgi/hadoop/common/hadoop-3.0.3/hadoop-3.0.3.tar.gz
@@ -99,6 +99,179 @@
                     参照：http://www.ainusers.top/html/sixiang/huanjing/jdk/jdk.html
     <strong>2)安装步骤：安装hadoop</strong>
                 <strong>1.配置hadoop环境变量</strong>
+                    vi /etc/profile
+                    export HADOOP_HOME=/usr/local/tools/hadoop-3.0.3
+                    export PATH=.:$HADOOP_HOME/bin:$JAVA_HOME/bin:$PATH
+                    export HADOOP_HOME_WARN_SUPPRESS=1
+                    source /etc/profile
+                <strong>2.修改配置文件</strong>
+                cd /usr/local/tools/hadoop-3.0.3/etc/hadoop
+                <strong>2.1 hadoop-env.sh文件</strong>
+                    vi /usr/local/tools/hadoop-3.0.3/etc/hadoop/hadoop-env.sh
+                    export JAVA_HOME=/usr/local/tools/jdk1.8
+                <strong>2.2 core-site.xml</strong>
+                    <xmp>
+                    <configuration>
+                        <property>
+                            <name>fs.defaultFS</name>
+                            <value>hdfs://master:9000</value>
+                            <description>用来指定hdfs的老大（NameNode）的地址</description>
+                        </property>
+                        <property>
+                            <name>hadoop.tmp.dir</name>
+                            <value>/usr/local/tools/hadoop-3.0.3/tmp</value>
+                            <description>用来指定Hadoop运行时产生文件的存放目录</description>
+                        </property>
+                    </configuration>
+                    </xmp>
+                <strong>2.3 hdfs-site.xml</strong>
+                    <xmp>
+                    <configuration>
+                        <property>
+                            <name>dfs.name.dir</name>
+                            <value>/usr/local/tools/hadoop-3.0.3/hdfs/name</value>
+                            <description>namenode上存储hdfs名字空间元数据 </description>
+                        </property>
+                        <property>
+                            <name>dfs.data.dir</name>
+                            <value>/usr/local/tools/hadoop-3.0.3/hdfs/data</value>
+                            <description>datanode上数据块的物理存储位置</description>
+                        </property>
+                        <property>
+                            <name>dfs.namenode.http-address</name>
+                            <value>master:50070</value>
+                            <description>hdfs web管理页面</description>
+                        </property>
+                        <property>
+                            <name>dfs.replication</name>
+                            <value>1</value>
+                            <description>指定HDFS保存数据副本数量 （小于datanode机器数量，默认3）</description>
+                        </property>
+                        <property>
+                            <name>dfs.permissions</name>
+                            <value>false</value>
+                            <description>允许不要检查权限就生成dfs上的文件（若防止误删，需要设置为true）</description>
+                        </property>
+                    </configuration>
+                    </xmp>
+                <strong>2.4 mapred-site.xml</strong>
+                    <xmp>
+                    <configuration>
+                        <property>
+                                <name>mapreduce.framework.name</name>
+                                <value>yarn</value>
+                                <description>告诉hadoop以后MR运行在yarn上</description>
+                        </property>
+                    </configuration>
+                    </xmp>
+                <strong>2.5 yarn-site.xml</strong>
+                    <xmp>
+                    <configuration>
+                            <property>
+                                    <name>yarn.nodemanager.aux-services</name>
+                                    <value>mapreduce_shuffle</value>
+                                    <description>NodeManager获取数据的方式是shuffle</description>
+                            </property>
+                            <property>
+                                    <name>yarn.resourcemanager.hostname</name>
+                                    <value>master</value>
+                                    <description>指定YARN的老大（resourcemanager）的地址</description>
+                            </property>
+                            <property>
+                                    <name>yarn.resourcemanager.webapp.address</name>
+                                    <value>master:8099</value>
+                                    <description>这个地址是mr管理界面的</description>
+                            </property>
+                    </configuration>
+                    </xmp>
+                <strong>3.新建文件存放目录</strong>
+                    mkdir  /usr/local/tools/hadoop-3.0.3/tmp
+                    mkdir  /usr/local/tools/hadoop-3.0.3/logs
+                    mkdir -p  /usr/local/tools/hadoop-3.0.3/hdfs/data
+                    mkdir -p  /usr/local/tools/hadoop-3.0.3/hdfs/name
+                <strong>4.对hadoop进行格式化</strong>
+                    cd /usr/local/tools/hadoop-3.0.3
+                    hadoop namenode -format (已过时)
+                    hdfs namenode -format
+                <strong>5.设置用户定义(如下三个文件均添加用户配置信息)</strong>
+                    vi start-dfs.sh
+                    vi start-yarn.sh
+                    vi start-all.sh
+                    HDFS_NAMENODE_USER=root
+                    HDFS_DATANODE_USER=root
+                    YARN_NODEMANAGER_USER=root
+                    YARN_RESOURCEMANAGER_USER=root
+                    HDFS_SECONDARYNAMENODE_USER=root
+                <strong>6.启动hadoop</strong>
+                    start-all.sh (启动start-dfs.sh，start-yarn.sh)
+                <strong>7.验证hadoop安装</strong>
+                    7.1 jps (出现5个进程即为正常)
+                        2946 DataNode           (hdfs部门的小弟，负责存放数据)
+                        2836 NameNode           (hdfs部门的老大)
+                        4120 Jps                (java进程)
+                        3117 SecondaryNameNode  (相当于NameNode的助理)
+                        3422 ResourceManager    (yarn部门的老大，yarn负责资源管理)
+                        3534 NodeManager        (yarn部门的小弟，集群的话会有很多)
+                    7.2 web客户端访问测试
+                        http://192.168.8.88:50070 (hdfs管理界面)
+                        http://192.168.8.88:8088  (yarn管理界面)
+                            </ol>
+                        </pre>
+
+                        <!--第三部分-->
+                        <!--第一部分-->
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+<h5><strong>三、hdfs学习</strong></h5>
+    <strong>1）基本信息：</strong>
+                1.分布式文件系统
+                    适用于一次写入，多次查询情况，不支持并发写入，小文件不适合存放
+                2.查看分布式文件系统hdfs根目录文件
+                    hadoop fs -lsr /
+                3.将文件上传至hdfs文件服务器d1目录下
+                    hadoop fs -put /root/install.log  /d1
+                4.将文件下载至linux目录下
+                    hadoop fs -get /d1/install.log  .
+                5.查看hdfs文件内容
+                    hadoop fs -text /d1/install.log
+                6.删除hdfs文件内容（删除目录需要递归rmr）
+                    hadoop fs -rm /d1/install.log
+                7.完整写法：
+                    hadoop fs -ls hdfs://hadoop0:9000
+	<strong>2）namenode学习</strong>
+                1.secondaryNameNode（提高namenode相应速度/备份数据）
+                    执行过程：从namenode上下载元数据信息
+                    （fsimage,edits）然后将二者合并，生成新的
+                    fsimage，再本地保存，并将其推送到namenode
+                    同时重置namenode的edits
+                    默认安装在namenode，虽然这样不安全
+                2.元数据管理
+                    hdfs数据上传操作流程
+                        当客户端上传文件->namenode接收请求->分配机器,block(此时edits log记录分配的信息)->客户端请求datanode创建block
+                        当文件创建完成后->客户端namenode创建完成->edits log将该信息同步到内存中->完成数据上传过程
+                        当edits log记录文件满了(64M)->edits log和fsimage从namenode上面下载做合并生成新的fsimage->之后上传至namenode->
+                        ->将新的fsimage(fsimage.chkimage重命名)->删除原来edits log->将暂时作为记录分配信息的文件edits.new重命名为edits log
+	<strong>3）datanode学习</strong>
+                1.最基本的存储单位是文件快block
+                2.hdfs默認的block大小事64MB，如果大于64MB剩余部分是多少就是多少，并不会占用整个数据块存储空间
+                3.文件块存储在/dfs/data中，大于64MB会有两个文件块
+                4.默认的副本数是3
+    <strong>4）namenode,datanode原理</strong>
+                4.1.datanode工作原理
+                    提供真实文件数据存储服务(以block为基本存储单位，默认128M)
+                    如果上传129M，那么存储文件应该是128M+1M，但是存储的block会有两个
+                    使用java实现hdfs操作
+                    FileSystem fs = FileSystem.get(new Configuration());
+                4.2.Namenode工作原理
+                    1.维护元数据信息(记录block块存储信息)
+                    2.维护hdfs的目录结构
+                    3.处理访问请求
+    <strong>5）问题小结</strong>
+                5.1.hdfs如何进行备份
+                   对namenode中hfsimage进行备份(多机备份)
+                   secondarynamenode合并idts到hfsimage(少量丢失)
+                5.2.hdfs上传的文件都放置在哪里(linux)，为什么不直接copy在上面呢？
+                    直接拷贝hdfs的namenode不会进行管理，类别数据库管理数据(数据同样也是存储在磁盘中)
                             </ol>
                         </pre>
                     </div>
