@@ -84,7 +84,7 @@
                     chkconfig iptables off
                     验证
                     chkconfig --list|grep iptables
-                <strong>6.ssh远程连接</strong>
+                <strong>6.ssh远程连接 <label style="color: red;">(注意项：master,slave1,salve2三台机器每台机器中需有三台机器的公钥信息)</label></strong>
                     cd ~
                     //生成秘钥
                     ssh-keygen -t rsa
@@ -93,8 +93,10 @@
                     cp id_ras.pub authorized_keys
                     //拷贝公钥
                     scp -p ~/.ssh/id_rsa.pub root@远程机器IP:/root/.ssh/authorized_keys
+                    //组合多台机器公钥<label style="color: red">(重点步骤,authorized_keys需要集合三台机器的公钥)</label>
+                    cat id_rsa.pub >> authorized_keys
                     //验证
-                    ssh 远程机器IP
+                    ssh 主机名/远程机器IP
                 <strong>7.安装jdk</strong>
                     参照：http://www.ainusers.top/html/sixiang/huanjing/jdk/jdk.html
     <strong>2)安装步骤：安装hadoop</strong>
@@ -103,6 +105,11 @@
                     export HADOOP_HOME=/usr/local/tools/hadoop-3.0.3
                     export PATH=.:$HADOOP_HOME/bin:$JAVA_HOME/bin:$PATH
                     export HADOOP_HOME_WARN_SUPPRESS=1
+                    export HDFS_NAMENODE_USER=root
+                    export HDFS_DATANODE_USER=root
+                    export YARN_NODEMANAGER_USER=root
+                    export YARN_RESOURCEMANAGER_USER=root
+                    export HDFS_SECONDARYNAMENODE_USER=root
                     source /etc/profile
                 <strong>2.修改配置文件</strong>
                 cd /usr/local/tools/hadoop-3.0.3/etc/hadoop
@@ -110,7 +117,7 @@
                     vi /usr/local/tools/hadoop-3.0.3/etc/hadoop/hadoop-env.sh
                     export JAVA_HOME=/usr/local/tools/jdk1.8
                 <strong>2.2 core-site.xml</strong>
-                    <xmp>
+                    <textarea style="width: 60rem;height: 20rem">
                     <configuration>
                         <property>
                             <name>fs.defaultFS</name>
@@ -123,9 +130,9 @@
                             <description>用来指定Hadoop运行时产生文件的存放目录</description>
                         </property>
                     </configuration>
-                    </xmp>
+                    </textarea>
                 <strong>2.3 hdfs-site.xml</strong>
-                    <xmp>
+                    <textarea style="width: 60rem;height: 43rem">
                     <configuration>
                         <property>
                             <name>dfs.name.dir</name>
@@ -153,9 +160,9 @@
                             <description>允许不要检查权限就生成dfs上的文件（若防止误删，需要设置为true）</description>
                         </property>
                     </configuration>
-                    </xmp>
+                    </textarea>
                 <strong>2.4 mapred-site.xml</strong>
-                    <xmp>
+                    <textarea style="width: 60rem;height: 13rem">
                     <configuration>
                         <property>
                                 <name>mapreduce.framework.name</name>
@@ -163,9 +170,9 @@
                                 <description>告诉hadoop以后MR运行在yarn上</description>
                         </property>
                     </configuration>
-                    </xmp>
+                    </textarea>
                 <strong>2.5 yarn-site.xml</strong>
-                    <xmp>
+                    <textarea style="width: 60rem;height: 28rem">
                     <configuration>
                             <property>
                                     <name>yarn.nodemanager.aux-services</name>
@@ -183,37 +190,48 @@
                                     <description>这个地址是mr管理界面的</description>
                             </property>
                     </configuration>
-                    </xmp>
+                    </textarea>
                 <strong>3.新建文件存放目录</strong>
                     mkdir  /usr/local/tools/hadoop-3.0.3/tmp
                     mkdir  /usr/local/tools/hadoop-3.0.3/logs
                     mkdir -p  /usr/local/tools/hadoop-3.0.3/hdfs/data
                     mkdir -p  /usr/local/tools/hadoop-3.0.3/hdfs/name
-                <strong>4.对hadoop进行格式化</strong>
+                    <strong>4.编辑从节点<label style="color: red">(并非原先slaves，改为workers)</label></strong>
+                    vi /usr/local/tools/hadoop-3.0.3/etc/hadoop/workers
+                    slave1
+                    slave2
+                <strong>5.拷贝hadoop到各个slave节点上<label style="color: red">(hadoop不需要修改任何东西，但是slave环境需要和master一致)</label></strong>
+                    scp -r hadoop root@slave1:/usr/local/tools/
+                    scp -r hadoop root@slave2:/usr/local/tools/
+                <strong>6.对hadoop进行格式化</strong>
                     cd /usr/local/tools/hadoop-3.0.3
                     hadoop namenode -format (已过时)
                     hdfs namenode -format
-                <strong>5.设置用户定义(如下三个文件均添加用户配置信息)</strong>
-                    vi start-dfs.sh
-                    vi start-yarn.sh
-                    vi start-all.sh
-                    HDFS_NAMENODE_USER=root
-                    HDFS_DATANODE_USER=root
-                    YARN_NODEMANAGER_USER=root
-                    YARN_RESOURCEMANAGER_USER=root
-                    HDFS_SECONDARYNAMENODE_USER=root
-                <strong>6.启动hadoop</strong>
+                <strong>7.启动hadoop</strong>
                     start-all.sh (启动start-dfs.sh，start-yarn.sh)
-                <strong>7.验证hadoop安装</strong>
-                    7.1 jps (出现5个进程即为正常)
-                        2946 DataNode           (hdfs部门的小弟，负责存放数据)
-                        2836 NameNode           (hdfs部门的老大)
-                        4120 Jps                (java进程)
-                        3117 SecondaryNameNode  (相当于NameNode的助理)
-                        3422 ResourceManager    (yarn部门的老大，yarn负责资源管理)
-                        3534 NodeManager        (yarn部门的小弟，集群的话会有很多)
-                    7.2 web客户端访问测试
-                        http://192.168.8.88:50070 (hdfs管理界面)
+                <strong>8.验证hadoop安装</strong>
+                    8.1 进程简介
+                        2946 DataNode                              (hdfs部门的小弟，负责存放数据)
+                        2836 NameNode                            (hdfs部门的老大)
+                        4120 Jps                                            (java进程)
+                        3117 SecondaryNameNode       (相当于NameNode的助理)
+                        3422 ResourceManager              (yarn部门的老大，yarn负责资源管理)
+                        3534 NodeManager                      (yarn部门的小弟，集群的话会有很多)
+                    8.2 如下验证hadoop集群是否安装成功
+                        master
+                            9905 ResourceManager
+                            9332 NameNode
+                            9626 SecondaryNameNode
+                        slave1
+                            8049 NodeManager
+                            7442 DataNode
+                            7835 SecondaryNameNode
+                        slave2
+                            5058 NodeManager
+                            4437 DataNode
+                            4911 SecondaryNameNode
+                    8.3 web客户端访问测试
+                        http://192.168.8.88:9870  (hdfs管理界面,<label style="color: red">50070过期[除非文件中指定]</label>)
                         http://192.168.8.88:8088  (yarn管理界面)
                             </ol>
                         </pre>
