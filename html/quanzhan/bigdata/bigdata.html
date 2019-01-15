@@ -245,15 +245,17 @@
                 1.分布式文件系统
                     适用于一次写入，多次查询情况，不支持并发写入，小文件不适合存放
                 2.查看分布式文件系统hdfs根目录文件
-                    hadoop fs -ls -R /
+                    hadoop fs -ls -R /test1
                 3.将文件上传至hdfs文件服务器new目录下
-                    hadoop fs -put /root/install.log  /new
+                    上传目录：hadoop fs -put /usr/local/tools/testfile/  /test1
+                    上传文件：hadoop fs -put testfile/test1 /test1/
+                    上传文件并改名：hadoop fs -put testfile/test1 /test1/test2
                 4.将文件下载至linux目录下
-                    hadoop fs -get /new  .
+                    hadoop fs -get /test1/ /usr/local/tools/
                 5.查看hdfs文件内容
-                    hadoop fs -text /new
+                    hadoop fs -text /test1/test1
                 6.删除hdfs文件内容（删除目录需要递归rmr）
-                    hadoop fs -rm  /new
+                    hadoop fs -rm /test1/test1
                 7.完整写法：
                     hadoop fs -ls hdfs://hadoop0:9000
 	<strong>2）namenode学习</strong>
