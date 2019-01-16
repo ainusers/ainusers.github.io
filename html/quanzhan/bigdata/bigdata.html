@@ -237,7 +237,6 @@
                         </pre>
 
                         <!--第三部分-->
-                        <!--第一部分-->
                         <pre class="prettyprint linenums">
                             <ol class="linenums">
 <h5><strong>三、hdfs学习</strong></h5>
@@ -292,6 +291,380 @@
                    secondarynamenode合并idts到hfsimage(少量丢失)
                 5.2.hdfs上传的文件都放置在哪里(linux)，为什么不直接copy在上面呢？
                     直接拷贝hdfs的namenode不会进行管理，类别数据库管理数据(数据同样也是存储在磁盘中)
+                            </ol>
+                        </pre>
+
+                        <!--第三部分-->
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+<h5><strong>四、map_reduce学习</strong></h5>
+    <strong>1）基本信息：</strong>
+                1.海量数据的批量离线计算
+                2.将计算分为两个步骤
+                    Map+reduce=job
+                    map处理本批数据+reduce处理汇总数据
+                    启动yarn进程，才可以运行mapreduce程序
+	<strong>2）java代码编写</strong>
+                mapper
+				public class WCMapper extends Mapper<LongWriteable,Text,Text,LongWriteable>{}
+                统计出现次数实现思想
+                    每次读一行，调用该方法->拆分后->格式变为<单词,1>
+                reduce
+                    public class WCReducer extends Reducer<Text,LongWriteable,Text,LongWriteable>{}
+                汇总统计出现次数实现思想
+                    将获取到<单词,{1,1,1,1}>->进行累加求和
+                job汇总map+reduce
+                    job设置mapper+reduce+输入输出类型+输入数据路径+输出数据路径+设置启动类
+                在linux系统中启动，需要制定启动类路径
+	<strong>3）yarn</strong>
+                主要功能：资源调度/分配
+                节点分配：resourceManager（主节点）/nodemanager
+                mapreduce执行过程分析
+                    java代码调用job.waitofrcompletion()->产生runjar进程->想hdfs提交资源目录
+                    ->像resource manager申请job任务->将申请job添加任务队列中
+                    ->将map和reduce任务分发给各个nodemanager
+                    ->其中一个节点上启动mrappmaster进程(监听和管理其他处理map和reduce进程的进程)
+                    ->启动后向resource manager注册->mrappmaster进程启动/监听各个节点上面的map和reduce进程
+                    ->任务完成后向resource manager注销自己
+                yarn的通用性意义
+			        yarn调度：启动一个mrappmaster进程，进行监控map+reduce进程
+    <strong>4）hadoop中序列化机制</strong>
+                1.序列化：数据->流在内存中传递(011011001)->反序列化读取
+                2.hadoop序列化与jdk序列化区别
+                    hadoop中序列化不会传递继承结构(实现writeable接口)
+                    jdk会将传递对象的继承机构传递
+                3.流量求和
+                    思想：
+                        map：
+                        获取一行数据，切分字段获取需要的手机号，上行，下行数据
+                        ->将获取到的字段以Map<手机号,Bean(手机号,上行,下行)>形式输出
+                        reduce：
+                        遍历获取到的Map中的值(Bean)->遍历过程中上行+=，下行+=
+                        job：
+                        设置map+reduce的文件类型/目录->提交任务job
+                    实体Bean序列化需要注意实现hadoop中的writable
+    <strong>5）hadoop中自定义排序</strong>
+                思想：
+                    map：
+                    将刚才计算的结果数据作为基数数据进行扩展
+                    结果：手机号   上行   下行  总数
+                    获取改行数据切分->Map<Bean(手机号,上行,下行),NullWritable.get()>格式传输
+                    reduce：
+                    直接输出即可
+                主要排序重点(comparetable接口)：
+                    1.实体Bean实现Comparable接口
+                    2.实现方法
+                    public int compareTo(FlowBean o){ return s_flow>o.getS_flow()?-1:1;}
+    <strong>6）自定义分组</strong>
+                1.自定义类继承partitioner<key,value>类
+                2.设置maperduce数量
+                job.setNumReduceTasks(6)
+    <strong>7）shuffle</strong>
+                1.控制map进程数量<-对应一个split切片(逻辑概念)<-一个切片可能对应一个大文件或者多个小文件
+                2.切片：文件中数据偏移量的范围
+                3.shuffle(洗牌)：map数据->reduce中（包含分组和排序）
+    <strong>8）mapreduce组件全貌</strong>
+                1.inputformat(数据文件输入)->split(多个切片)->多个map进程->(分组partitioner+排序sort)->reduce计算->outputformat(文件数据输出)
+		        2.切片数量：会根据要处理的文件数和block大小，来计算切片的数量，进而影响map进程个数
+    <strong>9）倒排索引</strong>
+                1.词在文章中出现的次数
+                2.倒排索引案例
+                    三个文件(a.txt,b.txt,c.txt)：
+                        hello tom
+                        hello jerry
+                        hello danny
+                    实现效果：
+                        hello a.txt->3,b.txt->2,c.txt->2
+                        jerry a.txt->1,b.txt->3,c.txt->0
+                    思想：
+                        分词-><hello->b.txt,1>->reduce<hello->b.txt,3>
+                        -><hello,b.txt->3>->hello b.txt->3
+                    实现：
+                        (map重点)获取当前文件名：
+                        FileSplit inputsplit = (FileSplit)context.getInputSplit();
+                        String fileName = inputsplit.getPath().getName()
+                            </ol>
+                        </pre>
+
+                        <!--第五部分-->
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+<h5><strong>五、hive</strong></h5>
+    <strong>1）基本信息：</strong>
+                1.将sql语句翻译为hdfs+mapreduce程序
+                2.基于分布式存储，实现的海量数据的查询和管理工具
+                3.hive是基于hdfs+mapreduce基础之上(稍微慢一点)
+                4.hive不支持新增数据，hdfs不支持修改数据
+	<strong>2）hive</strong>
+                1.注意：需要依赖配置外部mysql，自带derby数据库，会根据用户当前目录创建数据文件，不太方便使用
+                    需要在hive-site.xml中配置mysql的链接信息
+                    同时需要在hive的lib中添加mysql依赖jar
+                //内部表(普通创建)+外部表(创建表添加external关键字)
+                2.hive创建表语句中
+                    数据文件存放位置必须放置于指定目录下
+                        create table table_name(id int,name string)
+                        row format delimited 	表示hdfs文件服务器中文件中数据每一行对应数据库中表中一行数据
+                        fields terminated by '\t' 	表示每一列数据之间使用tab键作为分隔
+                    数据文件存放原始位置不用改变
+                        create external table_name(id int,name string)
+                        row format delimited 	表示hdfs文件服务器中文件中数据每一行对应数据库中表中一行数据
+                        fields terminated by '\t' 	表示每一列数据之间使用tab键作为分隔
+                        location '/external/hive'	原始数据存放位置
+                3.hive导数据到数据库中
+                    本地数据：load data local inpath '/home/hadoop/hivetestdata/xxx.data' into table t_order_wk;
+                    hdfs数据：load data inpath '/uuu.data' into table t_order_wk;
+                4.hive删除表
+                    基础表：drop table t_order_wk;	删除表同时删除元数据
+                    external:drop table t_order_wx;	删除表
+                5.复制表结构（包括数据）
+                    create table t_order_simple
+                    as
+                    select id,name,price from t_order_wk;
+                6.追加数据(原表已存在)
+                    create table tab_ip_like like tab_ip;
+                    insert overwrite table table_ip_like
+                    select * from tab_ip；
+                7.分区（在表文件夹下创建分区数据文件）
+                    创建表->指定分区
+                    create table t_order_pt(id int,name string,rongliang string,price double)
+                    partitioned by (month string)
+                    row format delimited fields terminated by '\t';
+                    导数据->指定分区
+                    load data local inpath '/home/hadoop/hivetestdata/xxx.data' into table t_order_pt partition(month='201401')
+                    分区sql使用
+                    select count(*) from t_order_pt where month='201401';
+                8.将数据直接写入hdfs文件
+                    本地：insert overwrite local directory '/home/hadoop/test.txt' select * from tab_ip_part;
+                    hdfs：insert overwrite direcotory '/hiveout.txt' select * from tab_ip_part;
+                9.支持arrays，map等文件格式
+                10.批量执行sql语句(可以使用python,shell等编写)
+                    hive -S -e 'select * from t_order_wk'；
+                11.自定义函数[if()]
+                    select my_upper(name) from table;
+                    步骤1：编写java类extends UDF
+                        //1388->1388，beijing
+                    步骤2：将打好的jar添加到hive中去
+                        add jar /home/hadoop/hivearea.jar
+                    步骤3：将函数和java类进行映射
+                        create temporary function my_lower as 'org.dht.class'
+                    步骤4：使用
+                        select my_upper(name) from table;
+                            </ol>
+                        </pre>
+
+                        <!--第六部分-->
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+<h5><strong>六、hbase</strong></h5>
+    <strong>1）基本信息：</strong>
+                1.大量数据，实时查询 <->[不支持事物，复杂表关系及计算]
+                2.注：hbase区别于传统的关系型数据库
+                    1.hbase建表时，不需要限定表中字段，只需要指定若干列族(很多列的统称)
+                    2.插入数据，可以指定任意多个列(以k-v形式存储)
+                    3.修改字段的值，不会直接修改，添加(根据版本号区分)
+                    4.查询具体的字段，需要指定坐标：表名->行键->列族：列名->版本
+	<strong>2）hbase集群</strong>
+                1）hbase数据表会将列族切分为不同的region分布式存储在hbase集群中region server上面
+                2）究极底层，还是会以文件的格式放置于hdfs上面
+                3）region server理论上讲会与namenode进行通信，放置于一台机器较好
+                4）Hmaster：不负责存储表数据，负责管理region server状态以及region server负载
+    <strong>2）hbase寻址机制</strong>
+                1）zookeeper：存储ROOT表文件目录以及机器信息
+                2）ROOT表：存储META表的region范围以及机器信息
+                3）META表：存储用户数据表region范围以及机器信息
+                4）用户数据表：存储用户数据(列族信息)
+                    ->数据量特别大会按文件大小切分为诸多region（两个store【列族】）
+    <strong>3）hbase_shell</strong>
+                1）拷贝文件命令
+                cp ~/app/hadoop-2.4.1/etc/hadoop/{core-site.xml,hdfs-site.xml} ./
+                2）hbase语句学习
+                    进入hbase shell使用命令  ./hbase shell
+                    1）创建表语句
+                        create 'mygirls',{NAME=>'base_info',VERSIONS=>3},{NAME=>'extra_info'}
+                    2）查询表结构
+                        describe 'mygrils'
+                    3）删除表
+                        disable 'mygrils'
+                        drop 'mygrils'
+                    4）插入数据
+                        put 表名，行键，族:键，值
+                        put 'mygirls','0001','extra_info:boyfriend','xiaoming'
+                    5）查看值
+                        get 'mygirls','0001'
+                    6）修改值
+                        put 'mygirls','0001','base_info:name','fengbaobao'
+                    7）获取全版本信息
+                        get 'mygirls','0001',{column=>'base_info:name',VERSIONS=>4}
+                    8）查询多行
+                        scan 'mygirls'
+                        scan 'mygirls',{RAW => TRUE,VERSIONS => 10}
+                3）hbase中java_api
+                    1）Configuration conf = HBaseConfiguration.create();
+                    HBaseAdmin admin = new HBaseAdmin(conf)
+                    //组装表数据
+                    admin.createTable(desc)
+                            </ol>
+                        </pre>
+
+                        <!--第七部分-->
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+<h5><strong>七、storm</strong></h5>
+    <strong>1）基本信息：</strong>
+                topologies：拓扑图(一个任务)
+                spouts：拓扑消息源(数据源入口)
+                bolts：拓扑处理逻辑单元(数据源加工)
+                tuple：消息元组(数据传递的值)
+                streams：流(数据多条流向组合而成)
+                streams groupings(流的分组策略)
+                tasks:任务处理单元
+                executor：工作线程
+                workers：工作进程
+	<strong>2）集群结构</strong>
+                一个nimbus负责协调管理，多个supervisor负责实时计算
+    <strong>3）启动</strong>
+                ./storm  supervisor
+			    ./storm ui
+    <strong>3）java代码编写</strong>
+                            </ol>
+                        </pre>
+
+
+                        <!--第八部分-->
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+<h5><strong>八、kafka</strong></h5>
+    <strong>1）基本信息：</strong>
+                1）环境搭建，依赖zookeeper
+                2）创建话题topic，生产者->消费者
+                3）启动程序
+                    将标准输出1和错误信息2也输出到回收站
+                    ./server.sh 1>/dev/null   2>&1 &
+                4）java客户端编程
+                            </ol>
+                        </pre>
+
+                        <!--第九部分-->
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+<h5><strong>九、flume</strong></h5>
+    <strong>1）基本信息：</strong>
+                1）scribe也可以做分布式数据收集
+                2）数据采集分布式应用
+                3）封装核心内容：元数据(source)->传递(channel)->sink(输出)
+                4）只需要配置这三方面的属性即可完成数据传递
+                            </ol>
+                        </pre>
+
+                        <!--第十部分-->
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+<h5><strong>十、sqoop</strong></h5>
+    <strong>1）基本信息：</strong>
+                1）sql to hadoop
+                2）传统关系型数据库与hadoop的数据同步工具
+                3）sqoop import：命令导入/增量导入
+                4）sqoop export
+                5）底层也是map reduce，不支持实时导入
+                            </ol>
+                        </pre>
+
+                        <!--第十一部分-->
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+<h5><strong>十一、pig</strong></h5>
+    <strong>1）基本信息：</strong>
+                1）数据流执行引擎
+                2）类比hive查询sql->都是将pig latin->转换为map reduce
+                3）不同点
+                    hive要求必须有schema，pig不需要
+                    hive需要安装server，pig不需要
+                    sql用来描述得到什么结果，piglatin用来描述如何处理数据
+                    pig安装简单使用麻烦，不过较灵活，hive安装复杂使用相对简单，不过有些场景不适用
+                            </ol>
+                        </pre>
+
+
+                        <!--第十二部分-->
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+<h5><strong>十二、Oozie：【wu zi】作业调度工具(定时任务)</strong></h5>
+                            </ol>
+                        </pre>
+
+
+                        <!--第十三部分-->
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+<h5><strong>十三、mahout</strong></h5>
+                <strong>1）基本信息：</strong>
+                    1）数据挖掘工具包(聚类，分类，推荐算法)[有格式要求]
+                    2）基于mapreduce和hdfs的扩展性和容错性
+                    3）应用场景：猜你喜欢(推荐) 垃圾邮件(分类)  新闻81条相关(聚类)
+                    4）分类算法：逻辑回归，贝叶斯分类，支持向量机，神经网络，随机森林等
+                    5）聚类算法：K-Means，层次聚类，谱聚类，自上而下聚类
+                    6）其他：回归算法，推荐算法，降维算法，相似度计算算法等
+                <strong>2）聚类算法：</strong>
+                    K-Means步骤：
+                        0.必要条件是需要选择分类初始点个数->canopy算法
+                        1.提取feature(属性)
+                        2.将feature向量化
+                        3.利用K-Means算法实现聚类
+                        调优：可以调整向量计算类(.class)
+                    canopy算法：(寻找最优初始点)
+                        0.必须要选择两个点之间的距离阈值
+                <strong>3）分类算法：</strong>
+                    有监督机器学习算法(需要准备分好类别的样本数据->训练->获得训练好的分类器)
+                    步骤：
+                        1.训练样本，得到分类模型
+                        2.对分类模型进行测试，并进行调优
+                        3.将分类模型用于线上产品
+                    问题：判断一片区域中不同图形的颜色
+                        1.不同数据集适合的不同的分类算法，没有一种分类算法适合所有情况
+                    质量查看：
+                        auc和混淆矩阵的结果值
+                    朴素贝叶斯算法：(概率论公式)
+                        思路步骤：
+                            1.已知类条件概率密度参数表达式和先验概率
+                            2.利用贝叶斯公司转换成后验概率
+                            3.根据后验概率大小进行决策分类
+                    模型训练测试步骤：
+                        训练数据集->相关算法->训练好的模型(训练集输出结果)->测试数据集进行测试
+                <strong>4）推荐算法：</strong>
+                    1.协同过滤推荐算法
+                        1）item:能够推荐给使用者的项目(影片/商品)
+                        2）user:能够对item进行评分
+                        3）{user,itemid,rating}->填充矩阵
+                    2.两种推荐方式：
+                        1）基于user：根据使用者之间相似性推荐项目，推荐效果比较好
+                        2）基于item：根据商品之间相似度推荐使用者，计算效率比较高
+                    3.mahout中提供了协同过滤算法的推荐引擎实现Taste
+                            </ol>
+                        </pre>
+
+
+                        <!--第十四部分-->
+                        <pre class="prettyprint linenums">
+                            <ol class="linenums">
+<h5><strong>十四、mahout</strong></h5>
+                <strong>1）Oozie/Azkaban/zeus作业流调度系统（定时任务）：</strong>
+                    Oozie结构：
+                        1）action(动作)->workflow(控制流)->coordinator(定时工作流)->bundle
+                    Azkaban结构：(相对较为简单)
+                        2）web server+exec server+mysql
+                    zeus：阿里开源，可能不再维护，不建议使用
+                <strong>2）日志分析系统与机器学习平台：</strong>
+                    分布式日志手机系统scribe，kafka，flume
+                        分布式日志存储系统hdfs
+                        离线日志分析计算框架：
+                            map reduce：
+                            hive：披着sql外衣的map reduce
+                            pig：披着脚本外衣的map reduce
+                        近实时日志分析计算框架：
+                            spark：迭代计算，DAG计算
+                            impala：交互式计算
+                        实时日志分析计算框架：
+                            storm：在线计算，常用于广告推荐
                             </ol>
                         </pre>
                     </div>
