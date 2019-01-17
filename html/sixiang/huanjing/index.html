@@ -11,6 +11,19 @@
     <style type="text/css">
         .contents{width: 60%;margin: 0rem auto;}
         .contents a{margin-left: 5rem}
+        .demo-item {border: 1px solid #d8e0eb;border-radius: 5px;height: 100px;
+            padding: 20px 30px;margin-bottom: 20px;}
+        .demo-item a{background: transparent;
+            text-decoration: none;outline: none;
+            cursor: pointer;transition: color .3s ease;}
+        .demo-item a button{float: right;
+            width: 120px;margin-top: 10px;height: 40px;}
+        .content{margin-left: 30px;float: left;}
+        .icon{padding: 15px;
+            width: 60px;height: 60px;float: left;
+            border-radius: 30px;box-shadow: 0 0 8px 0 rgba(203,218,234,.5);}
+        .icon img{width: 30px;height: 30px;}
+        .desp{font-size: 14px;margin-top: 10px;}
     </style>
 
     <!--引入外部样式-->
@@ -29,18 +42,174 @@
                                 <strong>注意：</strong> 如在以下安装部署中未找到您需要的资料，请在留言板留言。
                             </div>
                         </div>
-                        <a href="nexus/nexus.html" target="_blank">nexus&nbsp;&nbsp;&nbsp;</a>
-                        <a href="jdk/jdk.html" target="_blank">jdk&nbsp;&nbsp;&nbsp;</a>
-                        <a href="zookeeper/zookeeper.html" target="_blank">zookeeper&nbsp;&nbsp;&nbsp;</a>
-                        <a href="dubbo-admin/dubbo-admin.html" target="_blank">dubbo-admin管理平台&nbsp;&nbsp;&nbsp;</a>
-                        <a href="chandao/chandao.html" target="_blank">禅道&nbsp;&nbsp;&nbsp;</a>
-                        <a href="gitlab/gitlab.html" target="_blank">gitlab&nbsp;&nbsp;&nbsp;</a>
-                        <a href="activemq/activemq.html" target="_blank">activemq&nbsp;&nbsp;&nbsp;</a>
-                        <a href="neo4j/neo4j.html" target="_blank">neo4j&nbsp;&nbsp;&nbsp;</a>
-                        <a href="arangodb/arangodb.html" target="_blank">arangodb&nbsp;&nbsp;&nbsp;</a>
-                        <a href="nfs/nfs.html" target="_blank">nfs&nbsp;&nbsp;&nbsp;</a>
-                        <a href="SQLAdvisor/SQLAdvisor.html" target="_blank">SQLAdvisor&nbsp;&nbsp;&nbsp;</a>
-                        <a href="redis/redis.html" target="_blank">redis&nbsp;&nbsp;&nbsp;</a>
+
+                        <!--nexus-->
+                        <div class="demo-item">
+                            <div class="icon"><img src="//assets.growingio.com/webapp0/img-1ju5apA.png"></div>
+                            <div class="content">
+                                <div class="title">nexus/nexus.html</div>
+                                <div class="desp">maven内网托管jar包管理平台</div>
+                            </div>
+                            <a href="nexus/nexus.html" target="_blank">
+                                <button type="button"
+                                        class="ant-btn gio-btn gio-btn-with-bg gio-btn-gray undisabled ant-btn-gray">
+                                    <span>nexus</span></button>
+                            </a>
+                        </div>
+
+                        <!--jdk-->
+                        <div class="demo-item">
+                            <div class="icon"><img src="//assets.growingio.com/webapp0/img-1ju5apA.png"></div>
+                            <div class="content">
+                                <div class="title">jdk/jdk.html</div>
+                                <div class="desp">java运行环境</div>
+                            </div>
+                            <a href="jdk/jdk.html" target="_blank">
+                                <button type="button"
+                                        class="ant-btn gio-btn gio-btn-with-bg gio-btn-gray undisabled ant-btn-gray">
+                                    <span>jdk</span></button>
+                            </a>
+                        </div>
+
+                        <!--zookeeper-->
+                        <div class="demo-item">
+                            <div class="icon"><img src="//assets.growingio.com/webapp0/img-1ju5apA.png"></div>
+                            <div class="content">
+                                <div class="title">zookeeper/zookeeper.html</div>
+                                <div class="desp">分布式协调服务</div>
+                            </div>
+                            <a href="zookeeper/zookeeper.html" target="_blank">
+                                <button type="button"
+                                        class="ant-btn gio-btn gio-btn-with-bg gio-btn-gray undisabled ant-btn-gray">
+                                    <span>zookeeper</span></button>
+                            </a>
+                        </div>
+
+                        <!--dubbo-admin-->
+                        <div class="demo-item">
+                            <div class="icon"><img src="//assets.growingio.com/webapp0/img-1ju5apA.png"></div>
+                            <div class="content">
+                                <div class="title">dubbo-admin/dubbo-admin.html</div>
+                                <div class="desp">zookeeper服务管理平台</div>
+                            </div>
+                            <a href="dubbo-admin/dubbo-admin.html" target="_blank">
+                                <button type="button"
+                                        class="ant-btn gio-btn gio-btn-with-bg gio-btn-gray undisabled ant-btn-gray">
+                                    <span>dubbo-admin</span></button>
+                            </a>
+                        </div>
+
+                        <!--chandao/chandao.html-->
+                        <div class="demo-item">
+                            <div class="icon"><img src="//assets.growingio.com/webapp0/img-1ju5apA.png"></div>
+                            <div class="content">
+                                <div class="title">chandao/chandao.html</div>
+                                <div class="desp">禅道，项目管理平台</div>
+                            </div>
+                            <a href="chandao/chandao.html" target="_blank">
+                                <button type="button"
+                                        class="ant-btn gio-btn gio-btn-with-bg gio-btn-gray undisabled ant-btn-gray">
+                                    <span>禅道</span></button>
+                            </a>
+                        </div>
+
+                        <!--gitlab/gitlab.html-->
+                        <div class="demo-item">
+                            <div class="icon"><img src="//assets.growingio.com/webapp0/img-1ju5apA.png"></div>
+                            <div class="content">
+                                <div class="title">gitlab/gitlab.html</div>
+                                <div class="desp">代码托管平台</div>
+                            </div>
+                            <a href="gitlab/gitlab.html" target="_blank">
+                                <button type="button"
+                                        class="ant-btn gio-btn gio-btn-with-bg gio-btn-gray undisabled ant-btn-gray">
+                                    <span>gitlab</span></button>
+                            </a>
+                        </div>
+
+                        <!--activemq/activemq.html-->
+                        <div class="demo-item">
+                            <div class="icon"><img src="//assets.growingio.com/webapp0/img-1ju5apA.png"></div>
+                            <div class="content">
+                                <div class="title">activemq/activemq.html</div>
+                                <div class="desp">消息中间件</div>
+                            </div>
+                            <a href="activemq/activemq.html" target="_blank">
+                                <button type="button"
+                                        class="ant-btn gio-btn gio-btn-with-bg gio-btn-gray undisabled ant-btn-gray">
+                                    <span>activemq</span></button>
+                            </a>
+                        </div>
+
+                        <!--neo4j/neo4j.html-->
+                        <div class="demo-item">
+                            <div class="icon"><img src="//assets.growingio.com/webapp0/img-1ju5apA.png"></div>
+                            <div class="content">
+                                <div class="title">neo4j/neo4j.html</div>
+                                <div class="desp">图形数据库</div>
+                            </div>
+                            <a href="neo4j/neo4j.html" target="_blank">
+                                <button type="button"
+                                        class="ant-btn gio-btn gio-btn-with-bg gio-btn-gray undisabled ant-btn-gray">
+                                    <span>neo4j</span></button>
+                            </a>
+                        </div>
+
+                        <!--arangodb/arangodb.html-->
+                        <div class="demo-item">
+                            <div class="icon"><img src="//assets.growingio.com/webapp0/img-1ju5apA.png"></div>
+                            <div class="content">
+                                <div class="title">arangodb/arangodb.html</div>
+                                <div class="desp">图形数据库</div>
+                            </div>
+                            <a href="arangodb/arangodb.html" target="_blank">
+                                <button type="button"
+                                        class="ant-btn gio-btn gio-btn-with-bg gio-btn-gray undisabled ant-btn-gray">
+                                    <span>arangodb</span></button>
+                            </a>
+                        </div>
+
+                        <!--nfs/nfs.html-->
+                        <div class="demo-item">
+                            <div class="icon"><img src="//assets.growingio.com/webapp0/img-1ju5apA.png"></div>
+                            <div class="content">
+                                <div class="title">nfs/nfs.html</div>
+                                <div class="desp">共享文件系统</div>
+                            </div>
+                            <a href="nfs/nfs.html" target="_blank">
+                                <button type="button"
+                                        class="ant-btn gio-btn gio-btn-with-bg gio-btn-gray undisabled ant-btn-gray">
+                                    <span>nfs</span></button>
+                            </a>
+                        </div>
+
+                        <!--SQLAdvisor/SQLAdvisor.html-->
+                        <div class="demo-item">
+                            <div class="icon"><img src="//assets.growingio.com/webapp0/img-1ju5apA.png"></div>
+                            <div class="content">
+                                <div class="title">SQLAdvisor/SQLAdvisor.html</div>
+                                <div class="desp">美团开发sql优化工具</div>
+                            </div>
+                            <a href="SQLAdvisor/SQLAdvisor.html" target="_blank">
+                                <button type="button"
+                                        class="ant-btn gio-btn gio-btn-with-bg gio-btn-gray undisabled ant-btn-gray">
+                                    <span>SQLAdvisor</span></button>
+                            </a>
+                        </div>
+
+                        <!--redis/redis.html-->
+                        <div class="demo-item">
+                            <div class="icon"><img src="//assets.growingio.com/webapp0/img-1ju5apA.png"></div>
+                            <div class="content">
+                                <div class="title">redis/redis.html</div>
+                                <div class="desp">nosql数据库</div>
+                            </div>
+                            <a href="redis/redis.html" target="_blank">
+                                <button type="button"
+                                        class="ant-btn gio-btn gio-btn-with-bg gio-btn-gray undisabled ant-btn-gray">
+                                    <span>redis</span></button>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
