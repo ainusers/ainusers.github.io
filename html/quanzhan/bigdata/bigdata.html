@@ -117,7 +117,7 @@
                     vi /usr/local/tools/hadoop-3.0.3/etc/hadoop/hadoop-env.sh
                     export JAVA_HOME=/usr/local/tools/jdk1.8
                 <strong>2.2 core-site.xml</strong>
-                    <textarea style="width: 60rem;height: 20rem">
+                    <textarea style="width: 70rem;height: 24rem">
                     <configuration>
                         <property>
                             <name>fs.defaultFS</name>
@@ -132,7 +132,7 @@
                     </configuration>
                     </textarea>
                 <strong>2.3 hdfs-site.xml</strong>
-                    <textarea style="width: 60rem;height: 43rem">
+                    <textarea style="width: 70rem;height: 52rem">
                     <configuration>
                         <property>
                             <name>dfs.name.dir</name>
@@ -162,7 +162,7 @@
                     </configuration>
                     </textarea>
                 <strong>2.4 mapred-site.xml</strong>
-                    <textarea style="width: 60rem;height: 13rem">
+                    <textarea style="width: 70rem;height: 15rem">
                     <configuration>
                         <property>
                                 <name>mapreduce.framework.name</name>
@@ -172,7 +172,7 @@
                     </configuration>
                     </textarea>
                 <strong>2.5 yarn-site.xml</strong>
-                    <textarea style="width: 60rem;height: 28rem">
+                    <textarea style="width: 70rem;height: 33rem">
                     <configuration>
                             <property>
                                     <name>yarn.nodemanager.aux-services</name>
@@ -196,7 +196,7 @@
                     mkdir  /usr/local/tools/hadoop-3.0.3/logs
                     mkdir -p  /usr/local/tools/hadoop-3.0.3/hdfs/data
                     mkdir -p  /usr/local/tools/hadoop-3.0.3/hdfs/name
-                    <strong>4.编辑从节点<label style="color: red">(并非原先slaves，改为workers)</label></strong>
+                <strong>4.编辑从节点<label style="color: red">(并非原先slaves，改为workers)</label></strong>
                     vi /usr/local/tools/hadoop-3.0.3/etc/hadoop/workers
                     slave1
                     slave2
@@ -257,7 +257,7 @@
                     hadoop fs -rm /test1/test1
                 7.完整写法：
                     hadoop fs -ls hdfs://hadoop0:9000
-	<strong>2）namenode学习</strong>
+    <strong>2）namenode学习</strong>
                 1.secondaryNameNode（提高namenode相应速度/备份数据）
                     执行过程：从namenode上下载元数据信息
                     （fsimage,edits）然后将二者合并，生成新的
@@ -270,7 +270,7 @@
                         当文件创建完成后->客户端namenode创建完成->edits log将该信息同步到内存中->完成数据上传过程
                         当edits log记录文件满了(64M)->edits log和fsimage从namenode上面下载做合并生成新的fsimage->之后上传至namenode->
                         ->将新的fsimage(fsimage.chkimage重命名)->删除原来edits log->将暂时作为记录分配信息的文件edits.new重命名为edits log
-	<strong>3）datanode学习</strong>
+    <strong>3）datanode学习</strong>
                 1.最基本的存储单位是文件快block
                 2.hdfs默認的block大小事64MB，如果大于64MB剩余部分是多少就是多少，并不会占用整个数据块存储空间
                 3.文件块存储在/dfs/data中，大于64MB会有两个文件块
@@ -304,7 +304,7 @@
                     Map+reduce=job
                     map处理本批数据+reduce处理汇总数据
                     启动yarn进程，才可以运行mapreduce程序
-	<strong>2）java代码编写</strong>
+    <strong>2）java代码编写</strong>
                 mapper
 				public class WCMapper extends Mapper<LongWriteable,Text,Text,LongWriteable>{}
                 统计出现次数实现思想
@@ -316,7 +316,7 @@
                 job汇总map+reduce
                     job设置mapper+reduce+输入输出类型+输入数据路径+输出数据路径+设置启动类
                 在linux系统中启动，需要制定启动类路径
-	<strong>3）yarn</strong>
+    <strong>3）yarn</strong>
                 主要功能：资源调度/分配
                 节点分配：resourceManager（主节点）/nodemanager
                 mapreduce执行过程分析
@@ -395,7 +395,7 @@
                 2.基于分布式存储，实现的海量数据的查询和管理工具
                 3.hive是基于hdfs+mapreduce基础之上(稍微慢一点)
                 4.hive不支持新增数据，hdfs不支持修改数据
-	<strong>2）hive</strong>
+    <strong>2）hive</strong>
                 1.注意：需要依赖配置外部mysql，自带derby数据库，会根据用户当前目录创建数据文件，不太方便使用
                     需要在hive-site.xml中配置mysql的链接信息
                     同时需要在hive的lib中添加mysql依赖jar
@@ -463,18 +463,18 @@
                     2.插入数据，可以指定任意多个列(以k-v形式存储)
                     3.修改字段的值，不会直接修改，添加(根据版本号区分)
                     4.查询具体的字段，需要指定坐标：表名->行键->列族：列名->版本
-	<strong>2）hbase集群</strong>
+    <strong>2）hbase集群</strong>
                 1）hbase数据表会将列族切分为不同的region分布式存储在hbase集群中region server上面
                 2）究极底层，还是会以文件的格式放置于hdfs上面
                 3）region server理论上讲会与namenode进行通信，放置于一台机器较好
                 4）Hmaster：不负责存储表数据，负责管理region server状态以及region server负载
-    <strong>2）hbase寻址机制</strong>
+    <strong>3）hbase寻址机制</strong>
                 1）zookeeper：存储ROOT表文件目录以及机器信息
                 2）ROOT表：存储META表的region范围以及机器信息
                 3）META表：存储用户数据表region范围以及机器信息
                 4）用户数据表：存储用户数据(列族信息)
                     ->数据量特别大会按文件大小切分为诸多region（两个store【列族】）
-    <strong>3）hbase_shell</strong>
+    <strong>4）hbase_shell</strong>
                 1）拷贝文件命令
                 cp ~/app/hadoop-2.4.1/etc/hadoop/{core-site.xml,hdfs-site.xml} ./
                 2）hbase语句学习
@@ -511,21 +511,21 @@
                             <ol class="linenums">
 <h5><strong>七、storm</strong></h5>
     <strong>1）基本信息：</strong>
-                topologies：拓扑图(一个任务)
-                spouts：拓扑消息源(数据源入口)
-                bolts：拓扑处理逻辑单元(数据源加工)
-                tuple：消息元组(数据传递的值)
-                streams：流(数据多条流向组合而成)
-                streams groupings(流的分组策略)
-                tasks:任务处理单元
-                executor：工作线程
-                workers：工作进程
-	<strong>2）集群结构</strong>
-                一个nimbus负责协调管理，多个supervisor负责实时计算
+        topologies：拓扑图(一个任务)
+        spouts：拓扑消息源(数据源入口)
+        bolts：拓扑处理逻辑单元(数据源加工)
+        tuple：消息元组(数据传递的值)
+        streams：流(数据多条流向组合而成)
+        streams groupings(流的分组策略)
+        tasks:任务处理单元
+        executor：工作线程
+        workers：工作进程
+    <strong>2）集群结构</strong>
+        一个nimbus负责协调管理，多个supervisor负责实时计算
     <strong>3）启动</strong>
-                ./storm  supervisor
-			    ./storm ui
-    <strong>3）java代码编写</strong>
+        ./storm  supervisor
+        ./storm ui
+    <strong>4）java代码编写</strong>
                             </ol>
                         </pre>
 
@@ -535,12 +535,12 @@
                             <ol class="linenums">
 <h5><strong>八、kafka</strong></h5>
     <strong>1）基本信息：</strong>
-                1）环境搭建，依赖zookeeper
-                2）创建话题topic，生产者->消费者
-                3）启动程序
-                    将标准输出1和错误信息2也输出到回收站
-                    ./server.sh 1>/dev/null   2>&1 &
-                4）java客户端编程
+        1）环境搭建，依赖zookeeper
+        2）创建话题topic，生产者->消费者
+        3）启动程序
+            将标准输出1和错误信息2也输出到回收站
+            ./server.sh 1>/dev/null   2>&1 &
+        4）java客户端编程
                             </ol>
                         </pre>
 
@@ -549,10 +549,10 @@
                             <ol class="linenums">
 <h5><strong>九、flume</strong></h5>
     <strong>1）基本信息：</strong>
-                1）scribe也可以做分布式数据收集
-                2）数据采集分布式应用
-                3）封装核心内容：元数据(source)->传递(channel)->sink(输出)
-                4）只需要配置这三方面的属性即可完成数据传递
+        1）scribe也可以做分布式数据收集
+        2）数据采集分布式应用
+        3）封装核心内容：元数据(source)->传递(channel)->sink(输出)
+        4）只需要配置这三方面的属性即可完成数据传递
                             </ol>
                         </pre>
 
@@ -561,11 +561,11 @@
                             <ol class="linenums">
 <h5><strong>十、sqoop</strong></h5>
     <strong>1）基本信息：</strong>
-                1）sql to hadoop
-                2）传统关系型数据库与hadoop的数据同步工具
-                3）sqoop import：命令导入/增量导入
-                4）sqoop export
-                5）底层也是map reduce，不支持实时导入
+        1）sql to hadoop
+        2）传统关系型数据库与hadoop的数据同步工具
+        3）sqoop import：命令导入/增量导入
+        4）sqoop export
+        5）底层也是map reduce，不支持实时导入
                             </ol>
                         </pre>
 
@@ -574,13 +574,13 @@
                             <ol class="linenums">
 <h5><strong>十一、pig</strong></h5>
     <strong>1）基本信息：</strong>
-                1）数据流执行引擎
-                2）类比hive查询sql->都是将pig latin->转换为map reduce
-                3）不同点
-                    hive要求必须有schema，pig不需要
-                    hive需要安装server，pig不需要
-                    sql用来描述得到什么结果，piglatin用来描述如何处理数据
-                    pig安装简单使用麻烦，不过较灵活，hive安装复杂使用相对简单，不过有些场景不适用
+        1）数据流执行引擎
+        2）类比hive查询sql->都是将pig latin->转换为map reduce
+        3）不同点
+            hive要求必须有schema，pig不需要
+            hive需要安装server，pig不需要
+            sql用来描述得到什么结果，piglatin用来描述如何处理数据
+            pig安装简单使用麻烦，不过较灵活，hive安装复杂使用相对简单，不过有些场景不适用
                             </ol>
                         </pre>
 
@@ -589,6 +589,24 @@
                         <pre class="prettyprint linenums">
                             <ol class="linenums">
 <h5><strong>十二、Oozie：【wu zi】作业调度工具(定时任务)</strong></h5>
+        <strong>1）Oozie/Azkaban/zeus作业流调度系统（定时任务）：</strong>
+            Oozie结构：
+                1）action(动作)->workflow(控制流)->coordinator(定时工作流)->bundle
+            Azkaban结构：(相对较为简单)
+                2）web server+exec server+mysql
+            zeus：阿里开源，可能不再维护，不建议使用
+        <strong>2）日志分析系统与机器学习平台：</strong>
+            分布式日志手机系统scribe，kafka，flume
+                分布式日志存储系统hdfs
+                离线日志分析计算框架：
+                    map reduce：
+                    hive：披着sql外衣的map reduce
+                    pig：披着脚本外衣的map reduce
+                近实时日志分析计算框架：
+                    spark：迭代计算，DAG计算
+                    impala：交互式计算
+                实时日志分析计算框架：
+                    storm：在线计算，常用于广告推荐
                             </ol>
                         </pre>
 
@@ -639,32 +657,6 @@
                         1）基于user：根据使用者之间相似性推荐项目，推荐效果比较好
                         2）基于item：根据商品之间相似度推荐使用者，计算效率比较高
                     3.mahout中提供了协同过滤算法的推荐引擎实现Taste
-                            </ol>
-                        </pre>
-
-
-                        <!--第十四部分-->
-                        <pre class="prettyprint linenums">
-                            <ol class="linenums">
-<h5><strong>十四、mahout</strong></h5>
-                <strong>1）Oozie/Azkaban/zeus作业流调度系统（定时任务）：</strong>
-                    Oozie结构：
-                        1）action(动作)->workflow(控制流)->coordinator(定时工作流)->bundle
-                    Azkaban结构：(相对较为简单)
-                        2）web server+exec server+mysql
-                    zeus：阿里开源，可能不再维护，不建议使用
-                <strong>2）日志分析系统与机器学习平台：</strong>
-                    分布式日志手机系统scribe，kafka，flume
-                        分布式日志存储系统hdfs
-                        离线日志分析计算框架：
-                            map reduce：
-                            hive：披着sql外衣的map reduce
-                            pig：披着脚本外衣的map reduce
-                        近实时日志分析计算框架：
-                            spark：迭代计算，DAG计算
-                            impala：交互式计算
-                        实时日志分析计算框架：
-                            storm：在线计算，常用于广告推荐
                             </ol>
                         </pre>
                     </div>
