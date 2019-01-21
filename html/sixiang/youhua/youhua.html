@@ -95,6 +95,7 @@
     3)修改Linux内核参数（vi /etc/sysctl.conf）
     4)修改Linux最大限制
     5)I/O调度算法调整优化
+    6)explain extend参数调优
 8.数据库引擎
     MyISAM引擎是MySQL 5.1及之前版本的默认引擎，它的特点是
         1)不支持行锁，读取时对需要读到的所有表加锁，写入时则对表加排它锁
@@ -145,6 +146,64 @@
       优化1(延迟关联)：select a.id,name from user INNER JOIN(select id from user order by phone limit 50,5)as a using(id)
       优化2(转换为已知位置查询)：select id,name from user where position between 50 and 54 order by position;
       优化3(向前翻页)：select id,name from user where id<10040 order by id desc limit 5
+    8)UNION ALL优化
+      原句：SELECT * FROM my_order o INNER JOIN my_appraise a ON a.orderid = o.id
+           ORDER  BY a.is_reply ASC, a.appraise_time DESC LIMIT  0, 20
+      优化：SELECT * FROM (
+           (SELECT * FROM my_order o INNER JOIN my_appraise a  ON a.orderid = o.id
+           AND is_reply = 0 ORDER  BY appraise_time DESC LIMIT  0, 20)
+           UNION ALL
+           (SELECT * FROM my_order o INNER JOIN my_appraise a ON a.orderid = o.id
+           AND is_reply = 1 ORDER  BY appraise_time DESC LIMIT  0, 20)) t
+           ORDER  BY  is_reply ASC, appraisetime DESC LIMIT  20;
+    9)EXISTS优化
+      原句：SELECT *
+           FROM   my_neighbor n
+                 LEFT JOIN my_neighbor_apply sra
+                        ON n.id = sra.neighbor_id
+                           AND sra.user_id = 'xxx'
+           WHERE  n.topic_status < 4
+                 AND EXISTS(SELECT 1
+                            FROM   message_info m
+                            WHERE  n.id = m.neighbor_id
+                                   AND m.inuser = 'xxx')
+                 AND n.topic_type <> 5
+      优化：SELECT *
+           FROM   my_neighbor n
+                 INNER JOIN message_info m
+                         ON n.id = m.neighbor_id
+                            AND m.inuser = 'xxx'
+                 LEFT JOIN my_neighbor_apply sra
+                        ON n.id = sra.neighbor_id
+                           AND sra.user_id = 'xxx'
+           WHERE  n.topic_status < 4
+                 AND n.topic_type <> 5
+    10)缩小范围
+      原句：SELECT *
+           FROM   my_order o
+                 LEFT JOIN my_userinfo u
+                        ON o.uid = u.uid
+                 LEFT JOIN my_productinfo p
+                        ON o.pid = p.pid
+           WHERE  ( o.display = 0 )
+                 AND ( o.ostaus = 1 )
+           ORDER  BY o.selltime DESC
+           LIMIT  0, 15
+      优化：SELECT *
+           FROM (
+           SELECT *
+           FROM   my_order o
+           WHERE  ( o.display = 0 )
+                 AND ( o.ostaus = 1 )
+           ORDER  BY o.selltime DESC
+           LIMIT  0, 15
+           ) o
+               LEFT JOIN my_userinfo u
+                        ON o.uid = u.uid
+               LEFT JOIN my_productinfo p
+                        ON o.pid = p.pid
+           ORDER BY  o.selltime DESC
+           limit 0, 15
 11.优秀优化博客
     http://www.cnblogs.com/clsn/p/8214048.html
                         </code>
