@@ -45,7 +45,50 @@
             abcd
             abcd
     2）数据过滤
+        2.1 单条件过滤
+        @Test
+        public void contextLoads() {
+            List languages = Arrays.asList("Java", "Scala", "C++", "Haskell", "Lisp");
 
+            System.out.println("Languages which ends with a ");
+            filter(languages, (str)->str.toString().endsWith("a"));
+
+            System.out.println("Print language whose length greater than 4:");
+            filter(languages, (str)->str.toString().length() > 4);
+        }
+        //过滤方法
+        public static void filter(List names, Predicate condition) {
+            names.stream().filter((name) -> (condition.test(name))).forEach((name) -> {
+                System.out.println(name + " ");
+            });
+        }
+        输出结果:
+            Languages which ends with a
+            Java
+            Scala
+            Print language whose length greater than 4:
+            Scala
+            Haskell
+
+
+        2.2 多条件过滤
+            @Test
+            public void contextLoads() {
+                List languages = Arrays.asList("Java", "Scala", "C++", "Haskell", "Lisp");
+
+                Predicate<String> startsWithJ = (n) -> n.endsWith("a");
+                Predicate<String> fourLetterLong = (n) -> n.length() == 4;
+                filter(languages,startsWithJ,fourLetterLong);
+            }
+            //过滤方法
+            public static void filter(List names, Predicate startsWithJ,Predicate fourLetterLong) {
+                names.stream().filter(startsWithJ.and(fourLetterLong))
+                        .forEach((n) -> System.out.println("end with 'a' and four letter long is : " + n));
+            }
+        输出结果：
+            end with 'a' and four letter long is : Java
+    3）Map和Reduce思想
+        3.1 每个订单加上12%的税
                         </code>
                     </pre>
                 </figure>
