@@ -103,6 +103,8 @@
                 .reduce((sum, cost) -> sum + cost)
                 .get();
             System.out.println("Total : " + bill);
+
+
         3.2 对列表的每个元素应用函数
             List<String> lists = Arrays.asList("USA", "Japan", "France", "Germany", "Italy", "UK","Canada");
             String results = lists.stream().map(x -> x.toUpperCase()).collect(Collectors.joining(","));
