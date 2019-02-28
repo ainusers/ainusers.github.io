@@ -45,33 +45,42 @@
             abcd
             abcd
     2）数据过滤
-        2.1 单条件过滤
-        @Test
-        public void contextLoads() {
-            List languages = Arrays.asList("Java", "Scala", "C++", "Haskell", "Lisp");
-
-            System.out.println("Languages which ends with a ");
-            filter(languages, (str)->str.toString().endsWith("a"));
-
-            System.out.println("Print language whose length greater than 4:");
-            filter(languages, (str)->str.toString().length() > 4);
-        }
-        //过滤方法
-        public static void filter(List names, Predicate condition) {
-            names.stream().filter((name) -> (condition.test(name))).forEach((name) -> {
-                System.out.println(name + " ");
-            });
-        }
-        输出结果:
-            Languages which ends with a
-            Java
-            Scala
-            Print language whose length greater than 4:
-            Scala
-            Haskell
+        2.1 单条件过滤 (拆分)
+            List<String> lists = Arrays.asList("a", "bb", "ccc", "dddd", "eeeee");
+            //过滤后第一种输出方式
+            List<String> results = lists.stream().filter(x -> x.length() > 2).collect(Collectors.toList());
+            System.out.printf("lists : %s, results : %s %n", lists, results);
+            //过滤后第二种输出方式
+            lists.stream().filter(x -> x.length() > 2).forEach((result)->{System.out.print(result);});
 
 
-        2.2 多条件过滤
+        2.2 单条件过滤 (封装)
+            @Test
+            public void contextLoads() {
+                List languages = Arrays.asList("Java", "Scala", "C++", "Haskell", "Lisp");
+
+                System.out.println("Languages which ends with a ");
+                filter(languages, (str)->str.toString().endsWith("a"));
+
+                System.out.println("Print language whose length greater than 4:");
+                filter(languages, (str)->str.toString().length() > 4);
+            }
+            //过滤方法
+            public static void filter(List names, Predicate condition) {
+                names.stream().filter((name) -> (condition.test(name))).forEach((name) -> {
+                    System.out.println(name + " ");
+                });
+            }
+            输出结果:
+                Languages which ends with a
+                Java
+                Scala
+                Print language whose length greater than 4:
+                Scala
+                Haskell
+
+
+        2.3 多条件过滤
             @Test
             public void contextLoads() {
                 List languages = Arrays.asList("Java", "Scala", "C++", "Haskell", "Lisp");
@@ -85,10 +94,19 @@
                 names.stream().filter(startsWithJ.and(fourLetterLong))
                         .forEach((n) -> System.out.println("end with 'a' and four letter long is : " + n));
             }
-        输出结果：
-            end with 'a' and four letter long is : Java
+            输出结果：
+                end with 'a' and four letter long is : Java
     3）Map和Reduce思想
         3.1 每个订单加上12%的税
+            double bill = lists.stream()
+                .map((cost) -> cost + .12*cost)
+                .reduce((sum, cost) -> sum + cost)
+                .get();
+            System.out.println("Total : " + bill);
+        3.2 对列表的每个元素应用函数
+            List<String> lists = Arrays.asList("USA", "Japan", "France", "Germany", "Italy", "UK","Canada");
+            String results = lists.stream().map(x -> x.toUpperCase()).collect(Collectors.joining(","));
+            System.out.println(results);
                         </code>
                     </pre>
                 </figure>
