@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <!--添加自适应标签-->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" shrink-to-fit=no">
+        <title>甜先森</title>
+        <!--title上面添加icon-->
+        <link rel="shortcut icon" href="../../../images/head/head.png"/>
+    </head>
+    <style type="text/css">
+
+    </style>
+
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link href="../../../product/bootstrap/css/bootstrap.css" type="text/css" rel="stylesheet">
+    <link href="../../../css/quanzhan/mianshi/mianshi.css" type="text/css" rel="stylesheet">
+
+<body>
+    <div class="containers">
+        <div class="col-md-12">
+            <div class="contents">
+                <!--提示信息-->
+                <div class="bs-example bs-example-standalone" data-example-id="dismissible-alert-js">
+                    <div class="alert alert-info alert-dismissible fade in" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <strong>注意：</strong> 关注底层实现
+                    </div>
+                </div>
+                <!--content-->
+                <figure class="highlight">
+                    <pre>
+                        <code class="language-html" data-lang="html">
+一、String
+    1.1 计算长度
+        public int length() {
+            return value.length;
+        }
+    1.2 判断是否为空
+        public boolean isEmpty() {
+            return value.length == 0;
+        }
+    1.3 返回指定位置的元素值 (思想：利用下标)
+        public char charAt(int index) {
+            if ((index < 0) || (index >= value.length)) {
+                throw new StringIndexOutOfBoundsException(index);
+            }
+            return value[index];
+        }
+    1.4 是否以某字符串开始
+        public boolean startsWith(String prefix, int toffset) {
+            char ta[] = value;
+            int to = toffset;
+            char pa[] = prefix.value;
+            int po = 0;
+            int pc = prefix.value.length;
+            // Note: toffset might be near -1>>>1.
+            if ((toffset < 0) || (toffset > value.length - pc)) {
+                return false;
+            }
+            while (--pc >= 0) {
+                if (ta[to++] != pa[po++]) {
+                    return false;
+                }
+            }
+            return true;
+        }
+    1.5 是否以某字符串结尾 (思想：利用现有startsWith()方法进行计算)
+        public boolean endsWith(String suffix) {
+            return startsWith(suffix, value.length - suffix.value.length);
+        }
+    1.6 返回指定字符在字符串中第一次出现处的索引,如果此字符串中没有这样的字符,则返回 -1
+        public int indexOf(int ch, int fromIndex) {
+            final int max = value.length;
+            if (fromIndex < 0) {
+                fromIndex = 0;
+            } else if (fromIndex >= max) {
+                // Note: fromIndex might be near -1>>>1.
+                return -1;
+            }
+
+            if (ch < Character.MIN_SUPPLEMENTARY_CODE_POINT) {
+                // handle most cases here (ch is a BMP code point or a
+                // negative value (invalid code point))
+                final char[] value = this.value;
+                for (int i = fromIndex; i < max; i++) {
+                    if (value[i] == ch) {
+                        return i;
+                    }
+                }
+                return -1;
+            } else {
+                return indexOfSupplementary(ch, fromIndex);
+            }
+        }
+    1.7 从右向左查某个指定的字符串在字符串中最后一次出现的位置 (注意：indexOf是从前向后/lastIndexOf从后向前,二者返回索引都是从前开始计算的)
+        public int lastIndexOf(int ch, int fromIndex) {
+            if (ch < Character.MIN_SUPPLEMENTARY_CODE_POINT) {
+                // handle most cases here (ch is a BMP code point or a
+                // negative value (invalid code point))
+                final char[] value = this.value;
+                int i = Math.min(fromIndex, value.length - 1);
+                for (; i >= 0; i--) {
+                    if (value[i] == ch) {
+                        return i;
+                    }
+                }
+                return -1;
+            } else {
+                return lastIndexOfSupplementary(ch, fromIndex);
+            }
+        }
+    1.8 xxx
+                        </code>
+                    </pre>
+                </figure>
+            </div>
+        </div>
+    </div>
+</body>
+    <!--引入外部js文件-->
+    <!--jquery-->
+    <script src="../../../js/index/jquery-3.3.1.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="../../../product/bootstrap/js/bootstrap.min.js"></script>
+</html>
