@@ -145,6 +145,58 @@
 
 
     4) xxx
+
+
+二、es6
+    1.1 变量定义
+        var声明变量：无论声明在何处，都会被视为声明在函数的最顶部
+        let声明变量：不会被变量提升(var会[块级作用域])
+        const声明变量：定义的常量不能被修改(var能[块级作用域])
+        范例：
+            console.log(a)
+            console.log(b)
+            var a = 'hello';
+            let b = 'hello';
+        输出：
+            undefined
+            b is not defined
+    1.2 import、export
+    1.3 class、extends、constructor
+        class Animal {
+            constructor() {
+                this.type = 'animal';
+            }
+            says(say) {
+                console.log(this.type + ' says ' + say);
+            }
+        }
+        let animal = new Animal();
+        animal.says('hello'); //animal says hello
+
+        class Cat extends Animal {
+            constructor() {
+                super();
+                this.type = 'cat';
+            }
+        }
+        let cat = new Cat();
+        cat.says('hello'); //cat says hello
+    1.4 arrow functions (箭头函数)
+        // ES5
+        var arr1 = [1, 2, 3];
+        var newArr1 = arr1.map(function(x) {
+            return x + 1;
+        });
+        console.log(newArr1)
+
+        // ES6
+        let arr2 = [1, 2, 3];
+        let newArr2 = arr2.map((x) => {
+            return x + 1
+        });
+        console.log(newArr2)
+    1.5 字符串模板
+        xxx
                         </code>
                     </pre>
                 </figure>
@@ -157,4 +209,20 @@
     <script src="../../../js/index/jquery-3.3.1.min.js"></script>
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="../../../product/bootstrap/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+        // ES5
+        var arr1 = [1, 2, 3];
+        var newArr1 = arr1.map(function(x) {
+            return x + 1;
+        });
+        console.log(newArr1)
+
+        // ES6
+        let arr2 = [1, 2, 3];
+        let newArr2 = arr2.map((x) => {
+            return x + 1
+        });
+        console.log(newArr2)
+    </script>
 </html>
