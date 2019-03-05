@@ -196,6 +196,108 @@
         });
         console.log(newArr2)
     1.5 字符串模板
+        1.5.1 字符串拼接
+            // es5
+            var name1 = "es5";
+            console.log('hello' + name1);
+            // es6
+            const name2 = "es6";
+            console.log(`hello${name2}`);
+        1.5.2 多行字符串拼接
+            // es5
+            var msg = "Hi \
+            man!";
+            console.log(msg)
+            // es6
+            const template = `<div>
+            <span>hello world</span>
+            </div>`;
+            console.log(template)
+        1.5.3 判断是否包含
+            let str = 'hahah';
+            // es5
+            console.log(str.indexOf('hah') != -1) //true
+            // es6
+            console.log(str.includes('hah'));     //true
+        1.5.4 获取对象元素
+            // ES5
+            var people1 = {
+                name: 'es5',
+                age: 20,
+                color: ['red', 'blue']
+            };
+            var myName = people1.name;
+            var myAge = people1.age;
+            var myColor = people1.color[0];
+            console.log(myName + '----' + myAge + '----' + myColor);
+
+            // ES6
+            let people2 = {
+                name: 'es6',
+                age: 20,
+                color: ['red', 'blue']
+            }
+            let { name, age } = people2;
+            let [color] = people2.color;
+            console.log(`${name}----${age}----${color}`);
+        1.5.5 解决可变长参数问题
+            //es6
+            function foo(x, y, ...rest) {
+                return ((x + y) * rest.length);
+            }
+            console.log(foo(1, 2, 'hello', true, 7)); // 9
+    1.6  Spread Operator (展开运算符)
+        1.6.1 组装数组
+            let color = ['red', 'yellow'];
+            let color2 = ['green', 'blue'];
+            let colorful = [...color, 'green', 'blue'];
+            //es5
+            console.log(color.concat(color2)); // ["red", "yellow", "green", "blue"]
+            //es6
+            console.log(colorful); // ["red", "yellow", "green", "blue"]
+        1.6.2 获取数组的某几项元素
+            let num = [1, 3, 5, 7, 9];
+            let [a, b, ...rest] = num;
+            // es6
+            console.log(num.slice(2,num.size)); // [5, 7, 9]
+            // es5
+            console.log(rest); // [5, 7, 9]
+    1.7 写法省略
+        1.7.1 对象初始化省略
+            // ES5
+            function es5(name, age) {
+                return {
+                    name: name,
+                    age: age
+                };
+            }
+            // ES6
+            function es6(name, age) {
+                return {
+                    name,
+                    age
+                };
+            }
+            console.log(es5('a',1))
+            console.log(es6('b',2))
+        1.7.2 省略冒号与 function 关键字
+            // ES5
+            var people1 = {
+                name: 'es5',
+                getName: function () {
+                    console.log(this.name);
+                }
+            };
+            // ES6
+            let people2 = {
+                name: 'es6',
+                getName () {
+                    console.log(this.name);
+                }
+            };
+            console.log(people1)
+            console.log(people2)
+    1.8 给目标对象添加属性
         xxx
                         </code>
                     </pre>
@@ -211,18 +313,6 @@
     <script src="../../../product/bootstrap/js/bootstrap.min.js"></script>
 
     <script type="text/javascript">
-        // ES5
-        var arr1 = [1, 2, 3];
-        var newArr1 = arr1.map(function(x) {
-            return x + 1;
-        });
-        console.log(newArr1)
 
-        // ES6
-        let arr2 = [1, 2, 3];
-        let newArr2 = arr2.map((x) => {
-            return x + 1
-        });
-        console.log(newArr2)
     </script>
 </html>
