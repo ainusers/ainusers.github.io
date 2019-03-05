@@ -297,8 +297,11 @@
             };
             console.log(people1)
             console.log(people2)
-    1.8 给目标对象添加属性
-        xxx
+    1.8 给目标对象添加属性/合并对象 (重复会覆盖)
+        const target = { a: 1, b: 2 };
+        const source = { b: 4, c: 5 };
+        const es6 = Object.assign(target, source);
+        console.log(es6);  // { a: 1, b: 4, c: 5 }
                         </code>
                     </pre>
                 </figure>
