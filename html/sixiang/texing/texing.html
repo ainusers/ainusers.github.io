@@ -302,6 +302,28 @@
         const source = { b: 4, c: 5 };
         const es6 = Object.assign(target, source);
         console.log(es6);  // { a: 1, b: 4, c: 5 }
+    1.9 promise
+        1.9.1 异步操作后的回调函数
+            function test(resolve, reject) {
+                var mrs = Math.random()
+                var timeOut = mrs * 2;
+                setTimeout(function () {
+                    console.log(timeOut)
+                    if (timeOut < 1) {
+                        resolve('200 OK');
+                    }
+                    else {
+                        reject('timeout in ' + timeOut + ' seconds.');
+                    }
+                }, timeOut * 10);
+            }
+            new Promise(test).then(function (result) {
+                console.log('成功：' + result);
+            }).catch(function (reason) {
+                console.log('失败：' + reason);
+            });
+    2.0 Generators 生成器
+        xxx
                         </code>
                     </pre>
                 </figure>
