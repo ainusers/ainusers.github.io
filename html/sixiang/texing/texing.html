@@ -323,7 +323,38 @@
                 console.log('失败：' + reason);
             });
     2.0 Generators 生成器
-        xxx
+        //es5
+        function fib(max) {
+            var
+                t,
+                a = 0,
+                b = 1,
+                arr = [0, 1];
+            while (arr.length < max) {
+                [a, b] = [b, a + b];
+                arr.push(b);
+            }
+            return arr;
+        }
+        console.log(fib(5))
+        //es6
+        function* fib2(max) {
+            var
+                t,
+                a = 0,
+                b = 1,
+                n = 0;
+            while (n < max) {
+                yield a;
+                [a, b] = [b, a + b];
+                n ++;
+            }
+            return;
+        }
+        //调用 (或者var f = fib(5); f.next().value; 只返回一次)
+        for (var x of fib2(5)) {
+            console.log(x)
+        }
                         </code>
                     </pre>
                 </figure>
@@ -338,6 +369,19 @@
     <script src="../../../product/bootstrap/js/bootstrap.min.js"></script>
 
     <script type="text/javascript">
-
+        var a = [];
+        for (let i = 0; i < 10; i++) {
+            a[i] = function () {
+                console.log(i);
+            };
+        }
+        var b = [];
+        for (var i = 0; i < 10; i++) {
+            b[i] = function () {
+                console.log(i);
+            };
+        }
+        a[6](); // 6
+        b[6](); // 10
     </script>
 </html>
