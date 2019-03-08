@@ -160,6 +160,22 @@
         输出：
             undefined
             b is not defined
+         案例：
+            var a = [];
+            for (let i = 0; i < 10; i++) {
+                a[i] = function () {
+                    console.log(i);
+                };
+            }
+            var b = [];
+            for (var i = 0; i < 10; i++) {
+                //console.log(i)
+                b[i] = function () {
+                    console.log(i);
+                };
+            }
+            a[6](); // 6  i只在本轮循环中有效
+            b[6](); // 10
     1.2 import、export
     1.3 class、extends、constructor
         class Animal {
@@ -369,19 +385,6 @@
     <script src="../../../product/bootstrap/js/bootstrap.min.js"></script>
 
     <script type="text/javascript">
-        var a = [];
-        for (let i = 0; i < 10; i++) {
-            a[i] = function () {
-                console.log(i);
-            };
-        }
-        var b = [];
-        for (var i = 0; i < 10; i++) {
-            b[i] = function () {
-                console.log(i);
-            };
-        }
-        a[6](); // 6
-        b[6](); // 10
+        //暂时性死区
     </script>
 </html>
