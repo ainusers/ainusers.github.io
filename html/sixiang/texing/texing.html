@@ -373,11 +373,43 @@
             console.log(x)
         }
     2.1 数组的解构赋值(ES6 允许按照一定模式，从数组和对象中提取值，对变量进行赋值，这被称为解构)
-        2.1.1 数组的元素是按次序排列的
-        2.1.2 对象的属性没有次序，变量必须与属性同名
-        let { foo: baz } = { foo: "aaa", bar: "bbb" };
-        baz // "aaa"
-        foo // error: foo is not defined
+        规则：解构赋值的规则是，只要等号右边的值不是对象或数组，就先将其转为对象。由于undefined和null无法转为对象，所以对它们进行解构赋值，都会报错
+        2.1.1 数组解构：数组的元素是按次序排列的
+        2.1.2 对象解构：对象的属性没有次序，变量必须与属性同名
+            let { foo: baz } = { foo: "aaa", bar: "bbb" };
+            baz // "aaa"
+            foo // error: foo is not defined
+        2.1.3 字符串解构
+            let {length : len} = 'hello';
+            len // 5
+        2.1.4 函数参数解构
+            [[1, 2], [3, 4]].map(([a, b]) => a + b);
+            // [ 3, 7 ]
+        用途1：交换变量的值
+            let x = 1;
+            let y = 2;
+            [x, y] = [y, x];
+        用途2：函数返回多个值
+            function example() {
+              return [1, 2, 3];
+            }
+            let [a, b, c] = example();
+        用途3：提取 JSON 数据
+            let jsonData = {
+              id: 42,
+              status: "OK",
+              data: [867, 5309]
+            };
+            let { id, status, data: number } = jsonData;
+        用途4：遍历 Map 结构
+            const map = new Map();
+            map.set('first', 'hello');
+            map.set('second', 'world');
+            for (let [key, value] of map) {
+              console.log(key + " is " + value);
+            }
+            // first is hello
+            // second is world
                         </code>
                     </pre>
                 </figure>
