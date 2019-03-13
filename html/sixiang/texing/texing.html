@@ -147,9 +147,10 @@
 
 二、es6(块级作用域、解构)
     1.1 变量定义
-        var声明变量：无论声明在何处，都会被视为声明在函数的最顶部
-        let声明变量：不会被变量提升(var会[块级作用域])
-        const声明变量：定义的常量不能被修改(var能[块级作用域])（并不是变量的值不得改动，而是变量指向的那个内存地址所保存的数据不得改动）
+        var声明变量：  无论声明在何处，都会被视为声明在函数的最顶部
+        let声明变量：  不会被变量提升(var会[块级作用域])
+        const声明变量：定义的常量不能被修改(var能[块级作用域])
+                      并不是变量的值不得改动，而是变量指向的那个内存地址所保存的数据不得改动）
         注意：
             1.代码块中let声明变量之前，不允许赋值
             2.相同作用域内let声明后不允许重复声明
@@ -222,21 +223,32 @@
             console.log(`hello${name2}`);
         1.5.2 多行字符串拼接
             // es5
-            var msg = "Hi \
-            man!";
-            console.log(msg)
+            $('#result').append(
+              'There are <b>' + basket.count + '</b> ' +
+              'items in your basket, ' +
+              '<em>' + basket.onSale +
+              '</em> are on sale!'
+            );
             // es6
-            const template = `<div>
-            <span>hello world</span>
-            </div>`;
-            console.log(template)
-        1.5.3 判断是否包含
-            let str = 'hahah';
+            $('#result').append(`
+              There are <b>${basket.count}</b> items
+               in your basket, <em>${basket.onSale}</em>
+              are on sale!
+            `);
+        1.5.3// 字符串中嵌入变量
+                let name = "Bob", time = "today";
+                `Hello ${name}, how are you ${time}?`
+        1.5.4 新增方法
+            let str = 'hahah!';
             // es5
-            console.log(str.indexOf('hah') != -1) //true
+            console.log(str.indexOf('hah') != -1)   // true
             // es6
-            console.log(str.includes('hah'));     //true
-        1.5.4 获取对象元素
+            console.log(str.includes('hah'));       // true
+            console.log(s.startsWith('ha'));        // true
+            console.log(s.endsWith('!'));           // true
+            console.log(s.endsWith('ha', 5));       // true
+            console.log('na'.repeat(-0.9));         // ""
+        1.5.5 获取对象元素
             // ES5
             var people1 = {
                 name: 'es5',
@@ -247,7 +259,6 @@
             var myAge = people1.age;
             var myColor = people1.color[0];
             console.log(myName + '----' + myAge + '----' + myColor);
-
             // ES6
             let people2 = {
                 name: 'es6',
@@ -257,12 +268,19 @@
             let { name, age } = people2;
             let [color] = people2.color;
             console.log(`${name}----${age}----${color}`);
-        1.5.5 解决可变长参数问题
+        1.5.6 解决可变长参数问题
             //es6
             function foo(x, y, ...rest) {
                 return ((x + y) * rest.length);
             }
             console.log(foo(1, 2, 'hello', true, 7)); // 9
+        1.5.7 字符串遍历
+            for (let codePoint of 'foo') {
+              console.log(codePoint)
+            }
+            // "f"
+            // "o"
+            // "o"
     1.6  Spread Operator (展开运算符)
         1.6.1 组装数组
             let color = ['red', 'yellow'];
@@ -424,6 +442,7 @@
     <script src="../../../product/bootstrap/js/bootstrap.min.js"></script>
 
     <script type="text/javascript">
-        //暂时性死区
+        //http://es6.ruanyifeng.com/#docs/string
+        //大括号内部可以放入任意的 JavaScript 表达式，可以进行运算，以及引用对象属性。
     </script>
 </html>
