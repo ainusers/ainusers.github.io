@@ -213,7 +213,7 @@
             return x + 1
         });
         console.log(newArr2)
-    1.5 字符串模板
+    1.5 字符串模板(对固定格式字符串进行变量替换)
         1.5.1 字符串拼接
             // es5
             var name1 = "es5";
@@ -281,6 +281,19 @@
             // "f"
             // "o"
             // "o"
+        1.5.8 js表达式
+            1.5.8.1 函数调用
+                function fn() {
+                  return "Hello World";
+                }
+                `foo ${fn()} bar`
+                // foo Hello World bar
+            1.5.8.2 表达式计算
+                    (大括号内部可以放入任意的 JavaScript 表达式，可以进行运算，以及引用对象属性)
+                    let x = 1;
+                    let y = 2;
+                    `${x} + ${y} = ${x + y}`
+                    //"1 + 2 = 3"
     1.6  Spread Operator (展开运算符)
         1.6.1 组装数组
             let color = ['red', 'yellow'];
@@ -428,6 +441,8 @@
             }
             // first is hello
             // second is world
+    2.2 函数扩展
+        xxx
                         </code>
                     </pre>
                 </figure>
@@ -442,7 +457,6 @@
     <script src="../../../product/bootstrap/js/bootstrap.min.js"></script>
 
     <script type="text/javascript">
-        //http://es6.ruanyifeng.com/#docs/string
-        //大括号内部可以放入任意的 JavaScript 表达式，可以进行运算，以及引用对象属性。
+
     </script>
 </html>
