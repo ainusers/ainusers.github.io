@@ -199,14 +199,13 @@
         }
         let cat = new Cat();
         cat.says('hello'); //cat says hello
-    1.4 arrow functions (箭头函数)
+    1.4 arrow functions (箭头函数：[第一个参数是形参，第二个参数是返回值])
         // ES5
         var arr1 = [1, 2, 3];
         var newArr1 = arr1.map(function(x) {
             return x + 1;
         });
         console.log(newArr1)
-
         // ES6
         let arr2 = [1, 2, 3];
         let newArr2 = arr2.map((x) => {
@@ -274,6 +273,7 @@
                 return ((x + y) * rest.length);
             }
             console.log(foo(1, 2, 'hello', true, 7)); // 9
+            //获取可变长参数的第二个？（1.先将可变长参数转变为数组再获取2.var content = [1,2,3]; var a = [...content]; console.log(`${a[2]}`);）
         1.5.7 字符串遍历
             for (let codePoint of 'foo') {
               console.log(codePoint)
@@ -303,7 +303,12 @@
             console.log(color.concat(color2)); // ["red", "yellow", "green", "blue"]
             //es6
             console.log(colorful); // ["red", "yellow", "green", "blue"]
-        1.6.2 获取数组的某几项元素
+        1.6.2 数组合并
+            // ES6 的写法
+            let arr1 = [0, 1, 2];
+            let arr2 = [3, 4, 5];
+            arr1.push(...arr2);
+        1.6.3 获取数组的某几项元素
             let num = [1, 3, 5, 7, 9];
             let [a, b, ...rest] = num;
             // es6
@@ -441,8 +446,43 @@
             }
             // first is hello
             // second is world
-    2.2 函数扩展
-        xxx
+    2.2 运算符扩展
+        ...符号：可用于不定参修饰、也可用于函数/变量调用
+        // 对象转数组
+        let arrayLike = {
+            '0': 'a',
+            '1': 'b',
+            '2': 'c',
+            length: 3
+        };
+        let arr2 = Array.from(arrayLike); // ['a', 'b', 'c']
+        .find
+        Array.of()
+        .fill
+        .includes
+        .flat
+    2.3 对象扩展
+        2.3.1 封装方法的简写
+            const o = {
+              method() {
+                return "Hello!";
+              }
+            };
+            // 等同于
+            const o = {
+              method: function() {
+                return "Hello!";
+              }
+            };
+    2.4 新增函数
+        2.4.1 判断两值是否相等
+            Object.is('foo', 'foo')
+        2.4.2 合并对象（浅拷贝）
+            const target = { a: 1 };
+            const source1 = { b: 2 };
+            const source2 = { c: 3 };
+            Object.assign(target, source1, source2);
+            target // {a:1, b:2, c:3}
                         </code>
                     </pre>
                 </figure>
@@ -457,6 +497,7 @@
     <script src="../../../product/bootstrap/js/bootstrap.min.js"></script>
 
     <script type="text/javascript">
-        //箭头参数
+        //常见用途
+        //Object.assign方法有很多用处。
     </script>
 </html>
