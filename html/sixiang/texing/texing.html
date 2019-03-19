@@ -462,7 +462,27 @@
         .includes
         .flat
     2.3 对象扩展
-        xxx
+        2.3.1 封装方法的简写
+            const o = {
+              method() {
+                return "Hello!";
+              }
+            };
+            // 等同于
+            const o = {
+              method: function() {
+                return "Hello!";
+              }
+            };
+    2.4 新增函数
+        2.4.1 判断两值是否相等
+            Object.is('foo', 'foo')
+        2.4.2 合并对象（浅拷贝）
+            const target = { a: 1 };
+            const source1 = { b: 2 };
+            const source2 = { c: 3 };
+            Object.assign(target, source1, source2);
+            target // {a:1, b:2, c:3}
                         </code>
                     </pre>
                 </figure>
@@ -477,6 +497,7 @@
     <script src="../../../product/bootstrap/js/bootstrap.min.js"></script>
 
     <script type="text/javascript">
-        //箭头参数
+        //常见用途
+        //Object.assign方法有很多用处。
     </script>
 </html>
