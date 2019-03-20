@@ -483,6 +483,18 @@
             const source2 = { c: 3 };
             Object.assign(target, source1, source2);
             target // {a:1, b:2, c:3}
+        2.4.3 assign（更改数据集）
+            function processContent(base,options) {
+                return options = Object.assign({},base, options);
+            }
+            console.log(processContent({url: {host: 'example.com',port: 7070}},{ url: {port: 8000} }))
+        2.4.4 setPrototypeOf（设置对象属性）
+            Object.setPrototypeOf({ x: 10 }, {});
+        2.4.5 获取map对象的键和值
+            Object.keys
+            Object.values
+        2.4.6 将键值对数组转为对象
+            Object.fromEntries()
                         </code>
                     </pre>
                 </figure>
@@ -497,7 +509,6 @@
     <script src="../../../product/bootstrap/js/bootstrap.min.js"></script>
 
     <script type="text/javascript">
-        //常见用途
-        //Object.assign方法有很多用处。
+        //Symbol
     </script>
 </html>
