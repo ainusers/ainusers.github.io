@@ -495,6 +495,27 @@
             Object.values
         2.4.6 将键值对数组转为对象
             Object.fromEntries()
+    2.5 Symbol（作为唯一性标识）
+        javascript数据类型：undefined、null、布尔值（Boolean）、字符串（String）、数值（Number）、对象（Object）、Symbol
+        2.5.1 消除魔术字符串(在代码中频繁出现的变量)
+            const shapeType = {
+              triangle: 'Triangle'
+            };
+            function getArea(shape, options) {
+              let area = 0;
+              switch (shape) {
+                case shapeType.triangle:
+                  area = .5 * options.width * options.height;
+                  break;
+              }
+              return area;
+            }
+            getArea(shapeType.triangle, { width: 100, height: 100 });
+    3.6 es6新增内容（类java）
+        3.6.1 set(添加元素时，不会进行类型转换)
+            主要用于去重：
+                [...new Set(array)]
+                [...new Set('ababbc')].join('')
                         </code>
                     </pre>
                 </figure>
@@ -509,6 +530,6 @@
     <script src="../../../product/bootstrap/js/bootstrap.min.js"></script>
 
     <script type="text/javascript">
-        //Symbol
+        //（3）遍历的应用
     </script>
 </html>
