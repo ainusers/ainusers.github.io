@@ -512,10 +512,39 @@
             }
             getArea(shapeType.triangle, { width: 100, height: 100 });
     3.6 es6新增内容（类java）
-        3.6.1 set(添加元素时，不会进行类型转换)
+        3.6.1 set(添加元素时，不会进行类型转换[5和"5"是两个不同的值])
             主要用于去重：
-                [...new Set(array)]
-                [...new Set('ababbc')].join('')
+                [...new Set(array)]             //去除数组中重复数据
+                [...new Set('ababbc')].join('') //去除字符串中重复字符
+            主要用于并集/交集、差集处理
+                let a = new Set([1, 2, 3]);
+                let b = new Set([4, 3, 2]);
+                // 并集
+                let union = new Set([...a, ...b]);
+                // Set {1, 2, 3, 4}
+                // 交集
+                let intersect = new Set([...a].filter(x => b.has(x)));
+                // set {2, 3}
+                // 差集
+                let difference = new Set([...a].filter(x => !b.has(x)));
+                // Set {1}
+        3.6.2 map (任何数据类型包括对象都可以作为键)
+            主要弥补只能字符串为对象的缺点
+            可以利用数组，进行数据加工
+                const map0 = new Map()
+                  .set(1, 'a')
+                  .set(2, 'b')
+                  .set(3, 'c');
+                const map1 = new Map(
+                  [...map0].filter(([k, v]) => k < 3)
+                );
+                // 产生 Map 结构 {1 => 'a', 2 => 'b'}
+                const map2 = new Map(
+                  [...map0].map(([k, v]) => [k * 2, '_' + v])
+                    );
+                // 产生 Map 结构 {2 => '_a', 4 => '_b', 6 => '_c'}
+        3.6.3 数据类型转换
+
                         </code>
                     </pre>
                 </figure>
@@ -530,6 +559,6 @@
     <script src="../../../product/bootstrap/js/bootstrap.min.js"></script>
 
     <script type="text/javascript">
-        //（3）遍历的应用
+
     </script>
 </html>
