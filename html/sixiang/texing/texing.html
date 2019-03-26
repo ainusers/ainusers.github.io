@@ -544,7 +544,81 @@
                     );
                 // 产生 Map 结构 {2 => '_a', 4 => '_b', 6 => '_c'}
         3.6.3 数据类型转换
-
+            3.6.3.1 map转数组
+                const myMap = new Map()
+                  .set(true, 7)
+                  .set({foo: 3}, ['abc']);
+                [...myMap]
+                // [ [ true, 7 ], [ { foo: 3 }, [ 'abc' ] ] ]
+            3.6.3.2 数组转map
+                new Map([
+                  [true, 7],
+                  [{foo: 3}, ['abc']]
+                ])
+                // Map {
+                //   true => 7,
+                //   Object {foo: 3} => ['abc']
+                // }
+            3.6.3.3 map转对象
+                function strMapToObj(strMap) {
+                  let obj = Object.create(null);
+                  for (let [k,v] of strMap) {
+                    obj[k] = v;
+                  }
+                  return obj;
+                }
+                const myMap = new Map()
+                  .set('yes', true)
+                  .set('no', false);
+                strMapToObj(myMap)
+                // { yes: true, no: false }
+            3.6.3.4 对象转为 Map
+                function objToStrMap(obj) {
+                  let strMap = new Map();
+                  for (let k of Object.keys(obj)) {
+                    strMap.set(k, obj[k]);
+                  }
+                  return strMap;
+                }
+                objToStrMap({yes: true, no: false})
+                // Map {"yes" => true, "no" => false}
+            3.6.3.5 map转json
+                3.6.3.5.1 map的键均为字符串
+                    function strMapToJson(strMap) {
+                      return JSON.stringify(strMapToObj(strMap));
+                    }
+                    let myMap = new Map().set('yes', true).set('no', false);
+                    strMapToJson(myMap)
+                    // '{"yes":true,"no":false}'
+                3.6.3.5.2 map的键有非字符串
+                    function mapToArrayJson(map) {
+                      return JSON.stringify([...map]);
+                    }
+                    let myMap = new Map().set(true, 7).set({foo: 3}, ['abc']);
+                    mapToArrayJson(myMap)
+                    // '[[true,7],[{"foo":3},["abc"]]]'
+            3.6.3.6 json转map
+                3.6.3.6.1 所有键名都是字符串
+                    function jsonToStrMap(jsonStr) {
+                      return objToStrMap(JSON.parse(jsonStr));
+                    }
+                    jsonToStrMap('{"yes": true, "no": false}')
+                    // Map {'yes' => true, 'no' => false}
+                3.6.3.6.2 有一种特殊情况，整个 JSON 就是一个数组，且每个数组成员本身，又是一个有两个成员的数组。
+                          这时，它可以一一对应地转为 Map。这往往是 Map 转为数组 JSON 的逆操作
+                    function jsonToMap(jsonStr) {
+                      return new Map(JSON.parse(jsonStr));
+                    }
+                    jsonToMap('[[true,7],[{"foo":3},["abc"]]]')
+                    // Map {true => 7, Object {foo: 3} => ['abc']}
+        3.7 proxy 元编程（对编程语言进行编程）
+        3.8 Reflect 映射
+        3.9 Promise (简单说就是一个容器，里面保存着某个未来才会结束的事件（通常是一个异步操作）的结果)
+                    (从语法上说，Promise 是一个对象，从它可以获取异步操作的消息)
+                    (只有异步操作的结果，可以决定当前是哪一种状态，任何其他操作都无法改变这个状态。
+                    这也是Promise这个名字的由来，它的英语意思就是“承诺”，表示其他手段无法改变)
+                    总之：以同步的方式表达异步
+            3.9.1 基本用法
                         </code>
                     </pre>
                 </figure>
