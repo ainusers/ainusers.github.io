@@ -637,7 +637,19 @@
                 }
                 var b = new Bar();
                 b.doStuff() // "stuff"
-            4.3.2
+            4.3.2 基本调用
+                let person = new class {
+                  constructor(name) {
+                    this.name = name;
+                  }
+                  sayName() {
+                    console.log(this.name);
+                  }
+                }('张三');
+                person.sayName(); // "张三"
+            4.3.3 ES6 明确规定，Class 内部只有静态方法，没有静态属性
+        4.4 class的继承
+            xxx
                         </code>
                     </pre>
                 </figure>
