@@ -649,7 +649,22 @@
                 person.sayName(); // "张三"
             4.3.3 ES6 明确规定，Class 内部只有静态方法，没有静态属性
         4.4 class的继承
-            xxx
+        4.5 模块（module）[一个模块==一个js文件]
+            "编译时加载"或者"静态加载"或者"按需加载"
+            模块命令：export（用于规定模块的对外接口）和import（用于输入其他模块提供的功能）
+            export：
+                4.5.1.写法
+                    // 写法一
+                    export var m = 1;
+                    // 写法二
+                    var m = 1;
+                    export {m};
+                    // 写法三
+                    var n = 1;
+                    export {n as m};
+                4.5.2.位置：放置于模块顶层
+            import：
+                4.5.3.
                         </code>
                     </pre>
                 </figure>
