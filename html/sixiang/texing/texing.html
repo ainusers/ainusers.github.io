@@ -653,7 +653,7 @@
             "编译时加载"或者"静态加载"或者"按需加载"
             模块命令：export（用于规定模块的对外接口）和import（用于输入其他模块提供的功能）
             export：
-                4.5.1.写法
+                4.5.1.变量写法
                     // 写法一
                     export var m = 1;
                     // 写法二
@@ -663,8 +663,23 @@
                     var n = 1;
                     export {n as m};
                 4.5.2.位置：放置于模块顶层
-            import：
-                4.5.3.
+                4.5.3 函数的两种写法（1.export default时import语句不需要使用大括号，不使用export default时，对应的import语句需要使用大括号）
+                    // 第一组
+                    export default function crc32() { // 输出
+                      // ...
+                    }
+                    import crc32 from 'crc32'; // 输入
+                    // 第二组
+                    export function crc32() { // 输出
+                      // ...
+                    };
+                    import {crc32} from 'crc32'; // 输入
+            import：（加载这个模块命令）
+                4.5.4.语法
+                    import { foo, bar } from 'my_module';
+            两者适用场景：
+                import：按需加载
+        4.6 Module 的加载实现
                         </code>
                     </pre>
                 </figure>
