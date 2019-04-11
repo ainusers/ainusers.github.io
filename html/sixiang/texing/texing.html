@@ -731,6 +731,22 @@
                     const itemsCopy = [...items];
                     //数组的对象转为数组: Array.from
                 4.7.3.6 箭头函数
+                    4.7.3.6.1 立即执行函数：
+                        (() => {
+                          console.log('Welcome to the Internet.');
+                        })();
+                   4.7.3.6.2 箭头函数使用场景
+                        // bad
+                        [1, 2, 3].map(function (x) {
+                          return x * x;
+                        });
+                        // good
+                        [1, 2, 3].map((x) => {
+                          return x * x;
+                        });
+                        // best
+                        [1, 2, 3].map(x => x * x);
+                4.8 map结构
                         </code>
                     </pre>
                 </figure>
