@@ -111,6 +111,14 @@
     5) 继承/组合：继承是表达了行为间的差异，组合类实现行为之间的状态切换
 第9章 接口
     1) 抽象类和接口的区别
+    2) 策略模式：创建一个能够根据所传递的参数对象的不同而具有不通行为的方法(接口的设计也用到了策略模式)
+                策略：就是传递进去的参数对象Processor
+                     public static void process(Processor p,Object s){
+                        print(p.process(s))
+                     }
+    3) 适配器模式：适配器中将接受你所拥有的所有的接口，并产生你所需要的接口
+                适配：将外部所有接口以外部参数形式Filter传入,调用时包裹接口对象
+                     Apply.process(new FilterAdapter(new LowPass(1.0)),w)
                         </code>
                     </pre>
                 </figure>
