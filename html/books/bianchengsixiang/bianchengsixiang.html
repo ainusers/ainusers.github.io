@@ -139,6 +139,16 @@
 第13章 字符串
     String对象是不可变的
     尽量使用StringBuilder，而不是StringBuffer/String
+第14章 类型信息
+    反射的三种实现方式：
+        第一种：通过Object类的getClass方法
+            Class cla = foo.getClass();
+        第二种：通过对象实例方法获取对象     (建议)
+            Class cla = foo.class;
+        第三种：通过Class.forName方式
+            Class cla = Class.forName("xx.xx.Foo");
+    instance of: 用来判断类型是否《相似》、可以预防ClassCastException()
+    Class.isInstance()
                         </code>
                     </pre>
                 </figure>
