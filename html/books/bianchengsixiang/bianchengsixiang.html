@@ -152,7 +152,21 @@
     4.动态代理：cglib
 第15章 泛型 (更加灵活的容器类)
     1.写通用代码需要用到什么？就是泛型(配合多态)
-    2.
+    2.泛型方法
+        public <T> void f(T t){
+            printf(t.getClass().getName());
+        }
+        public <K,V> Map<K,V> f(){
+            return new HashMap<K,V>();
+        }
+    3.泛型与可变参
+        类比Arrays.asList()
+        public static <T> List<T> makeList(T... args){
+            List<T> result = new ArrayList<T>();
+            for(T item: args){
+                result.add(item);
+            }
+        }
                         </code>
                     </pre>
                 </figure>
