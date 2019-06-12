@@ -167,6 +167,30 @@
                 result.add(item);
             }
         }
+    4.class<?>对象、generator生成器、泛型 => 构建对象生成器
+        public class BasicGenerator<T> implements Generator<T> {
+            private Class<T> type;
+            public BasicGenerator(Class<T> type){
+                this.type = type
+            }
+            public T next(){
+                return type.newInstance();
+            }
+            public static <T> Generator<T> create(Class<T> type){
+                return new BasicGenerator<T>(type);
+            }
+        }
+        //调用生成器
+        public static void main(String [] args){
+            Generator<CountedObject> gen = BasicGenerator.create(CountedObject.class);
+            for(int i=0;i<3;i++){
+                printf(gen.next())
+            }
+        }
+        //输出结果
+        CountedObject CountedObject CountedObject
+    5.
+
                         </code>
                     </pre>
                 </figure>
