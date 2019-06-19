@@ -193,6 +193,12 @@
         工厂对象可以通过 A.class、a.newInstance() 来便利的创建新的对象
     6.边界：使得可以在泛型的参数类型上面设置限制条件
         class A <T extends B & C & D>
+    7.通配符：使得参数类型可以进行向上转型
+        List<? extends Fruit> flist = new ArrayList<Apple>();  ==  <T extends Fruit>
+    8.逆变（超类型通配符）
+        <? super MyClass> 而不是 <T super MyClass>
+    9.
+
                         </code>
                     </pre>
                 </figure>
