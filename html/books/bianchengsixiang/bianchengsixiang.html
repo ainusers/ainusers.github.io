@@ -197,7 +197,18 @@
         List<? extends Fruit> flist = new ArrayList<Apple>();  ==  <T extends Fruit>
     8.逆变（超类型通配符）
         <? super MyClass> 而不是 <T super MyClass>
-    9.
+    9.泛型的局限性
+        9.1) 不能使用基本类型用作类型参数 ArrayList<int>
+    10.自限定泛型类型
+        public class Basic<T> {
+            T element;
+            void set(T arg) {element = arg}
+            T get(){ return element}
+            void f(){ printf(element.getClass().getSimpleName());}
+        }
+    11.装饰器设计模式
+        定义：使用分层对象来动态透明的向单个对象添加责任
+
 
                         </code>
                     </pre>
