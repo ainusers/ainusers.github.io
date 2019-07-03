@@ -257,16 +257,42 @@
         fileoutputstream/filteroutputstream
     5.reader类型 (面向字符流)
     6.writer类型 (面向字符流)
-    7.适配器模式
+    7.适配器设计模式
         如：inputstreamreader可以把inputstream转换为reader
         如：outputstreamreader可以把outputstream转换为writer
     8.提高效率的NIO
 第19章 枚举类型
-    1.
-
-
-
-
+    1.values()
+        返回enum实例的数组
+        public enum Space(){
+            SCOUT,CRAGO;
+            for(Space s:values()){
+                printf(s);
+            }
+        }
+    2.常量类使用
+        enum Signal { GREEN,RED }
+        printf(Signal.RED)
+    3.随机选取枚举常量
+        public class Enums{}
+            private static Random rand = new Random(47)
+            public static <T extends Enum<T>> T random(Class<T> ec){
+                return random(ec.getEnumConstants())
+            }
+            public static <T> T random(T[] values){
+                return values[rand.nextInt(values.length)]
+            }
+        }
+        enum Activity { STRING,LINT,RADING}
+        public class RandomTest{
+            public static void main(String [] args){
+                printf(Enums.random(Activity.class)+" ")
+            }
+        }
+    4.不能从enum中删除或添加元素
+    5.EnumSet、EnumMap
+    6.命令设计模式
+        策略设计模式完成后、程序员构造命令对象，在需要的时候调用即可
 
                         </code>
                     </pre>
@@ -275,9 +301,6 @@
         </div>
     </div>
 </body>
-    引入外部js文件
-    jquery
     <script src="../../../js/index/jquery-3.3.1.min.js"></script>
-     最新的 Bootstrap 核心 JavaScript 文件
     <script src="../../../product/bootstrap/js/bootstrap.min.js"></script>
 </html>
