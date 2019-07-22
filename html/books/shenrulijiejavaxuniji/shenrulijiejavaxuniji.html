@@ -102,6 +102,9 @@
                 对本地方法栈中方法使用的语言、使用方式、数据结构并没有强制规定
                 比如：Sun HotSpot虚拟机直接将本地方法栈和虚拟机栈合二为一
                      所以和虚拟机栈一样，本地方法栈区域也会抛出stackoverflowerror和outofmemoryerror异常
+            6.3.HotSpot虚拟机栈
+                对于HotSpot虚拟机栈：将虚拟机栈和本地方法栈合二为一，所以-Xoss虽然是设置本地方法栈大小
+                但实际并无效果，栈容量只由-Xss参数设定
         7.java堆
             7.1.生命周期
                 java堆(java heap)是java虚拟机锁管理的内存中最大的一块
@@ -268,7 +271,37 @@
                             内存中的对象确实且必须还存活，那就应当检查虚拟机的堆参数(-Xmx/-Xms)，与机器物理内存对比看是否
                             还可以调大，从代码上检查是否存在某些对象生命周期过长，持有状态时间过长情况，尝试减少程序运行期
                             的内存消耗
-                11.5.4.虚拟机栈和被地方栈溢出
+                11.5.4.虚拟机栈和本地方法栈溢出
+                    一、如何造成虚拟机栈和本地方法栈溢出
+                        1.如果线程请求的栈深度大于虚拟机锁允许的最大深度，将抛出stackoverflowerror异常
+                        2.如果虚拟机在扩展栈时，无法申请到足够的内存空间，则抛出outofmemoryerror异常
+                        3.以上两种情况，已使用栈空间太大或是内存空间太小，本质上都是对同一件事的两种描述?
+                    二、如何产生
+                        public class VMStackSOF{
+                            private int stackLength = 1;
+
+                            public void stackLeak(){
+                                stackLength++;
+                                stackLeak();
+                            }
+
+                            public static void main(String [] args) throws Throwable{
+                                VMStackSOF oom = new VMStackSOF();
+                                try{
+                                    oom.stackLeak();
+                                }catch(Throwable e){
+                                    printf(“stack length："+oom.stackLength);
+                                    throw e;
+                                }
+                            }
+                        }
+                    三、结论
+                        单个线程下，无论是由于栈帧太大还是虚拟机栈容量太小，当内存无法分配的时候，
+                        虚拟机抛出的都是stackoverflowerror异常，多线程可以出现内存溢出
+                    四、注意
+                        1.每个进程都有操作系统的内存限制(2G/32bit系统)
+                        2.而运行时内存宽泛来说一共3部分：方法区、堆、程序计数器(忽略不计)、虚拟机栈+本地方法栈
+                        其中一个内存溢出，可以调整其他内存区域的大小
                         </code>
                     </pre>
                 </figure>
