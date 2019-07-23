@@ -323,6 +323,33 @@
                                  基本思路就是运行时产生大量的类去填满方法区，直接方法区内存溢出
                                  可以使用cglib等字节码技术实现，这里暂不举例
                 11.5.6.本地直接内存溢出
+                    一、阐述
+                        DirectMemory容量合一通过-XX：MaxDirectMemorySize指定，如果不指定
+                        默认与java堆最大值(-Xmx指定)一样
+                    二、如何使直接内存内存溢出
+                        DirectByteBuffer分配内存也会抛出内存溢出异常，但是它抛出的异常并不是真正想操作系统申请
+                        分配的内存，而是通过计算得知内存无法分配，可以使用unsafe.allocateMemory()真正申请分配
+                    三、代码展示
+                        private static final int _1G = 1024 * 1024 * 1024;
+                        @Test
+                        public void contextLoads() {
+                            Field unsafeField = Unsafe.class.getDeclaredFields()[0];
+                            unsafeField.setAccessible(true);
+                            Unsafe unsafe = null;
+                            try {
+                                unsafe = (Unsafe)unsafeField.get(null);
+                                for(;;){
+                                    unsafe.allocateMemory(_1G);     //手动申请内存
+                                }
+                            } catch (IllegalAccessException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    四、鉴别是否为直接内存溢出
+                        由DirectMemory直接内存导致的内存溢出，一个明显的特征就是在Heap Dump文件中不会看到
+                        明显的异常，如果读者发现OOM后Dump文件很小，而程序中有直接或间接的使用了NIO，那就
+                        可以考虑这方面原因了
+                11.5.7.本章小结
                         </code>
                     </pre>
                 </figure>
