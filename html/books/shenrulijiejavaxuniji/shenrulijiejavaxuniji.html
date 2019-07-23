@@ -317,6 +317,8 @@
                                     oom.add(String.valueOf(i++).intern());
                                 }
                             }
+                            //结果
+                            java.lang.outofmemoryerror:PermGen space
                         11.5.5.2.方法区用于存放class的相关信息：类名、访问修饰符、常量池、字段描述、方法描述等
                                  基本思路就是运行时产生大量的类去填满方法区，直接方法区内存溢出
                                  可以使用cglib等字节码技术实现，这里暂不举例
