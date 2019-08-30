@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <!--添加自适应标签-->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" shrink-to-fit=no">
+        <title>甜先森</title>
+        <!--title上面添加icon-->
+        <link rel="shortcut icon" href="../../../images/head/head.png"/>
+    </head>
+    <style type="text/css">
+        .contents img{margin-left: 18%}
+    </style>
+
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link href="../../../product/bootstrap/css/bootstrap.css" type="text/css" rel="stylesheet">
+    <link href="../../../css/quanzhan/pachong/pachong.css" type="text/css" rel="stylesheet">
+
+<body>
+    <div class="containers">
+        <div class="col-md-12">
+            <div class="contents">
+                <!--提示信息-->
+                <div class="bs-example bs-example-standalone" data-example-id="dismissible-alert-js">
+                    <div class="alert alert-info alert-dismissible fade in" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <strong>注意：参照 “各性能优化方案总结”</strong>
+                    </div>
+                </div>
+                <figure class="highlight">
+                    <pre>
+                        <code class="language-html" data-lang="html">
+一、页面级别优化
+    <a href="type.png" target="_blank">圖片格式比較</a>
+    1.图片
+        1.1.提高雪碧图(图片精灵)的使用率
+        1.2.图片的懒加载策略
+        1.3.jpg、svg、canvas、png的选择
+        1.4.无损/有损压缩图片
+    2.js文件
+        2.1.基于script标签下载js文件时，可以使用defer或者async来异步加载 (淘宝就是这样做的)
+        2.2.脚本文件执行会阻塞页面渲染 (脚本在下)
+    3.css文件
+        3.1.样式一般放置于head标签中 (样式在上)
+        3.2.预处理器sass、less、stylus压缩样式表
+        3.3.合并css文件 &lt;link rel="stylesheet" href="main.css" media="all">
+        3.4.使用 &lt;link> 标签而不是 @import
+二、前端缓存
+    4.gzip缓存
+        4.1.nginx开启gzip缓存
+        4.2.pwa缓存机制
+        4.3.localstorage、sessionstorage缓存
+三、代码优化
+    5.缓存数组长度
+        for (i = 0, len = arr.length; i < len; i++) {
+          // content
+        }
+    6.最小化重绘和回流
+    7.避免不必要的DOM操作
+    8.总是使用最新的jquery (算法在不断的提升优化ing)
+    9.使用id选择器是速度最快，效率最高的
+    10.使用原生for(缓存长度)，而不是each
+四、网络层
+    11.尽量减少HTTP请求次数
+五、雅虎军规
+六、函数的节流和防抖
+                        </code>
+                    </pre>
+                </figure>
+            </div>
+        </div>
+    </div>
+</body>
+    <!--引入外部js文件-->
+    <!--jquery-->
+    <script src="../../../js/index/jquery-3.3.1.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="../../../product/bootstrap/js/bootstrap.min.js"></script>
+</html>
