@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <!--添加自适应标签-->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" shrink-to-fit=no">
+        <title>甜先森</title>
+        <!--title上面添加icon-->
+        <link rel="shortcut icon" href="../../../images/head/head.png"/>
+    </head>
+    <style type="text/css">
+        .contents img{margin-left: 18%}
+    </style>
+
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link href="../../../product/bootstrap/css/bootstrap.css" type="text/css" rel="stylesheet">
+    <link href="../../../css/quanzhan/pachong/pachong.css" type="text/css" rel="stylesheet">
+
+<body>
+    <div class="containers">
+        <div class="col-md-12">
+            <div class="contents">
+                <!--提示信息-->
+                <div class="bs-example bs-example-standalone" data-example-id="dismissible-alert-js">
+                    <div class="alert alert-info alert-dismissible fade in" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <strong>注意：参照 “深度学习实践(计算机视觉)”</strong>
+                    </div>
+                </div>
+                <figure class="highlight">
+                    <pre>
+                        <code class="language-html" data-lang="html">
+前言
+    1.人工智能、机器学习、深度学习?
+        深度学习是机器学习的一个子领域、机器学习属于人工智能的研究范围
+    2.人工智能应用场景
+        计算机视觉、自然语言处理、语音处理
+    3.人工智能资料
+        周志华、吴恩达、李飞飞、林轩田、李宏毅等人教程
+    4.未涉及OCR、目标追踪、三维重建、光场
+    5.知识储备
+        线性代数、概率论、统计学、高等数学、机器学习、深度学习、python、linux
+第一章 深度学习与计算机视觉
+    1.对于计算机来说、一切皆为数字
+    2.机器学习类型
+        监督学习、非监督学习、半监督学习
+    3.图像基础
+        3.1.图像的最基础组成单元是像素
+        3.2.1920x1080
+            1920列、1080行
+        3.3.图像
+            RGB图像 = 三通道彩色
+            灰度图 = 单通道图像
+        3.4.图像分类
+            模拟图像(值域连续)、数字图像(值域离散)
+    4.深度学习与神经网络基础
+        4.1.深度学习
+            将一种表示转换为另外一种表示
+        4.2.神经网络
+            简单来说神经网络就是一个(线性变换/非线性变换)函数
+            y = f(x)   //通过输入获取输出
+        4.3.深层神经网络
+            a(next) = ∂(W(now) * a(previous) + b(now))
+            注意：每一层的参数W和b的具体内容不同
+        4.4.神经网络学习过程
+            如何确定神经网络中每一层的参数(w和b)?
+            题海战术(自我学习的过程)
+            之后通过参数更新算法(如梯度下降算法)、不断重复学习的过程
+        4.5.神经网络问题
+            理想情况：训练趋势和测试趋势应差距越来越小       //题海战术表现优秀、模拟考试同样优秀
+            欠拟合：训练趋势越来越大                       //题海战术都不会、模拟考试更不会
+            过拟合：训练趋势越来越小、测试趋势越来越大       //题海战术很优秀、模拟考试很差劲
+        4.6.训练模型
+            神经网络举一反三的能力通常被称作模型 (训练好的神经网络)
+        4.7.训练模型泛化能力
+            训练神经网络的目标就是训练集表现优秀、测试集的泛化能力同样优秀
+    5.卷积神经网络CNN
+                        </code>
+                    </pre>
+                </figure>
+            </div>
+        </div>
+    </div>
+</body>
+    <!--引入外部js文件-->
+    <!--jquery-->
+    <script src="../../../js/index/jquery-3.3.1.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="../../../product/bootstrap/js/bootstrap.min.js"></script>
+</html>
