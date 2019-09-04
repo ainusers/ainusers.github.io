@@ -115,6 +115,32 @@
             从而实现从输入到输出的端到端(end to end)训练
         5.11.神经网络学习过程
             CNN通过不断添加网络层的方式、达到层级学习训练的效果、也就是模仿的学习过程
+第二章 opencv入门
+        简介：opencv (open source computer vision / 开源计算机视觉)
+        1.opencv模块
+            核心函数模块：高维矩阵结构及处理函数
+            图像处理模块：线性和非线性滤波(卷积操作)、几何变换、颜色空间转换和像素统计
+            视频模块：主要用作视频分析、运动预估、北京消除和目标追踪
+            3D校准模块：多视角算法、相机校准、姿势估计等
+            2D特征模块：包含显著特征检测、描述等
+            目标检测模块：进行预定义类的目标检测
+        2.读图、展示和保存新图
+            读图/展示/保存：cv2.imread()/cv2.imshow()/cv2.imwrite()
+        3.代码示例
+            import cv2
+
+            image = cv2.imread('test.jpg')
+
+            //opencv采用的格式为H*W*C (高度*宽度*通道数) 顺序为BGR、python的pillow库则为RGB
+            print(f "height: {image.shapep[0]} pixels")
+            print(f "width: {image.shapep[1]} pixels")
+            print(f "channels: {image.shapep[2]}")
+
+            cv2.imshow('Image',image)
+            cv2.waitKey(0)     //按键后0毫秒执行
+
+            cv2.imwrite('new_image.jpg',image)
+        4.像素点及局部图像
                         </code>
                     </pre>
                 </figure>
