@@ -191,15 +191,68 @@
                 image = cv2.imread('image.jpg')
 
                 new_w,new_h = 400,400
-                resized_image = cv2.resize(image,(new_w,new_h),interpolation=cv2.INTER_AREA)
+                resized_image = cv2.resize(image,(new_w,ne  w_h),interpolation=cv2.INTER_AREA)
 
                 cv2.imshow('resized_image',resized_image)
                 cv2.waitKey(0)
             4.常用的插入值选项
                 cv2.INTER_AREA
-                cv2.INTER_MAX
+                cv2.INTER_LINEAR
                 等9种可选值
+                对于OpenCV而言、官方建议放大使用：cv2.INTER_LINEAR、缩小使用cv2.INTER_AREA
         9.翻转
+            1.分为水平翻转和垂直翻转
+                image = cv2.imread('image.jpg')
+
+                flipped_shuiping_chuizhi = cv2.flip(image,-1)
+                flipped_chuizhi = cv2.flip(image,0)
+                flipped_shuiping = cv2.flip(image,1)
+
+                cv2.imshow('flipped_shuiping_chuizhi',flipped_shuiping_chuizhi)
+                cv2.imshow('flipped_chuizhi',flipped_chuizhi)
+                cv2.imshow('flipped_shuiping',flipped_shuiping)
+                cv2.waitKey(0)
+        10.裁剪
+            1.直接使用Numpy的切片操作
+                image = cv2.imread('image.jpg')
+
+                cropped_image = image[250:500,250:500]
+
+                cv2.imshow('cropped_image',cropped_image)
+                cv2.waitKey(0)
+        11.算数操作
+            对图像做任何操作谨记图像取值范围及数值类型、对于RGB来说，值为[0,255]中的一个整数
+        12.位操作
+            1.交集、并集、异或、非操作
+                # 矩形
+                rectangle = np.zeros((100,100),dtype='uint8')
+                cv2.rectangle(rectangle,(30,30),(70,70),255,-1)
+                cv2.imshow('rectangle',rectangle)
+                # 圆形
+                circle = np.zeros((100,100),dtype='uint8')
+                cv2.circle(circle,(50,50),25,255,-1)
+                cv2.imshow('circle',circle)
+
+                #and
+                birwiseAnd = cv2.bitwise_and(rectangle,circle)
+                cv2.imshow('and',birwiseAnd)
+
+                #or
+                birwiseOr = cv2.bitwise_or(rectangle,circle)
+                cv2.imshow('or',birwiseOr)
+
+                #xor
+                birwiseXOr = cv2.bitwise_xor(rectangle,circle)
+                cv2.imshow('xor',birwiseXOr)
+
+                #not
+                birwiseNot = cv2.bitwise_not(circle)
+                cv2.imshow('not',birwiseNot)
+
+                cv2.waitKey(0)
+        13.Msking操作 (遮罩效果)
+            1.遮罩Making和Numpy切片裁剪不同 (mask保持了原有坐标位置信息，只是遮盖了其他地方视野)
+                xxx
 
                         </code>
                     </pre>
