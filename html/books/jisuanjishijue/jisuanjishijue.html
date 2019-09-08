@@ -252,8 +252,80 @@
                 cv2.waitKey(0)
         13.Msking操作 (遮罩效果)
             1.遮罩Making和Numpy切片裁剪不同 (mask保持了原有坐标位置信息，只是遮盖了其他地方视野)
-                xxx
+                image = cv2.imread('image.jpg')
+                cv2.imshow('image',image)
 
+                mask = np.zeros(image.shape[:2],dtype='uint8')
+                (cX,cY) = (image.shape[1] // 2,image.shape[0] // 2)
+                cv2.rectangle(mask,(cX-75,cY-75),(cX+75,cY+75),255,-1)
+                cv2.imshow('mask',mask)
+
+                maked = cv2.bitwise_and(image,image,mask=mask)
+                cv2.imshow('maked',maked)
+                cv2.waitKey(0)
+        14.色彩通道分离与融合
+            1.主要是针对RGB、3层色彩通道分离、分离主要使用solit()融合则用merge()
+                image = cv2.imread('image.jpg')
+
+                (B,G,R) = cv2.split(image)
+                merged = cv2.merge([B,G,R])
+
+                cv2.imshow('RED',R)
+                cv2.imshow('GREEN',G)
+                cv2.imshow('BLUE',B)
+                cv2.imshow('MERGE',merged)
+                cv2.waitKey(0)
+        15.颜色空间转换
+            1.颜色空间介绍 (有很多类别、如之前的RGB、此外还有HSV [H：色调，S：饱和度，V：明度]、L * a * b)
+            2.openCV支持超过150中颜色空间
+            3.颜色空间转换主要是：gray、hsv、lab之间转换
+                image = cv2.imread('image.jpg')
+                cv2.imshow('original',image)
+
+                gray = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
+                cv2.imshow('gray',gray)
+
+                hsv = cv2.cvtColor(image,cv2.COLOR_BGR2HSV)
+                cv2.imshow('hsv',hsv)
+
+                lab = cv2.cvtColor(image,cv2.COLOR_BGR2LAB)
+                cv2.imshow('lab',lab)
+
+                cv2.waitKey(0)
+        16.平滑与模糊 (主要用于边缘检测)
+            1.平滑与模糊：即失去焦点、致使看不到图像细节
+            2.常用的平滑方法：均值、高斯、中值、双边 (没看出有啥子区别)
+                image = cv2.imread('image.jpg')
+
+                blurred = np.hstack([
+                    cv2.blur(image,(3,3)),
+                    cv2.blur(image,(5,5)),
+                    cv2.blur(image,(7,7))
+                ])
+                cv2.imshow('aberages',blurred)
+
+                blurred = np.hstack([
+                    cv2.GaussianBlur(image,(3,3),0),
+                    cv2.GaussianBlur(image,(5,5),0),
+                    cv2.GaussianBlur(image,(7,7),0)
+                ])
+                cv2.imshow('gaussian',blurred)
+
+                blurred = np.hstack([
+                    cv2.medianBlur(image,3),
+                    cv2.medianBlur(image,5),
+                    cv2.medianBlur(image,7)
+                ])
+                cv2.imshow('median',blurred)
+
+                blurred = np.hstack([
+                    cv2.bilateralFilter(image,5,21,21),
+                    cv2.bilateralFilter(image,7,31,31),
+                    cv2.bilateralFilter(image,9,41,41)
+                ])
+                cv2.imshow('bilateral',blurred)
+
+                cv2.waitKey(0)
                         </code>
                     </pre>
                 </figure>
