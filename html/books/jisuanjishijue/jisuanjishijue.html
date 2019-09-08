@@ -326,6 +326,22 @@
                 cv2.imshow('bilateral',blurred)
 
                 cv2.waitKey(0)
+        17.边缘检测
+            1.openCV中边缘检测方法有Canny、主要过程包括：平滑降噪、求梯度、非极大值抑后与滞后阈值
+            2.边缘检测过程 (先将图像转换为灰度图、然后进行平滑操作、最后使用Canny算子进行边缘检测)
+                image = cv2.imread('image.jpg')
+                cv2.imshow('image',image)
+
+                blured = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
+                blured = cv2.GaussianBlur(blured,(5,5),0)
+                cv2.imshow('blurred',blured)
+
+                canny = cv2.Canny(blured,30,150)
+                cv2.imshow('canny',canny)
+
+                cv2.waitKey(0)
+        18.人眼和眼镜检测示例
+            xxx
                         </code>
                     </pre>
                 </figure>
