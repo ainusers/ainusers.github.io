@@ -341,7 +341,34 @@
 
                 cv2.waitKey(0)
         18.人眼和眼镜检测示例
-            xxx
+            1.openCV中的检测功能主要使用Haar级联分类器
+            2.彩色图转换为灰度图转换为灰度图主要为了提高计算速度
+            3.openCV中还训练了笑脸、上身、下身、车牌、猫脸等
+            4.人脸、人眼识别代码
+                image = cv2.imread('image.jpg')
+                gray = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
+
+                # 人脸检测
+                faceCascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+                # 有人脸的矩形框列表
+                faces_rects = faceCascade.detectMultiScale(image,
+                                                scaleFactor=1.05,   # 图片缩放比例、逐层减小图片尺寸的5%
+                                                minNeighbors=5,minSize=(30,30),     #表示滑窗内需要检测多少个矩形来确认有人脸、 最小划窗大小
+                                                flags=cv2.CASCADE_SCALE_IMAGE)      #
+
+                # 眼睛分类器
+                eye_cascade = cv2.CascadeClassifier('haarcascade_eye.xml')
+                for(x,y,w,h) in faces_rects:
+                    # 画出人脸框 (人眼是在人脸检测的基础之上进行的)
+                    img = cv2.rectangle(image,(x,y),(x+w),(x+w,y+h),(255,0,0),2)
+                    roi_gray = gray[y:y+h,x:x+w]
+                    roi_color = img[y:y+h,x:x+w]
+                    eyes = eye_cascade.detectMultiScale(roi_gray)
+                    for(ex,ey,ew,eh) in eyes:
+                        cv2.rectangle(roi_color,(ex,ey),(ex+ew,ey+eh),(0,255,0),2)
+
+                cv2.imshow('image',image)
+                cv2.waitKey(0)
                         </code>
                     </pre>
                 </figure>
