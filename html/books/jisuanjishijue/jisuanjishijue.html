@@ -349,26 +349,35 @@
                 gray = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
 
                 # 人脸检测
-                faceCascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+                face_Cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
                 # 有人脸的矩形框列表
-                faces_rects = faceCascade.detectMultiScale(image,
+                faces_rects = face_Cascade.detectMultiScale(image,
                                                 scaleFactor=1.05,   # 图片缩放比例、逐层减小图片尺寸的5%
                                                 minNeighbors=5,minSize=(30,30),     #表示滑窗内需要检测多少个矩形来确认有人脸、 最小划窗大小
                                                 flags=cv2.CASCADE_SCALE_IMAGE)      #
+                print ("发现{0}个人脸!".format(len(faces_rects)))
 
                 # 眼睛分类器
                 eye_cascade = cv2.CascadeClassifier('haarcascade_eye.xml')
                 for(x,y,w,h) in faces_rects:
                     # 画出人脸框 (人眼是在人脸检测的基础之上进行的)
-                    img = cv2.rectangle(image,(x,y),(x+w),(x+w,y+h),(255,0,0),2)
+                    img = cv2.rectangle(image,(x,y),(x+w,y+h),(255,0,0),2)
                     roi_gray = gray[y:y+h,x:x+w]
                     roi_color = img[y:y+h,x:x+w]
                     eyes = eye_cascade.detectMultiScale(roi_gray)
+                    print("发现{0}个人眼!".format(len(eyes)))
                     for(ex,ey,ew,eh) in eyes:
                         cv2.rectangle(roi_color,(ex,ey),(ex+ew,ey+eh),(0,255,0),2)
 
                 cv2.imshow('image',image)
                 cv2.waitKey(0)
+第三章：常见深度学习框架
+    1.框架列举
+        Chainer、PyTorch、DyNet、TensorFlow、MXNet、Keras、Gluon、Deeplearning4j、Caffe(不适合文本/声音)、CNTK
+    2.目前各类框架众多、建议先深入学习一款框架、故此章不再做深入研究、后续补充
+第四章：图像分类
+    1.
+    xxx
                         </code>
                     </pre>
                 </figure>
