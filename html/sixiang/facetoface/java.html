@@ -30,28 +30,82 @@
             <div class="layui-tab-item layui-show">
                 <div class="layui-collapse">
                     <div class="layui-colla-item">
-                        <h2 class="layui-colla-title">1.java的基本数据类型有哪些</h2>
-                        <div class="layui-colla-content">
-                            <p>
-                                基本数据类型：byte (1 byte)、short (2 byte)、int (4 byte)、long (8 byte)、float (4 byte)、double (8 byte)、boolean (2 byte)、char (1 byte)<br/>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="layui-collapse">
-                    <div class="layui-colla-item">
                         <h2 class="layui-colla-title">2.int和integer引发的惨案？</h2>
                         <div class="layui-colla-content">
                             <p>
                                 1.int和integer有什么区别？
-                                2.有了int为什么还要有integer？
-                                3.自动拆装箱的概念？
-                                4.自动拆装箱的过程？
-                                5.拆箱和装箱哪个更耗时？
-                                6.定义类型int还是integer好？
-                                概念：java编译器在基本数据类型和与之对应的对象包装类型之间的转化<br/>
-                                装箱：自动将基本数据类型转换为包装器类型（如：int转化为integer）<br/>
-                                拆箱：自动将包装器类型转换为基本数据类型（如：integer转化为int）<br/>
+                                    int是八大基本类型中的一个，integer是引用类型(类对象)，也就是int的包装类
+                                2.那你说一下八大基本类型都有哪些？
+                                    byte、short、int、long、float、double、char、boolean
+                                3.能简单说一下他们各自占用的字节数嘛？
+                                    1byte、2byte、4byte、8byte、4byte、8byte、1byte、2byte
+                                4.这几种数据类型的默认值都是什么？
+                                    0、0、0、0、0.0、0.0、、false
+                                    string:null
+                                5.你知道byte的取值范围嘛？
+                                    -128-127
+                                6.有了int为什么还要有integer？
+                                    主要由于java面向对象的思想，在对于数据的存储/类型的转换等，都是针对于对象的
+                                    比如：Integer.parseInt()/Integer.valueOf()
+                                    其次：List集合只能存放对象类型integer，不能存放int
+                                7.那既然integer这么优秀，为什么还要保留int呢？
+                                    int是基本数据类型，integer是类对象，存储于堆中
+                                    在性能方面，java会对类中的对象进行回收，而基本数据类型不会
+                                8.List集合，泛型是object、添加一个int值，实际存入的类型是什么？
+                                    code：
+                                        public static void main(String args[]){
+                                            int a = 1;
+                                            ArrayList<Object> list = new ArrayList<>();
+                                            list.add(a);
+                                        }
+                                    反编译:
+                                        public static void main(String[] paramArrayOfString) {
+                                            byte b = 1;
+                                            ArrayList arrayList = new ArrayList();
+                                            arrayList.add(Integer.valueOf(b));
+                                        }
+                                9.List中为什么不能存放基本数据类型？
+                                    因为基本数据类型不是Object的子类
+                                    注：所有的类都是objct的子类
+                                10.现有A extends B，A是隐含的Object的子类，同时也是B的子类，那么java不是单继承嘛？
+                                    继承方式：A extends B extends Object
+                                11.基本数据类型和包装类分别存储于内存的哪片区域？
+                                    包装类对象数据存储于堆中，引用地址存储于栈中
+                                    基本数据类型主要分为三种情况(类变量、成员变量、局部变量)
+                                    类变量(static int a = 1)：跟随类加载的初始化，存储于堆中
+                                    成员变量(类对象中：int a = 1)：跟随对象的创建，存储于堆中
+                                    局部变量(方法区中：int a = 1)：跟随方法的出栈入栈，存在于栈中
+                                12.包装类的父类是谁？为什么是一个抽象类而不是接口呢？
+                                    Number：类中是六大类型的拆箱方法体(byte、short、int、long、float、double)
+                                    因为抽象类中方法可选实现的特点
+                                13.抽象类和接口的区别？
+                                    关键字：extends、implements
+                                    构造方法：抽象类可以有构造方法，接口中不能有
+                                    成员变量：抽象类中任意、接口中默认public static final xxx
+                                    抽象方法：抽象类中不全是抽象方法，而接口中全部都是(默认：publc abstract xxx)
+                                    实例化：两者均不能被实例化
+                                    继承：一个类只能继承一个抽象类，但是可以实现多个接口
+                                    默认实现：抽象类可以有，接口不可以有
+                                14.什么场景下使用接口/抽象类？
+                                    当对象特征全部抽象的时候使用接口，当对象部分抽象的时候使用抽象类
+                                    为了实现代码复用使用抽象类，为了实现多态使用接口
+                                15.了解自动拆箱装箱的底层实现嘛？
+                                    自动装箱：
+                                        code：
+                                            Integer a = 128;
+                                        反编译：
+                                            Integer integer1 = Integer.valueOf(128);
+                                    自动拆箱：
+                                        code：
+                                            Integer a = new Integer(128);
+                                            int b = a;
+                                        反编译：
+                                            Integer integer2 = new Integer('?');
+                                            int i = integer2.intValue();
+                                    # 注：后面会提供拆箱装箱的源码追踪
+                                16.拆箱和装箱哪个更耗时？
+                                    装箱比拆箱更耗时
+                                17.定义类型int还是integer好？
                             </p>
                         </div>
                     </div>
