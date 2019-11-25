@@ -43,7 +43,6 @@
                 }.start();
                 browseNews();
             }
-
             private static void enjoyMusic(){
                 for(;;){
                     System.out.println("nice music");
@@ -66,24 +65,90 @@
             }
 
         }
-    1.2.
+    1.2.线程的生命周期
+        创建、就绪、运行、阻塞、死亡
+        1.创建：
+            当new创建Thread对象时，进入创建阶段
+            此时只是一个简单的对象，当调用start()后，线程才会创建
+        2.就绪：
+            导致原因：
+                调用start()函数后，进入就绪阶段
+                阻塞操作结束，读取数据操作完成，进入就绪状态
+                线程完成了指定时间的休眠
+                wait中的线程被其他线程notify/notifyall唤醒
+                线程获取到某个锁资源
+                线程在阻塞过程中被打断，比如调用了interrupt方法
+            此时jvm真正的创建了一个线程，当cpu调度才会真正进入运行阶段
+        3.运行：
+            导致原因:
+                当获取cpu执行时间，进入运行阶段
+                主动调用yield方法，放弃cpu的执行权
+            状态切换：
+                因为特殊原因可以进入阻塞状态/就绪状态
+        4.阻塞：
+            导致原因:
+                进行某个阻塞的IO操作，比如网络数据读写
+                为了获取某个锁资源，从而加入到该锁的阻塞队列中
+            状态切换：
+                因为特殊原因可以进入死亡状态/就绪状态
+        5.死亡
+            线程的最终状态
+            进入死亡状态，意味着线程生命周期结束，不会切换到任何状态
+            导致原因：
+                线程正常结束
+                线程意外出错
+                jvm意外死亡导致所有线程结束
+    1.3.线程start()方法解析
+        public synchronized void start() {
+            // 不能两次启动thread
+            if (threadStatus != 0)
+                throw new IllegalThreadStateException();
+            // 线程启动后，会被加入到线程组
+            boolean started = false;
+            try {
+                start0();
+                started = true;
+            } finally {
+                try {
+                    // 已经销毁的线程，不可以切换状态到就绪/运行状态
+                    if (!started) {
+                        group.threadStartFailed(this);
+                    }
+                } catch (Throwable ignore) {}
+            }
+        }
+        // JNI方法
+        private native void start0();
+    1.4.Thread的模板设计模式
+        定义：父类编写算法结构代码、子类实现逻辑细节
+        代码实现：
+            public class Demo {
+                public static void main(String argsp[]){
+                    new TemplateMethod(){
+                        protected void printBone(String message){
+                            System.out.println(message.substring(5));
+                        }
+                    }.print("模板方法 testing");
+                }
+            }
+            class TemplateMethod{
+                protected void printBone(String message){
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                }
+                public final void print(String message){
+                    System.out.println("-----------------");
+                    printBone(message);
+                    System.out.println("-----------------");
+                }
+            }
+        模板设计模式思想：
+            类比：thread线程启动，只有当start()启动之后，才会进行一系列的具体的线程实际操作
+            所以，相当于调用关系反转，print(形参) -> printBone(){ 实际操作处理 }
+        应用场景：
+            比如：同一批数据，每个地方使用的数据结构不同，即可通过模板设计模式处理
+            先获取到数据 -> 在实际需要的地方进行数据加工处理 -> 获取结果集
+    1.5.Runnable接口和策略模式在Thread中的使用
+        xxx
                         </code>
                     </pre>
                 </figure>
