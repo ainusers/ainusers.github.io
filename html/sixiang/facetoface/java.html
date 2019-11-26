@@ -177,6 +177,8 @@
         System.out.println("bbbb == cccc "+(bbbb == cccc)); //false
 
         System.out.println("ccc == cccc "+(ccc == cccc));   //false
+19.拆箱、装箱的源代码探查？
+
                                     </code>
                                 </pre>
                             </figure>
@@ -320,6 +322,7 @@ js代码：
     三种
     object.getClass()、clazz.class、Class.forName()
 7.hash的底层实现原理？
+
 8.简单介绍一下深拷贝和浅拷贝？
     浅拷贝：
         基本数据类型：值传递，是基本数据类型的副本
@@ -383,7 +386,56 @@ js代码：
             }
         }
     }
-11.为什么wait()/notify()/notifyAll()在object类中，sleep方法在Thread类中？
+11.java 为什么wait(),notify(),notifyAll()必须在同步方法/代码块中调用，而sleep()不需要？
+    当前线程必须已经获得该对象的锁，才可以进行线程间通信
+    在执行wait之前，线程很有可能已经切换到了另一个执行notify的线程，
+    这样的话有可能另一个线程先把notify都执行完毕了，那wait永远没有被唤醒了，这就导致了永久等待或者死锁的发生
+    sleep只针对当前线程有效，不涉及线程间通信操作
+12. wait()与sleep()的区别?
+    相同点：
+        两者都可以使用
+    不同点：
+        wait()必须在同步方法或者同步代码块中执行，而sleep()不需要
+        sleep()方法不会释放同步锁，而wait()方法会释放
+        sleep()方法短暂休眠后会自动切换阻塞状态，wait()则需要进行线程间通信，notify()通知切换阻塞状态
+        wait()、notify()和notifyAll()是Object类的方法， sleep()和yeild()是Thread类的方法
+13.为什么wait()/notify()/notifyAll()在object类中，sleep方法在Thread类中？
+    一个很明显的原因是JAVA提供的锁是对象级的而不是线程级的，每个对象都有锁，通过线程获得
+14.实现多线程的几种方式？
+    14.1.继承Thread类
+    14.2.实现Runnable接口
+    14.3.实现callable接口 (需要返回值的时候使用)
+15.多线程存在的意义？
+    最大限度的利用cpu资源
+16.await(),signal()，signalAll()和wait(),notify(),notifyAll()区别？
+    功能基本相同
+    区别：
+        1.在于Condition接口的await(),signal(),signalAll()使得我们可以在同一个锁的代码块内
+          优雅地实现基于多个条件的线程间阻塞和唤醒操作
+        2.前面的是1.0版本中object类中的方法，后面的是1.5版本中condition接口中新增的方法
+17.interrupt、interrupted和isInterrupted的关系与区别？
+    interrupt 中断线程：调用该方法的线程的状态将被置为"中断"状态
+    注：调用interrupt()方法仅仅是在当前线程 (不一定是当前线程，而是指调用该方法的Thread实例所代表的线程) 中打了一个停止的标记，并不是真的停止线程
+       需要用户自己去监视线程的状态为并做处理
+    interrupted 测试当前线程 (当前线程是指运行interrupted()方法的线程) 是否已经中断，且清除中断状态
+    isInterrupted 测试当前线程 (当前线程是指运行interrupted()方法的线程) 是否已经中断，不清除中断状态
+18.Synchronized和ReentrantLock区别？
+    19.1.synchronized是Java语言的关键字，Lock是一个类
+    19.2.synchronized不需要用户去手动释放锁(操作完成/出现异常，jvm会自动释放锁)、
+         Lock则必须要用户去手动在finally中通过unLock()释放锁，如果没有主动释放锁，就有可能导致出现死锁现象
+    19.3.synchronized无法判断是否获取锁的状态，Lock可以判断是否获取到锁
+    19.4.Lock可以让等待锁的线程响应中断，而synchronized却不行，使用synchronized时，等待的线程会一直等待下去，不能够响应中断
+    19.5.synchronized采用的是悲观锁机制，线程获得独占锁，而其他线程只能阻塞来等待释放锁
+         当竞争激烈时，CPU频繁的上下文切换会降低效率
+         Lock采用的是乐观锁机制，不会加锁，但会通过版本号等比对数据是否更新，适合读类型，提高吞吐量
+    19.6.synchronized的锁可重入、不可中断、不可判断、不公平，而Lock锁可重入、可中断、可判断、可不公平/可公平
+    19.7.Lock锁适合大量代码的同步问题，synchronized锁适合代码少量的同步问题。
+19.有了Synchronized，为什么还要ReentrantLock呢？
+    1.效率问题
+        如果这个获取锁的线程由于要等待IO或者其他原因（比如调用sleep方法）被阻塞了，但是又没有释放锁，其他线程便只能干巴巴地等待
+    2.业务场景问题
+        如果多个线程都只是进行读操作，所以当一个线程在进行读操作时，其他线程只能等待无法进行读操作
+20.乐观锁和悲观锁
 
                                     </code>
                                 </pre>
