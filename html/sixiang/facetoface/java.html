@@ -480,6 +480,150 @@ js代码：
                         </div>
                     </div>
                 </div>
+                <div class="layui-collapse">
+                    <div class="layui-colla-item">
+                        <h2 class="layui-colla-title">4.为什么java可以一次编译到处运行？</h2>
+                        <div class="layui-colla-content">
+                            <figure class="highlight">
+                                <pre>
+                                    <code class="language-html" data-lang="html">
+1.文件：
+    首先并不是java语言可以跨平台，而是通过一次编译后，将.java代码文件转换为.class平台无关性字节码文件
+2.运行环境
+    每个平台都有对应的jvm虚拟机环境，所以二次编译会将.class字节码文件转换为目标机器码
+从而实现导出运行的效果
+                                    </code>
+                                </pre>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-collapse">
+                    <div class="layui-colla-item">
+                        <h2 class="layui-colla-title">5.你了解spring么？</h2>
+                        <div class="layui-colla-content">
+                            <figure class="highlight">
+                                <pre>
+                                    <code class="language-html" data-lang="html">
+1.spring中依赖注入有哪些方式？
+    手动注入：
+        构造器注入、setter注入、接口注入
+    自动注入：
+        @Autowire、@Resource
+2.@Autowire和@Resource有什么区别？
+    2.1.@Autowire是spring含有的注解、@Resource是javaee含有的注解
+    2.2.@Autowire是按照类型自动注入的，@Resource有两个属性(name/type)
+        如果@Resource指定了name属性的话，则会按照名称进行匹配
+        如果@Resource指定了type属性的话，则会按照类型进行匹配
+        如果@Resource既没有指定name也没有指定type，则会先按照name进行匹配，匹配不到按照类型匹配
+        如果@Resource既指定了name，又指定了type，则会按照name和type找到唯一匹配的bean
+3.spring注解？
+    @Configuration、@Value、@PostConstruct、@PreDestory、@Primary、@Autowired、@Resource
+    @Async、@Component、@RequestBody、@NotNull、@NotBlank、@NotEmpty、@CrossOrigin、@RequestParam
+    @RequestMapping、@Scope、@RestController、@ControllerAdvice、@PostMapping
+4.springboot注解？
+    @SpringBootApplication、@Controller、@RestController、@ComponentScan、@Import、@ImportResource
+    @Qualifier、@EnableAutoConfiguration、@ControllerAdvice、@ExceptionHandler
+                                    </code>
+                                </pre>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-collapse">
+                    <div class="layui-colla-item">
+                        <h2 class="layui-colla-title">6.mysql你知多少？</h2>
+                        <div class="layui-colla-content">
+                            <figure class="highlight">
+                                <pre>
+                                    <code class="language-html" data-lang="html">
+1.mysql的事务隔离级别？
+    读未提交、读已提交、可重复读(innodb默认)、序列化
+2.mysql的存储引擎？
+    5.5版本之前默认的存储引擎是myisam、5.5版本之后默认的存储引擎是innodb
+    myisam：
+        不支持事务和行级锁，支持表级锁
+        不支持外键
+    innodb：
+        支持事务、行级锁(默认)和表级锁
+        支持外键
+3.
+                                    </code>
+                                </pre>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-collapse">
+                    <div class="layui-colla-item">
+                        <h2 class="layui-colla-title">7.为什么Java中不支持多重继承，c++支持？</h2>
+                        <div class="layui-colla-content">
+                            <figure class="highlight">
+                                <pre>
+                                    <code class="language-html" data-lang="html">
+主要是由于：
+    方法的二义性：
+    一个类A继承两个类，且两个类B,C中相同的方法，会产生钻石问题，调用A中方法，并不知道到底是从B,C哪里继承过来的
+    其次并不时技术不可以实现
+    主要是由于设计风格，增加了多继承，会增加代码的复杂度，且多继承的应用场景并不太多
+                                    </code>
+                                </pre>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-collapse">
+                    <div class="layui-colla-item">
+                        <h2 class="layui-colla-title">8.面试必问之hashmap？</h2>
+                        <div class="layui-colla-content">
+                            <figure class="highlight">
+                                <pre>
+                                    <code class="language-html" data-lang="html">
+1.HashMap底层实现数据结构
+    底层是数组+链表的组合实现，每个数组元素存一个链表的头结点，本质来说是hash表的拉链法
+    jdk1.8之后，底层数据结构变成了数组+链表+红黑树(当链表元素>8，数据结构转换为红黑树存储,红黑树节点个数小于 6 时，又会转化成链表)
+2.HashMap与HashTable的区别？
+    HashMap继承于AbstractMap，而Hashtable继承于Dictionary
+    HashMap线程不安全，HashTable线程安全(函数是同步的)
+    HashMap的key，value都可以为null，HashTable的key，value都不可以为null
+    HashMap的初始容量为16，扩容时原始容量*2；HashTable的初始容量为11，扩容时原始容量*2+1
+    HashMap添加元素时，使用自定义Hash算法，HashTable直接使用key.hashCode()
+    HashMap在性能方面要好于HashTable
+3.能否让HashMap同步？
+    Map map = Collections.synchronizeMap(hashMap)
+4.CurrentHashMap是如何实现并发的？
+    ConcurrentHashMap采用分段锁技术
+    底层是Segment数组(ReentrantLock)和HashEntry数组组合实现
+    jdk1.8之后，取消了segment分段锁，采用CAS和synchronized保证并发
+    数据结构和HashMap一样为;数组+链表/红黑二叉树
+    synchronized只锁定当前链表或红黑二叉树的首节点，这样只要hash不冲突，就不会产生并发，效率又提升N倍
+5.HashMap什么时候才需要扩容?
+
+                                    </code>
+                                </pre>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-collapse">
+                    <div class="layui-colla-item">
+                        <h2 class="layui-colla-title">9.进程之间如何通信？</h2>
+                        <div class="layui-colla-content">
+                            <figure class="highlight">
+                                <pre>
+                                    <code class="language-html" data-lang="html">
+管道，消息队列，共享内存，信号量，socket，信号，文件锁
+                                    </code>
+                                </pre>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
 
 
 
