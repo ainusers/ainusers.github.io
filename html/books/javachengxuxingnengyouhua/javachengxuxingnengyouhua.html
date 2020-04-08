@@ -65,12 +65,20 @@
         3.6.5.Set是基于Map的封装
     3.7.使用NIO提升性能
     3.8.软引用和弱引用(weakHashMap)非常适合保存那些可有可无的缓存数据
-    3.9.
+    3.9.使用System,arraycopy()或者Arrays.copyof()   // Arrays.copyof()会新创建一个新数组调用System.arraycopy()
+    3.10.使用Buffer或者NIO进行IO操作
+    3.11.工具类应该使用static静态方法，而不是实例方法
 第四章 并行程序开发及优化
-
-
-
-
+    4.1.并行程序设计模式
+        Future模式，Master-worker模式，生产者-消费者模式
+    4.2.Master-worker模式
+        -- 待深入研究
+    4.3.生产者-消费者模式
+        -- 待深入研究
+    4.4.JDK多任务执行框架
+        生产环境中使用线程，必须对其加一控制和管理
+        线程池的基本功能就是进行线程的复用
+    4.5.
                         </code>
                     </pre>
                 </figure>
