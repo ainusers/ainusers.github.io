@@ -75,10 +75,41 @@
         -- 待深入研究
     4.3.生产者-消费者模式
         -- 待深入研究
-    4.4.JDK多任务执行框架
+    4.4.JDK多任务执行框架 (Executor框架)
         生产环境中使用线程，必须对其加一控制和管理
         线程池的基本功能就是进行线程的复用
-    4.5.
+    4.5.Executor框架
+        4.5.1.线程池工厂方法
+            newFixedThreadPool()：返回一个固定线程数量的线程池
+            newSingleThreadExecutor()：返回一个只有一个线程的线程池
+            newCachedThreadPool()：返回一个可根据实际情况调整线程数量的线程池
+            newScheduledThreadPool()：返回一个ScheduledExecutorService对象
+        4.5.2.自定义线程池
+            ThreadPoolExecutor()：可扩展的线程池
+    4.6.JDK并发数据结构 (适合读多写少的高并发场景)
+        4.6.1.并发List
+            vector、copyOnWriteArrayList、Collections.synchronizedList(List list)
+        4.6.2.并发Set
+            copyOnWriteArraySet
+            public static <T> Set<T> synchronizedSet(Set<T> s)  // 得到线程安全的set
+        4.6.3.并发Map
+            synchronized()：方法可以得到一个线程安全的Map
+            concurentHashMap
+        4.6.4.并发Queue
+            ConcurrentLinkedQueue 高性能队列
+            BlockingQueue 阻塞队列 (生产者-消费者使用场景)
+        4.6.5.并发Deque 双端队列
+        4.6.6.并发控制方法
+            volatile、synchronized、Lock、readWriteLock (读写锁：并行读)
+            condition对象、semaphore信号量(限流)、threadlocal
+        4.6.7.锁性能优化
+            减少锁的持有时间、减小锁粒度(锁定对象的范围)、读写锁替换独占锁(锁分离思想)
+            锁粗话(合并多个锁操作)、自旋锁、锁消除、锁偏向、cas(乐观锁)
+        4.6.8.Amino框架 (cas数据结构)
+            List、set、树、图(有向图/无向图)、任务调度
+    4.7.协程
+        4.7.1.kilim框架
+第五章 JVM调优
                         </code>
                     </pre>
                 </figure>
