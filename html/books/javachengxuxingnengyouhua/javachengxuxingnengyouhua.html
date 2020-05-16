@@ -126,18 +126,76 @@
     6.1. 垃圾收集器
         6.1.1. 并行垃圾收集器 注重吞吐量
         6.1.2. CMS垃圾收集器 注重系统停顿时间
+        6.1.3. G1垃圾收集器  较优秀
     7.1. 常用JVM调优方案
         7.1.1. 将新对象预留在新生代
-            # 提高from区利用率，当from区达到阈值90%，再将对象送入老年代
+            # 提高from区利用率，当from区达到阈值90%，再将对象送入老年代 (SurvivorRatio=8 >> E区 ： S区 = 8 ： 1)
             -XX:+PrintGCDetails -Xmx20M -Xms20M -Xmn10M -XX:SurvivorRatio=8 -XX:Target-SurvivorRatio=90
             # 设置一个更大的from区
             -XX:+PrintGCDetails -Xmx20M -Xms20M -Xmn10M -XX:SurvivorRatio=2
-
-
-
-
-
-
+        7.1.2. 大对象进入老年代
+            # 设置大对象直接进入老年代的阈值 (串行收集器和新生代并行收集器有效，并行回收收集器不识别)
+            # 当大对象 > 1M 直接进入老年代
+            -XX:+PrintGCDetails -Xmx20M -Xms20M -XX:PretenureSizeThreshold=1000000
+        7.1.3. 设置对象进入老年代的年龄
+            # 新生代的对象，经过一次GC，存活对象直接进入老年代
+            -XX:+PrintGCDetails -Xmx20M -Xms20M -Xmn10M -XX:SurvivorRatio=2 -XX:MaxTenuringThreshold=1
+        7.1.4. 稳定与震荡的堆大小
+            一般来说，稳定的堆是对垃圾回收有利的 (-Xms和-Xmx设置的值相同)
+            震荡堆会加快单次GC速度，而稳定堆会减少GC次数
+        7.1.5. JVM降低停顿案例参数设置
+            # 环境：4G内存，32核
+            java -Xmx3550M -Xms3550M -Xmn2g -Xss128K -XX：ParallelGCThread=20
+                 -XX:+UseConcMarkSweepGC -XX:+UseParNewGC -XX:SurvivorRatio=8
+                 -XX：TargetSurvivor-Ratio=90 -XX:MaxTenuringThreshold=31
+            # 解释
+                -Xmx3550M -Xms3550M : java堆的最大值和初始值 (为了避免频繁GC，设置为一样的)
+                -Xss128K ： 减少线程栈的大小，便于支持更多的线程数量
+                -Xmn2g : 设置新生代大小
+                -XX:+UseConcMarkSweepGC :  老年代使用CMS收集器降低停顿
+                -XX：ParallelGCThread=20 : 设置用于垃圾回收的线程数 (通常设置和CPU数量相等，CPU数量较多时，设置相对较小数值也是合理的)
+                -XX:+UseParNewGC : 新生代使用并行回收器
+                -XX:SurvivorRatio=8 : 设置E区 ： S区 = 8 ： 1
+                -XX:TargetSurvivorRatio=90 : 设置S区的可使用率为90% (默认50%) 有利于对象留在新生代
+                -XX:MaxTenuringThreshold=31 : 设置年轻代晋升老年代的年龄 (默认15) 尽可能将对象保存在新生代
+        7.1.6. 堆快照(Dump)
+            -XX: +HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=C:\m.hprof
+        7.1.7. 获取GC信息
+            7.1.7.1. 查看GC总体情况 + GC执行时间
+                -XX:+PrintGCDetails + -XX:+PrintGCTimeStamps
+            7.1.7.2. 类和对象追踪
+                # 跟踪类加载情况 + 跟踪类卸载情况
+                -XX:+TraceClassLoading + -XX:+TraceClassUnloading
+        7.1.8. 控制GC
+            # 设置不进行类回收 (除了基于OSGI应用或者使用动态字节码生成技术) 无法跟踪类卸载信息
+            -Xnoclassgc
+            # 减小应用程序因GC产生的停顿时间
+            -Xincgc
+        7.1.9. 使用大页
+            # 启动大页 + 指定大页大小
+            -XX:+UseLargePages + -XX:LargePageSizeInBytes
+        7.1.10. 压缩指针
+            # 打开指针压缩，减少内存消耗 (64位系统所占用内存较32位系统大1.5倍左右) 会造成相应的性能损失
+            -XX：+UseCompressesOops
+        7.1.11. 禁用class类校验和认证
+            -Xverify:none
+    8.1. 实战JVM调优
+        8.1.1. tomcat参数优化 (/bin/catalina.bat  >>  虽然优化并无明显效果，但是配置位置如下)
+            # 输出日志文件： -Xloggc:gc.log -XX:+PrintGCDetails
+            # set CATALINA_OPTS=-Xloggc:gc.log -XX:+PrintGCDetails  -XX:+UseParallelGC -Xmx1024M -Xms1024M -Xverify:none -Xnoclassgc  -XX:TargetSurvivorRatio=90
+    9.1. 调优小结
+        1. 确定堆内存大小 (-Xmx -Xms)
+        2. 合理分配新生代和老年代 (-XX:NewRatio -Xmn -XX:SurvivorRatio)
+        3. 确定永久区大小 (-XX:Permsize -XX:MaxPermSize)
+        4. 选择垃圾收集器
+        5. 禁用显示GC (-XX：+DisableExplicitGC)
+        6. 禁用类元数据回收 (-Xnoclassgc)
+        7. 禁用类验证 (-Xverify:none)
+    10.1. java性能调优工具
+        linux命令行工具
+            top，sar，vmstat，iostat，pidstat
+        JDK命令行工具
+            jps，jstat，jinfo，jmap，jhat，jstack，jstatd，hprof，jconsole，visual VM
                         </code>
                     </pre>
                 </figure>
