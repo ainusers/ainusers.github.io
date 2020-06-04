@@ -78,7 +78,34 @@
             soft nofile 1000000
             hard nofile 1000000
 第三章、java NIO通信基础详解
-    3.1. java NIO简介
+    3.1. java NIO简介 (IO多路复用模型)
+        3.1.1. NIO核心组件
+            channel (通道)
+            buffer (缓冲区)
+            selector (选择器)
+        3.1.2. NIO优点
+            可以随意读取Buffer中任意位置的数据
+            NIO操作是非阻塞的 (由于使用了多路复用技术)
+            NIO有选择器的概念 (需要底层操作系统提供支持)
+        3.1.3. 通道channel
+            既可以从通道读取，也可以向通道写入
+        3.1.4. 选择器selector
+            IO多路复用：一个进程/线程可以同时见识多个组件描述符 (一个网络连接)
+            一个选择器只需要一个线程进行监控，极大地减小了系统的开销
+        3.1.5. 缓冲区Buffer
+            数据读写：通道和缓冲区之间的数据交换
+    3.2. 缓冲区 Buffer
+        3.2.1. 缓冲区类型
+            ByteBuffer、CharBuffer、DoubleBuffer、FloatBuffer、IntBuffer、LongBuffer、ShortBuffer、MappedByteBuffer (内存映射的一种ByteBuffer)
+        3.2.2. 缓冲区属性
+            capacity容量、position读写位置、limit读写限制、mark标记程序当前位置
+        3.2.3. capacity
+            一旦初始化，就不能再改变
+            容量不是指byte[]数组字节数，而是写入数据对象的数量
+        3.2.4. position
+            读写模式下，position属性的值是不同的
+        3.2.5. limit
+            读写模式下，limit的值含义是不同的
 
                         </code>
                     </pre>
