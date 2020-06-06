@@ -94,7 +94,7 @@
             一个选择器只需要一个线程进行监控，极大地减小了系统的开销
         3.1.5. 缓冲区Buffer
             数据读写：通道和缓冲区之间的数据交换
-    3.2. 缓冲区 Buffer
+    3.2. 缓冲区 Buffer 属性
         3.2.1. 缓冲区类型
             ByteBuffer、CharBuffer、DoubleBuffer、FloatBuffer、IntBuffer、LongBuffer、ShortBuffer、MappedByteBuffer (内存映射的一种ByteBuffer)
         3.2.2. 缓冲区属性
@@ -106,7 +106,84 @@
             读写模式下，position属性的值是不同的
         3.2.5. limit
             读写模式下，limit的值含义是不同的
-
+    3.3. 缓冲区 Buffer 方法
+        3.3.1. allocate()
+            # 创建缓冲区
+            intBuffer = IntBuffer.allocate(20);
+        3.3.2. put()
+            # 写入缓冲区
+            intBuffer.put(1);
+            System.out.println(intBuffer.get(0));
+        3.3.3. flip()
+            # 翻转 (将写入模式转换成读取模式)
+                intBuffer.flip();
+                翻转之后当前位置position和限制limit都会发生变化
+            # 翻转 (将读取模式转换成写入模式)
+                intBuffer.clear()
+                intBuffer.compact()
+        3.3.4. get()
+            # 从缓冲区读取
+            intBuffer.get(0)
+        3.3.5. rewind()
+            # 倒带 (如果读完的数据，需要再读一遍)
+            intBuffer.rewind()
+        3.3.6. mark() 和 reset()
+            # 将当前position的值保存起来放入mark属性中
+            intBuffer.mark()
+            # 将当前mark的值恢复到position中
+            intBuffer.rewind()
+        3.3.7. clear()
+            # 清空缓冲区 (将缓冲区切换为写入模式)
+            intBuffer.clear()
+    3.4. NIO channel (通道)
+        3.4.1. channel 通道类型
+            fileChannel     # 用于文件数据读写
+            socketChannel   # 用于socket套接字TCP链接的数据读取
+            serverSocketChannel     # 服务器套接字通道，允许我们监听TCP链接请求，为每个监听到的请求，创建一个socketChannel套接字通道
+            DatagramChannel     # 用于UDP协议的数据读写
+        3.4.2. fileChannel 文件通道
+            1. 既可以从一个文件中读取数据，也可以将数据写入到文件中
+            2. fileChannel为阻塞模式，不能设置为非阻塞模式
+            3. 获取fileChannel 通道
+                # 获取文件输入流通道
+                    FileInputStream fis = new FileInputStream("");
+                    FileChannel inChannel = fis.getChannel();
+                # 获取文件输出流通道
+                    FileOutputStream fos = new FileOutputStream("");
+                    FileChannel outChannel = fos.getChannel();
+            4. 读取fileChannel 通道
+                # 读取操作,写入ByteBuffer缓冲区
+                inChannel.read(ByteBuffer.allocate(CAPACITY));
+            5. 写入fileChannel 通道
+                # 写入操作，读取ByteBuffer缓冲区
+                inChannel.write(ByteBuffer.allocate(CAPACITY));
+            6. 关闭通道
+                channel.close();
+            7. 强制刷新到磁盘
+                channel.force（true）
+        3.4.3. 使用fileChannel完成文件复制
+        -- 暂时略过
+        -- 跳过并发
+        -- 后期阅读
+第十一章、分布式缓存redis
+    11.1. redis入门
+        11.1.1. 环境安装
+        11.1.2. 客户端命令
+            1. 存取值
+                set key value
+                get key
+            2. 判断一个key是否存在，如果key存在，则返回1，否则为0
+                exists key
+            3. 为指定key设置过期时间 (单位：秒s)
+                expire key 10000
+            4. 返回指定key剩余生存时间，如果没有指定剩余时间则返回-1 (单位：秒s)
+                ttl key
+            5. 删除key
+                del key
+        11.1.3. redis数据类型
+            string、hash、list、set、zset
+        11.1.4. jedisPool 缓存连接池
+        11.1.5. redisTemplate redis模板方法
                         </code>
                     </pre>
                 </figure>
