@@ -77,7 +77,38 @@
         2.1.3. 数据帧
             无线网络传递的数据包，没有子类型
     2.2. 创建运行于监控模式的接口
-
+        2.2.1. 检测无线网卡
+            sudo iwconfig
+        2.2.2. 激活无线网卡
+            sudo ifconfig wlan0 up
+            验证
+            sudo ifconfig wlan0 // 出现UP
+        2.2.3. 创建与wlan0设备对应的监控模式接口
+            sudo airmon-ng start wlan0
+            验证
+            sudo airmon-ng
+        2.2.4. 查看创建的监控接口
+            sudo ifconfig wlan0mon
+    2.3. 抓取无线数据包
+        2.3.1. 启动wireshark客户端
+            sudo wireshark &
+        2.3.2. 抓包
+            选中刚才创建的监听接口wlan0mon
+        2.3.3. 过滤
+            上面筛选框可以输入过滤表达式
+    2.4. wireshark 过滤
+        2.4.1. 查看管理帧、控制帧、数据帧
+            wlan.fc.tyoe == 0 // 管理帧
+            wlan.fc.tyoe == 1 // 控制帧
+            wlan.fc.tyoe == 2 // 数据帧
+    2.5. 实验环境中数据包嗅探
+        2.5.1. 查看路由器(AP)所处信道
+            sudo airodump-ng --bssid (AP mac地址) wlan0mon
+        2.5.2. 无线网卡锁定信道
+            sudo iwconfig wlan0mon channel xx
+        2.5.3. 启动wireshark，抓包接口wlan0mon
+            sudo wireshark &
+    2.6. 数据包注入
                         </code>
                     </pre>
                 </figure>
