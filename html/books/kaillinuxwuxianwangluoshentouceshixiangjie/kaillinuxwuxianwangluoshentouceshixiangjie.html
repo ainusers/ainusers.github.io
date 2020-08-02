@@ -30,8 +30,59 @@
                 <figure class="highlight">
                     <pre>
                         <code class="language-html" data-lang="html">
-第一章、
-
+第一章、 搭建渗透测试环境
+第二章、 wifi网络构成
+    2.1. wifi网络
+        2.1.1. AP
+            无线路由器一类称呼
+        2.1.2. SSID
+            无线网络名称
+        2.1.3. 信道
+            无线信号的传说通道(频段) 常用13个，第14个不常用
+        2.1.4. 频段带宽
+            频段带宽20MHz : 带宽不高，穿透性好
+            频段带宽40MHz : 带宽高，穿透性不好
+第三章、监听wifi网络
+    3.1. 网络监听
+        3.1.1. 网卡工作模式
+            广播模式、多波传送、直接模式、混杂模式
+        3.1.2. usb无线路由链接wifi
+            vmware > 可移动设备 > ralink 802.11 > 链接
+            登录kali系统，右上角链接wifi即可
+        3.1.3. 设置监听
+            ifconfig 查看无线网卡接口名称
+            ifconfig wlan0 up 激活无线网卡
+            airmon-ng start wlan0 设置监听
+        3.1.4. 查看附近wifi信息列表 (查看信道)
+            airodump-ng wlan0mon
+        3.1.5. 使用kismet工具扫描附近无线网络
+            太麻烦了，且不美观，不做展示了
+第四章、捕获数据包
+    4.1. 数据包
+        4.1.1. wireshark加密包解密
+            wireshark > edit > preferences > 选择协议/添加密码 > 应用 > 返回列表
+        4.1.2. 伪AP模式
+            纯AP模式 (无线漫游模式)
+            网桥模式 (无线客户端模式)
+            点对点模式
+            点对多点模式
+            中继模式
+        4.1.3. 强制用户下线
+            mdk3 wlan0 d -s 120 -c 6
+第五章、分析数据包
+    5.1. wireshark
+        5.1.1. ip过滤
+            ip.src.addr == 192.168.5.9
+        5.1.2. port过滤
+            tcp.dstport == 80
+            tcp.srcport == 80
+        5.1.3. HTTP模式
+            http.request.method == "GET"
+第六章、获取信息
+第七章、WPS加密模式
+第八章、WEP加密模式
+第九章、WPA加密模式
+第十章、WPA+RADIUS加密模式
                         </code>
                     </pre>
                 </figure>
